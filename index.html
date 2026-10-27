@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Interview Gym</title>
+<title>Interview Gym | By K.Seoudi</title>
 <style>
 :root{--bg:#f4f7fb;--card:#fff;--tx:#0b1f3a;--mu:#5a6b82;--bd:#dbe3ee;--tl:#0b7f86;--tl2:#e1f6f6;--on:#fff;--bad:#c0392b;--ok:#13795b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#08121f;--card:#10203a;--tx:#eaf1fb;--mu:#9fb0c7;--bd:#1f3556;--tl:#2cc7c7;--tl2:#0f3340;--on:#04212a;--bad:#ff8a7a;--ok:#4fd1a5;color-scheme:dark}}
@@ -37,6 +37,8 @@ textarea:focus,button:focus-visible{outline:2px solid var(--tl);outline-offset:2
 .pill{display:inline-block;font-size:12px;padding:3px 10px;border-radius:99px;background:var(--tl2);color:var(--tl);font-weight:600}
 .ex{border-inline-start:3px solid var(--tl);padding-inline-start:12px;margin:10px 0}
 .spin{display:inline-block;width:14px;height:14px;border:2px solid var(--bd);border-top-color:var(--tl);border-radius:50%;animation:r .8s linear infinite;vertical-align:-2px;margin-inline-end:6px}@keyframes r{to{transform:rotate(360deg)}}
+.sig{font-size:12px;letter-spacing:.08em;color:var(--mu);margin-top:-2px;font-weight:500}
+.ft{text-align:center;color:var(--mu);font-size:13px;padding:20px 0 8px;letter-spacing:.04em}.ft:before{content:"";display:block;width:36px;height:2px;background:var(--tl);margin:0 auto 12px;border-radius:2px}
 @media(min-width:700px){#app{padding:32px 16px}h1{font-size:40px}.btn{width:auto}.btn.big{width:100%}}
 </style></head>
 <body><div id="app"></div>
@@ -137,7 +139,7 @@ ${r.dm.map((v,i)=>`<div class="d"><div class="row"><span>${t('dims')[i]}</span><
 ${weak.length?`<div class="card"><h3>${t('ex')}</h3>${weak.map(x=>`<div class="ex"><div class="mu">${esc(x.q[S.il=='ar'?3:2])}</div><p dir="auto" lang="${S.il}" style="margin:4px 0">${esc(x.imp)}</p>${x.ai?'':`<span class="mu">${t('tpl')}</span>`}</div>`).join('')}</div>`:''}
 <div class="card"><h3>${t('plan')}</h3><ol>${r.plan.map(x=>`<li dir="auto">${esc(x)}</li>`).join('')}</ol><button class="btn" data-a="again">${t('again')}</button></div>`};
 function R(){const h=document.documentElement;h.lang=S.ui;h.dir=S.ui=='ar'?'rtl':'ltr';
-$('#app').innerHTML=`<header><div class="brand" data-a="home" style="cursor:pointer">Interview <b>Gym</b></div><div class="lang"><button data-a="ui" data-v="en" aria-pressed="${S.ui=='en'}">English</button><button data-a="ui" data-v="ar" aria-pressed="${S.ui=='ar'}">العربية</button></div></header>`+{w:W,s:Su,i:I,r:Rp}[S.scr]()}
+$('#app').innerHTML=`<header><div data-a="home" style="cursor:pointer"><div class="brand">Interview <b>Gym</b></div><div class="sig">By K.Seoudi</div></div><div class="lang"><button data-a="ui" data-v="en" aria-pressed="${S.ui=='en'}">English</button><button data-a="ui" data-v="ar" aria-pressed="${S.ui=='ar'}">العربية</button></div></header>`+{w:W,s:Su,i:I,r:Rp}[S.scr]()+`<footer class="ft">Created by K.Seoudi</footer>`}
 const H={ui:v=>{S.ui=v;if(S.scr=='w'||S.scr=='s')S.il=v;if(S.scr=='r'&&S.rep&&!S.busy)fin();else R()},home:()=>{if(S.busy)return;S.scr='w';R()},go:()=>{S.scr='s';R()},
 lv:v=>{S.lvl=+v;R()},il:v=>{S.il=v==1?'ar':'en';R()},ty:v=>{S.ty=+v;R()},nq:v=>{S.n=v==1?10:5;R()},ai:()=>{S.ai=!S.ai;R()},
 begin:()=>{build();S.scr='i';R()},sub,
