@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Interview Gym | By K.Seoudi</title>
+<style>
+:root{--bg:#f4f7fb;--card:#fff;--tx:#0b1f3a;--mu:#5a6b82;--bd:#dbe3ee;--tl:#0b7f86;--tl2:#e1f6f6;--on:#fff;--bad:#c0392b;--ok:#13795b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#08121f;--card:#10203a;--tx:#eaf1fb;--mu:#9fb0c7;--bd:#1f3556;--tl:#2cc7c7;--tl2:#0f3340;--on:#04212a;--bad:#ff8a7a;--ok:#4fd1a5;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#08121f;--card:#10203a;--tx:#eaf1fb;--mu:#9fb0c7;--bd:#1f3556;--tl:#2cc7c7;--tl2:#0f3340;--on:#04212a;--bad:#ff8a7a;--ok:#4fd1a5;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px);background:var(--bg)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif}
+#app{max-width:760px;margin:0 auto;padding:16px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.brand{font-weight:800;font-size:20px;letter-spacing:-.3px}.brand b{color:var(--tl)}
+.lang{display:flex;border:1px solid var(--bd);border-radius:999px;overflow:hidden;background:var(--card)}
+.lang button{border:0;background:none;color:var(--mu);padding:6px 14px;font:inherit;font-size:14px;cursor:pointer}
+.lang button[aria-pressed=true]{background:var(--tl);color:var(--on);font-weight:600}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:20px;margin-bottom:14px;animation:up .35s ease}
+@keyframes up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+h1{font-size:30px;line-height:1.2;margin:8px 0}h2{font-size:21px;line-height:1.35;margin:14px 0}h3{font-size:16px;margin:0 0 8px}
+.mu{color:var(--mu);font-size:14px}.tag{color:var(--tl);font-weight:600}
+.btn{background:var(--tl);color:var(--on);border:0;border-radius:12px;padding:14px 22px;font:inherit;font-weight:700;cursor:pointer;width:100%;margin-top:8px}
+.btn:disabled{opacity:.55;cursor:default}.btn.big{font-size:18px}
+.lnk{background:none;border:0;color:var(--mu);font:inherit;font-size:14px;cursor:pointer;padding:8px 0;text-decoration:underline}.lnk:disabled{opacity:.4;cursor:default}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 18px}
+.chip{border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:999px;padding:9px 14px;font:inherit;font-size:14px;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--tl2);border-color:var(--tl);color:var(--tl);font-weight:700}
+.bar{height:8px;background:var(--bd);border-radius:99px;overflow:hidden;margin:8px 0}.bar i{display:block;height:100%;background:var(--tl);transition:width .5s}
+textarea{width:100%;min-height:170px;border:1px solid var(--bd);border-radius:12px;padding:12px;font:inherit;background:var(--bg);color:var(--tx);resize:vertical}
+textarea:focus,button:focus-visible{outline:2px solid var(--tl);outline-offset:2px}
+.er{color:var(--bad);margin:6px 0}.fb{background:var(--tl2);border-radius:12px;padding:14px;margin:10px 0}
+.steps{display:grid;gap:8px;padding:0;list-style:none;counter-reset:s}.steps li{counter-increment:s;display:flex;gap:10px;align-items:center}
+.steps li:before{content:counter(s);background:var(--tl);color:var(--on);width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-weight:700;flex:none;font-size:14px}
+.big-n{font-size:56px;font-weight:800;color:var(--tl);line-height:1}
+.d{margin:10px 0}.d .row{font-size:14px}
+.pill{display:inline-block;font-size:12px;padding:3px 10px;border-radius:99px;background:var(--tl2);color:var(--tl);font-weight:600}
+.ex{border-inline-start:3px solid var(--tl);padding-inline-start:12px;margin:10px 0}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid var(--bd);border-top-color:var(--tl);border-radius:50%;animation:r .8s linear infinite;vertical-align:-2px;margin-inline-end:6px}@keyframes r{to{transform:rotate(360deg)}}
+.sig{font-size:12px;letter-spacing:.08em;color:var(--mu);margin-top:-2px;font-weight:500}
+.ft{text-align:center;color:var(--mu);font-size:13px;padding:20px 0 8px;letter-spacing:.04em}.ft:before{content:"";display:block;width:36px;height:2px;background:var(--tl);margin:0 auto 12px;border-radius:2px}
+@media(min-width:700px){#app{padding:32px 16px}h1{font-size:40px}.btn{width:auto}.btn.big{width:100%}}
+</style></head>
+<body><div id="app"></div>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const T={en:{tag:"Practice Like It’s Real.",h:"Your next interview starts here.",d:"Practice call center and customer service interviews in English or Arabic, with instant coaching feedback.",start:"Start Practice",how:"How it works",steps:["Choose your level and interview type","Answer one question at a time","Get feedback and a coaching report"],lvl:"Experience level",lvls:["Beginner / Fresh Graduate","Experienced Agent","Team Leader / Supervisor","Operations Manager"],il:"Interview language",ty:"Interview type",tys:["General HR Interview","Customer Service Interview","Angry Customer Scenario","Sales and Objection Handling","KPI and Performance Management","Leadership and Operations"],nq:"Number of questions",qn:" questions",go:"Start Interview",ai:"AI coaching",aiOn:"Claude evaluates your actual answers. You may be asked to allow this once.",aiOff:"AI isn’t available here, so a transparent rule-based rubric is used instead.",q:"Question",of:"of",ph:"Type your answer…",sub:"Submit Answer",empty:"Please write an answer before submitting.",back:"Back",end:"End session",next:"Next question",fin:"See report",fup:"Follow-up",fupPh:"Optional: practice your follow-up answer (not scored)",fb:"Feedback",chk:"Evaluating your answer…",rep:"Your report",ov:"Overall score",dims:["Answer Relevance","Communication and Clarity","Problem-Solving","Customer Focus","Role-Specific Competency"],st:"Strongest answers",im:"Areas for improvement",rc:"Recommendations",ex:"Example improved answers",plan:"Practice plan for next session",disc:"Scores are coaching estimates, not official hiring assessments.",again:"New session",mAI:"Evaluated by Claude (AI)",mRule:"Rule-based estimate (not AI)",fall:"AI evaluation failed, so a rule-based estimate was used.",none:"No answers were submitted in this session.",tpl:"Generic template answer for this interview type",yours:"Your answer",noWeak:"No weak answers. Great work!",pl:["Take a 5-question session on: ","Focus on: ","Rewrite your weakest answer using the example, then practice a timed 90-second spoken version."],gen:"Preparing your report…",score:"Score",sg:"Strengths",pq:"Per-question scores",aiNote:"Feedback is generated by AI through the Interview Gym service. It’s a coaching estimate only.",eNet:"Couldn’t reach the AI service. Check your internet connection and try again. Your answer is saved.",eHttp:"The AI service returned an error (code ",eBad:"The AI service sent an unexpected response. Please try again.",eTime:"The AI service took too long to respond. Please try again.",eNoEval:"The AI service replied, but the evaluation was missing from the response. Please try again, and contact the site owner if it keeps happening."},
+ar:{tag:"تدرّب كأنها حقيقية.",h:"استعد لمقابلتك القادمة بثقة.",d:"تدرّب على مقابلات مراكز الاتصال وخدمة العملاء بالعربية أو الإنجليزية مع ملاحظات تدريبية فورية.",start:"ابدأ التدريب",how:"كيف تعمل الجلسة",steps:["اختر مستواك ونوع المقابلة","أجب عن سؤال واحد في كل مرة","احصل على ملاحظات وتقرير تدريبي"],lvl:"مستوى الخبرة",lvls:["مبتدئ / حديث التخرج","موظف خبير","قائد فريق / مشرف","مدير عمليات"],il:"لغة المقابلة",ty:"نوع المقابلة",tys:["مقابلة موارد بشرية عامة","مقابلة خدمة العملاء","سيناريو عميل غاضب","المبيعات والتعامل مع الاعتراضات","المؤشرات وإدارة الأداء","القيادة والعمليات"],nq:"عدد الأسئلة",qn:" أسئلة",go:"ابدأ المقابلة",ai:"التدريب بالذكاء الاصطناعي",aiOn:"يقيّم Claude إجاباتك الفعلية. قد يُطلب منك السماح بذلك مرة واحدة.",aiOff:"الذكاء الاصطناعي غير متاح هنا، لذا يُستخدم معيار تقييم شفاف قائم على القواعد.",q:"السؤال",of:"من",ph:"اكتب إجابتك…",sub:"أرسل الإجابة",empty:"من فضلك اكتب إجابة قبل الإرسال.",back:"رجوع",end:"إنهاء الجلسة",next:"السؤال التالي",fin:"عرض التقرير",fup:"سؤال متابعة",fupPh:"اختياري: تدرّب على إجابة المتابعة (لا تُحتسب)",fb:"الملاحظات",chk:"جارٍ تقييم إجابتك…",rep:"تقريرك",ov:"الدرجة الإجمالية",dims:["ملاءمة الإجابة","التواصل والوضوح","حل المشكلات","التركيز على العميل","الكفاءة الخاصة بالدور"],st:"أقوى الإجابات",im:"نقاط التحسين",rc:"التوصيات",ex:"أمثلة لإجابات محسّنة",plan:"خطة التدريب للجلسة القادمة",disc:"الدرجات تقديرات تدريبية وليست تقييمًا رسميًا للتوظيف.",again:"جلسة جديدة",mAI:"تقييم Claude (ذكاء اصطناعي)",mRule:"تقدير قائم على القواعد (ليس ذكاءً اصطناعيًا)",fall:"فشل التقييم بالذكاء الاصطناعي، فاستُخدم تقدير قائم على القواعد.",none:"لم تُرسل أي إجابات في هذه الجلسة.",tpl:"إجابة نموذجية عامة لهذا النوع من المقابلات",yours:"إجابتك",noWeak:"لا توجد إجابات ضعيفة. عمل رائع!",pl:["جلسة من 5 أسئلة في: ","ركّز على: ","أعد كتابة أضعف إجابة باستخدام المثال، ثم تدرّب على نسخة شفهية مدتها 90 ثانية."],gen:"جارٍ إعداد تقريرك…",score:"الدرجة",sg:"نقاط القوة",pq:"درجات الأسئلة",aiNote:"تُنشأ الملاحظات بالذكاء الاصطناعي عبر خدمة Interview Gym. وهي تقدير تدريبي فقط.",eNet:"تعذّر الوصول إلى خدمة الذكاء الاصطناعي. تحقق من الإنترنت وحاول مرة أخرى. إجابتك محفوظة.",eHttp:"أعادت الخدمة خطأً (الرمز ",eBad:"أرسلت الخدمة ردًا غير متوقع. حاول مرة أخرى.",eTime:"استغرقت الخدمة وقتًا طويلًا. حاول مرة أخرى.",eNoEval:"ردّت الخدمة لكن التقييم غير موجود في الاستجابة. حاول مرة أخرى، وتواصل مع مالك الموقع إذا استمرت المشكلة."}};
+// [levels, type, EN, AR]  types: 0 HR,1 CS,2 Angry,3 Sales,4 KPI,5 Leadership
+const Q=[
+["01",0,"Tell me about yourself and why you want a customer service career.","عرّفنا بنفسك ولماذا تريد العمل في خدمة العملاء؟"],
+["0123",0,"Why do you want to work with us, and where do you see yourself in three years?","لماذا تريد العمل لدينا وأين ترى نفسك بعد ثلاث سنوات؟"],
+["01",0,"How do you handle shift work and strict attendance and schedule adherence rules?","كيف تتعامل مع الورديات والالتزام الصارم بالحضور والجدول؟"],
+["0",1,"What does great customer service mean to you?","ماذا تعني لك خدمة العملاء الممتازة؟"],
+["01",1,"How do you show empathy and use active listening during a call?","كيف تُظهر التعاطف وتستمع بفعالية أثناء المكالمة؟"],
+["012",1,"How do you make sure a customer’s issue is solved on the first contact (FCR)?","كيف تضمن حل مشكلة العميل من أول اتصال (FCR)؟"],
+["0",2,"A customer is shouting and says your company is a scam. What do you do?","عميل يصرخ ويقول إن شركتك نصابة. ماذا تفعل؟"],
+["123",2,"Describe a time you calmed an angry customer. What was the outcome?","صف موقفًا هدّأت فيه عميلًا غاضبًا. ما النتيجة؟"],
+["12",2,"A customer demands a refund that policy does not allow. How do you respond?","عميل يطلب استرداد مبلغ لا تسمح به السياسة. كيف ترد؟"],
+["01",3,"A customer says “your price is too high.” How do you respond?","عميل يقول “سعركم مرتفع”. كيف ترد؟"],
+["12",3,"How do you offer an upgrade without sounding pushy?","كيف تعرض ترقية الخدمة دون أن تبدو مُلحًّا؟"],
+["23",3,"Your team misses its sales target although quality scores are high. How do you fix it?","فريقك لم يحقق هدف المبيعات رغم ارتفاع الجودة. كيف تعالج ذلك؟"],
+["01",4,"How do you balance Average Handle Time (AHT) and quality?","كيف توازن بين متوسط وقت المكالمة (AHT) والجودة؟"],
+["123",4,"What would you do if your customer satisfaction score declined?","ماذا ستفعل إذا انخفضت درجة رضا العملاء؟"],
+["23",4,"CSAT is stable but NPS dropped 8 points. How do you investigate?","رضا العملاء مستقر لكن NPS انخفض 8 نقاط. كيف تحقق في السبب؟"],
+["23",4,"How would you improve FCR, NPS, and adherence at the same time?","كيف ستحسّن FCR وNPS والالتزام بالجدول في الوقت نفسه؟"],
+["3",4,"Abandon rate hits 12% in the afternoon while occupancy is 94%. Interpret the data and act.","نسبة التخلي 12% بعد الظهر والإشغال 94%. فسّر البيانات وحدد خطتك."],
+["2",5,"How would you coach an underperforming agent?","كيف ستدرّب موظفًا أداؤه ضعيف؟"],
+["23",5,"Two agents call in sick before a peak shift. How do you decide staffing?","موظفان اعتذرا عن وردية الذروة بسبب المرض. كيف تقرر التوزيع؟"],
+["123",5,"Describe a time you solved a difficult operational problem.","صف موقفًا حللت فيه مشكلة تشغيلية صعبة."],
+["23",5,"Two team members are in conflict and it affects the floor. What do you do?","موظفان في خلاف يؤثر على الأداء. ماذا تفعل؟"],
+["3",5,"The forecast shows volume up 20% next month with flat headcount. What is your plan?","التوقعات تُظهر زيادة 20% في الحجم الشهر القادم بنفس عدد الموظفين. ما خطتك؟"],
+["23",0,"Why should we trust you to lead a team?","لماذا نثق بك لقيادة فريق؟"],
+["0123",1,"Tell me about a mistake you made with a customer and what you learned.","حدثنا عن خطأ ارتكبته مع عميل وماذا تعلمت."]];
+let S={ui:'en',scr:'w',lvl:0,il:'en',ty:1,n:5,ai:true,smp:null,qs:[],i:0,ans:[],busy:false,err:'',fbOn:false,draft:'',fu:'',note:'',rep:null};
+const t=k=>T[S.ui][k],ul=()=>S.ui=='ar'?'Arabic':'English',il=()=>S.il=='ar'?'Arabic':'English';
+const avgOf=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:0;
+const API="https://interview-gym-api.kseoudi1.workers.dev";
+const EXP=["Entry level (0-1 years)","Experienced (2-5 years)","Team leadership (5+ years)","Operations management (8+ years)"];
+const arr=x=>Array.isArray(x)?x.map(String).filter(Boolean):(x?[String(x)]:[]);
+async function ev(q,v){const ctl=new AbortController(),tm=setTimeout(()=>ctl.abort(),45000);
+try{const res=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},signal:ctl.signal,body:JSON.stringify({question:q[S.il=="ar"?3:2],answer:v,role:T.en.lvls[S.lvl],experience:EXP[S.lvl],language:S.il=="ar"?"Arabic":"English"})});
+if(!res.ok)throw{k:"http",c:res.status};
+let d;try{d=await res.json()}catch(e){console.warn("Interview Gym: response was not valid JSON (HTTP "+res.status+")");throw{k:"bad"}}
+const E=d&&d.evaluation;
+if(!E||typeof E!=="object"){console.warn("Interview Gym: 'evaluation' missing in response. HTTP "+res.status+", top-level keys: ["+(d&&typeof d==="object"?Object.keys(d).join(", "):typeof d)+"]");throw{k:"noeval"}}
+const sc=Math.round(Number(E.score));
+if(!isFinite(sc)||!E.summary){console.warn("Interview Gym: invalid evaluation fields. score valid: "+isFinite(sc)+", summary present: "+!!E.summary+", keys: ["+Object.keys(E).join(", ")+"]");throw{k:"bad"}}
+return{score:Math.max(0,Math.min(100,sc)),summary:String(E.summary),strengths:arr(E.strengths),improvements:arr(E.improvements),sug:E.suggestedAnswer?String(E.suggestedAnswer):"",fu:E.nextQuestion?String(E.nextQuestion):""}}
+catch(e){throw e&&e.k?e:{k:e&&e.name=="AbortError"?"time":"net"}}finally{clearTimeout(tm)}}
+function build(){const sh=a=>a.map(x=>[Math.random(),x]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]),m=q=>q[0].includes(S.lvl),
+a=sh(Q.filter(q=>m(q)&&q[1]==S.ty)),b=sh(Q.filter(q=>m(q)&&q[1]!=S.ty)),c=sh(Q.filter(q=>!m(q)));S.qs=[...a,...b,...c].slice(0,S.n);
+S.i=0;S.ans=[];S.draft='';S.fbOn=false;S.err='';S.note='';S.rep=null}
+async function sub(){const v=S.draft.trim();if(!v){S.err=t('empty');R();return}
+S.err='';S.busy=true;R();
+try{S.ans[S.i]={...await ev(S.qs[S.i],v),q:S.qs[S.i],text:v};S.fbOn=true;S.fu=''}catch(e){S.err=e.k=='http'?t('eHttp')+e.c+').':t({net:'eNet',time:'eTime',bad:'eBad',noeval:'eNoEval'}[e.k])}
+S.busy=false;R()}
+function fin(){S.scr='r';R()}
+const chips=(arr,sel,act)=>`<div class="chips">${arr.map((x,i)=>`<button class="chip" data-a="${act}" data-v="${i}" aria-pressed="${sel==i}">${esc(x)}</button>`).join('')}</div>`;
+const W=()=>`<div class="card"><span class="tag">${t('tag')}</span><h1>${t('h')}</h1><p class="mu">${t('d')}</p><button class="btn big" data-a="go">${t('start')}</button></div><div class="card"><h3>${t('how')}</h3><ol class="steps">${t('steps').map(s=>`<li>${s}</li>`).join('')}</ol></div>`;
+const Su=()=>`<div class="card"><h3>${t('lvl')}</h3>${chips(t('lvls'),S.lvl,'lv')}<h3>${t('il')}</h3>${chips(['English','العربية'],S.il=='ar'?1:0,'il')}<h3>${t('ty')}</h3>${chips(t('tys'),S.ty,'ty')}<h3>${t('nq')}</h3>${chips(['5'+t('qn'),'10'+t('qn')],S.n==10?1:0,'nq')}
+<p class="mu">${t('aiNote')}</p><button class="btn big" data-a="begin">${t('go')}</button><button class="lnk" data-a="home">${t('back')}</button></div>`;
+const ulh=x=>x.length?`<ul style="margin:4px 0">${x.map(i=>`<li dir="auto">${esc(i)}</li>`).join('')}</ul>`:'';
+const lst=(h,x)=>x.length?`<h3 style="margin:12px 0 4px">${h}</h3>${ulh(x)}`:'';
+const FB=a=>`<div class="mu">${t('yours')}</div><p dir="auto" style="white-space:pre-wrap;margin-top:4px">${esc(a.text)}</p><div class="fb"><span class="pill">${t('score')}: ${a.score}/100</span><h3 style="margin-top:8px">${t('fb')}</h3><p dir="auto" style="margin:0">${esc(a.summary)}</p>${lst(t('sg'),a.strengths)}${lst(t('im'),a.improvements)}${a.sug?`<h3 style="margin:12px 0 4px">${t('ex')}</h3><p dir="auto" style="margin:0">${esc(a.sug)}</p>`:''}</div>
+${a.fu?`<h3>${t('fup')}</h3><p dir="auto" lang="${S.il}">${esc(a.fu)}</p><textarea id="fu" dir="auto" style="min-height:90px" placeholder="${t('fupPh')}">${esc(S.fu)}</textarea>`:''}
+<button class="btn" data-a="next">${S.i+1>=S.qs.length?t('fin'):t('next')}</button>`;
+const I=()=>{const q=S.qs[S.i],a=S.ans[S.i],n=S.qs.length,p=Math.round((S.i+(S.fbOn?1:0))/n*100);
+return`<div class="card"><div class="row"><span class="mu">${t('q')} ${S.i+1} ${t('of')} ${n}</span><span class="mu">${p}%</span></div><div class="bar"><i style="width:${p}%"></i></div><h2 dir="auto" lang="${S.il}">${esc(q[S.il=='ar'?3:2])}</h2>
+${S.fbOn&&a?FB(a):`<textarea id="ans" dir="auto" placeholder="${t('ph')}" ${S.busy?'disabled':''}>${esc(S.draft)}</textarea>${S.err?`<p class="er">${S.err}</p>`:''}${S.busy?`<p class="mu"><span class="spin"></span>${t('chk')}</p>`:''}<button class="btn" data-a="sub" ${S.busy?'disabled':''}>${t('sub')}</button>`}
+<div class="row"><button class="lnk" data-a="bk" ${S.i&&!S.busy?'':'disabled'}>${t('back')}</button><button class="lnk" data-a="end" ${S.busy?'disabled':''}>${t('end')}</button></div></div>`};
+const Rp=()=>{const a=S.ans.filter(Boolean);
+if(!a.length)return`<div class="card"><p>${t('none')}</p><button class="btn" data-a="again">${t('again')}</button></div>`;
+const ov=Math.round(avgOf(a.map(x=>x.score))),so=[...a].sort((x,y)=>y.score-x.score),strong=so.filter(x=>x.score>=60).slice(0,2),weak=[...so].reverse().filter(x=>x.score<65).slice(0,2),
+qt=x=>esc(x.q[S.il=='ar'?3:2]),rec=[...new Set(a.flatMap(x=>x.improvements))].slice(0,4),
+plan=[t('pl')[0]+t('tys')[S.ty],...[...new Set(weak.flatMap(x=>x.improvements))].slice(0,3),t('pl')[2]];
+return`<div class="card"><div class="row"><div><div class="mu">${t('ov')}</div><div class="big-n">${ov}<span class="mu" style="font-size:18px">/100</span></div></div><span class="pill">${a.length} ${t('q')}</span></div>
+<h3 style="margin-top:14px">${t('pq')}</h3>${a.map(x=>`<div class="d"><div class="row"><span dir="auto">${qt(x)}</span><b>${x.score}</b></div><div class="bar"><i style="width:${x.score}%"></i></div></div>`).join('')}<p class="mu">${t('disc')}</p></div>
+<div class="card"><h3>${t('st')}</h3>${strong.length?strong.map(x=>`<div class="ex"><div class="mu">${qt(x)} · ${x.score}/100</div><p dir="auto" style="margin:4px 0">${esc(x.text)}</p>${ulh(x.strengths)}</div>`).join(''):'–'}</div>
+<div class="card"><h3>${t('im')}</h3>${weak.length?weak.map(x=>`<div class="ex"><div class="mu">${qt(x)} · ${x.score}/100</div>${ulh(x.improvements)}</div>`).join(''):`<p>${t('noWeak')}</p>`}${lst(t('rc'),rec)}</div>
+${weak.some(x=>x.sug)?`<div class="card"><h3>${t('ex')}</h3>${weak.filter(x=>x.sug).map(x=>`<div class="ex"><div class="mu">${qt(x)}</div><p dir="auto" lang="${S.il}" style="margin:4px 0">${esc(x.sug)}</p></div>`).join('')}</div>`:''}
+<div class="card"><h3>${t('plan')}</h3><ol>${plan.map(x=>`<li dir="auto">${esc(x)}</li>`).join('')}</ol><button class="btn" data-a="again">${t('again')}</button></div>`};
+function R(){const h=document.documentElement;h.lang=S.ui;h.dir=S.ui=='ar'?'rtl':'ltr';
+$('#app').innerHTML=`<header><div data-a="home" style="cursor:pointer"><div class="brand">Interview <b>Gym</b></div><div class="sig">By K.Seoudi</div></div><div class="lang"><button data-a="ui" data-v="en" aria-pressed="${S.ui=='en'}">English</button><button data-a="ui" data-v="ar" aria-pressed="${S.ui=='ar'}">العربية</button></div></header>`+{w:W,s:Su,i:I,r:Rp}[S.scr]()+`<footer class="ft">Created by K.Seoudi</footer>`}
+const H={ui:v=>{S.ui=v;if(S.scr=='w'||S.scr=='s')S.il=v;R()},home:()=>{if(S.busy)return;S.scr='w';R()},go:()=>{S.scr='s';R()},
+lv:v=>{S.lvl=+v;R()},il:v=>{S.il=v==1?'ar':'en';R()},ty:v=>{S.ty=+v;R()},nq:v=>{S.n=v==1?10:5;R()},ai:()=>{S.ai=!S.ai;R()},
+begin:()=>{build();S.scr='i';R()},sub,
+next:()=>{S.fbOn=false;S.note='';if(S.i+1>=S.qs.length)fin();else{S.i++;S.draft=S.ans[S.i]?S.ans[S.i].text:'';R()}},
+bk:()=>{if(S.i<1||S.busy)return;S.i--;S.fbOn=false;S.err='';S.draft=S.ans[S.i]?S.ans[S.i].text:'';R()},
+end:()=>{if(!S.busy)fin()},again:()=>{S.scr='s';R()}};
+$('#app').addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(b&&H[b.dataset.a]&&!b.disabled)H[b.dataset.a](b.dataset.v)});
+$('#app').addEventListener('input',e=>{if(e.target.id=='ans'){S.draft=e.target.value;if(S.err){S.err='';const p=document.querySelector('.er');if(p)p.remove()}}if(e.target.id=='fu')S.fu=e.target.value});
+R();
+</script></body></html>
