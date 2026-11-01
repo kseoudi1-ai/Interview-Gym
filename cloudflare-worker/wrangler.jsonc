@@ -15,6 +15,7 @@
       "tag": "v1",
       "new_sqlite_classes": ["UsageLimiter"]
     }
-  ]
+  ],
+  "previews": {}
 }
 // Trigger deployment from main
