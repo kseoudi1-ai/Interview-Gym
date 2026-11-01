@@ -73,7 +73,7 @@ const Q=[
 ["3",5,"The forecast shows volume up 20% next month with flat headcount. What is your plan?","التوقعات تُظهر زيادة 20% في الحجم الشهر القادم بنفس عدد الموظفين. ما خطتك؟"],
 ["23",0,"Why should we trust you to lead a team?","لماذا نثق بك لقيادة فريق؟"],
 ["0123",1,"Tell me about a mistake you made with a customer and what you learned.","حدثنا عن خطأ ارتكبته مع عميل وماذا تعلمت."]];
-let S={ui:'en',scr:'w',lvl:0,il:'en',ty:1,track:'customer_service_agent',n:5,ai:true,smp:null,qs:[],i:0,ans:[],busy:false,err:'',fbOn:false,draft:'',fu:'',note:'',rep:null};
+let S={ui:'en',scr:'w',lvl:0,il:'en',ty:0,track:'customer_service_agent',n:5,ai:true,smp:null,qs:[],i:0,ans:[],busy:false,err:'',fbOn:false,draft:'',fu:'',note:'',rep:null};
 const t=k=>T[S.ui][k],ul=()=>S.ui=='ar'?'Arabic':'English',il=()=>S.il=='ar'?'Arabic':'English';
 const avgOf=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:0;
 const API="https://interview-gym-api-test.kseoudi1.workers.dev";
@@ -85,7 +85,70 @@ const HISTORY_KEY="interview_gym_question_history_v1";
 function readQuestionHistory(){try{const v=JSON.parse(localStorage.getItem(HISTORY_KEY)||"[]");return Array.isArray(v)?v.filter(Array.isArray).slice(-5):[]}catch(e){return[]}}
 function saveQuestionHistory(ids){try{const h=readQuestionHistory();h.push(ids);localStorage.setItem(HISTORY_KEY,JSON.stringify(h.slice(-5)))}catch(e){}}
 function shuffle(a){return a.map(x=>[Math.random(),x]).sort((x,y)=>x[0]-y[0]).map(x=>x[1])}
-function typePreference(type){return ({0:["behavioral","role_knowledge"],1:["role_knowledge","behavioral"],2:["situational"],3:["situational","behavioral"],4:["analytical"],5:["behavioral","analytical"]})[type]||[]}
+const INTERVIEW_TYPES={
+customer_service_agent:[
+["General Interview","مقابلة عامة",["behavioral","role_knowledge"]],
+["Customer Communication & Empathy","التواصل مع العملاء والتعاطف",["behavioral"]],
+["Customer Scenarios & De-escalation","مواقف العملاء واحتواء التصعيد",["situational"]],
+["Service Knowledge & Policies","معرفة الخدمة والسياسات",["role_knowledge","behavioral"]],
+["Problem Solving & Service Metrics","حل المشكلات ومؤشرات الخدمة",["analytical"]]],
+technical_support:[
+["General Interview","مقابلة عامة",["behavioral","role_knowledge"]],
+["Technical Knowledge","المعرفة الفنية",["role_knowledge"]],
+["Troubleshooting Scenarios","سيناريوهات تشخيص الأعطال",["situational"]],
+["Technical Communication & Customer Education","التواصل الفني وتوعية العملاء",["behavioral"]],
+["Diagnostics & Root Cause Analysis","التشخيص وتحليل السبب الجذري",["analytical"]]],
+sales_retention:[
+["General Interview","مقابلة عامة",["behavioral","role_knowledge"]],
+["Sales Skills & Discovery","مهارات البيع واكتشاف الاحتياجات",["role_knowledge","behavioral"]],
+["Objection Handling & Negotiation","التعامل مع الاعتراضات والتفاوض",["situational"]],
+["Retention & Customer Scenarios","الاحتفاظ بالعملاء والمواقف العملية",["situational","behavioral"]],
+["Sales Performance & Conversion","أداء المبيعات ومعدلات التحويل",["analytical"]]],
+team_leader:[
+["General Interview","مقابلة عامة",["behavioral","role_knowledge"]],
+["Leadership & Communication","القيادة والتواصل",["behavioral"]],
+["Coaching & Team Development","التوجيه وتطوير الفريق",["situational","behavioral"]],
+["Conflict & People Management","إدارة الخلافات والأفراد",["situational"]],
+["KPI & Team Performance","المؤشرات وأداء الفريق",["analytical"]]],
+operations_manager:[
+["General Interview","مقابلة عامة",["behavioral","role_knowledge"]],
+["Operational Strategy & Governance","الاستراتيجية التشغيلية والحوكمة",["role_knowledge","behavioral"]],
+["KPI Recovery & Performance","تحسين المؤشرات واستعادة الأداء",["analytical"]],
+["Client Management & Escalations","إدارة العملاء والتصعيدات",["situational","behavioral"]],
+["People & Resource Management","إدارة الأفراد والموارد",["situational","analytical"]]],
+quality_assurance:[
+["General Interview","مقابلة عامة",["behavioral","role_knowledge"]],
+["Quality Standards & Compliance","معايير الجودة والالتزام",["role_knowledge"]],
+["Call Calibration & Feedback","معايرة المكالمات والتغذية الراجعة",["situational","behavioral"]],
+["Root Cause & Trend Analysis","تحليل الأسباب الجذرية والاتجاهات",["analytical"]],
+["Quality Governance & Improvement","حوكمة الجودة والتحسين",["analytical","situational"]]],
+workforce_management:[
+["General Interview","مقابلة عامة",["behavioral","role_knowledge"]],
+["Forecasting & Capacity Planning","التنبؤ وتخطيط الطاقة الاستيعابية",["analytical","role_knowledge"]],
+["Scheduling & Adherence","الجداول والالتزام بها",["role_knowledge","situational"]],
+["Real-Time & Intraday Management","الإدارة اللحظية وإدارة اليوم التشغيلي",["situational"]],
+["Workforce Analytics & Recovery","تحليل بيانات القوى العاملة وخطط التعافي",["analytical"]]],
+training_development:[
+["General Interview","مقابلة عامة",["behavioral","role_knowledge"]],
+["Training Delivery & Facilitation","تقديم التدريب وإدارة الجلسات",["behavioral","situational"]],
+["Learning Needs & Program Design","تحليل الاحتياجات وتصميم البرامج",["role_knowledge","analytical"]],
+["Coaching & Learner Support","التوجيه ودعم المتدربين",["situational","behavioral"]],
+["Training Impact & ROI","أثر التدريب والعائد على الاستثمار",["analytical"]]],
+recruitment_hr:[
+["General Interview","مقابلة عامة",["behavioral","role_knowledge"]],
+["Recruitment & Interviewing","التوظيف وإجراء المقابلات",["role_knowledge","situational"]],
+["Candidate Assessment & Experience","تقييم المرشحين وتجربتهم",["situational","behavioral"]],
+["Employee Relations & HR Scenarios","علاقات الموظفين ومواقف الموارد البشرية",["situational"]],
+["Hiring Analytics & Workforce Planning","تحليلات التوظيف وتخطيط القوى العاملة",["analytical"]]],
+client_success_account_management:[
+["General Interview","مقابلة عامة",["behavioral","role_knowledge"]],
+["Client Relationship & Communication","علاقات العملاء والتواصل",["behavioral"]],
+["Escalation & Issue Management","إدارة التصعيدات والمشكلات",["situational"]],
+["Business Reviews & KPI Governance","مراجعات الأعمال وحوكمة المؤشرات",["analytical","role_knowledge"]],
+["Account Growth & Value Realization","تنمية الحساب وتحقيق القيمة",["analytical","situational"]]]
+};
+function interviewTypeOptions(){const items=INTERVIEW_TYPES[S.track]||INTERVIEW_TYPES.customer_service_agent;return items.map(x=>S.ui==="ar"?x[1]:x[0])}
+function typePreference(type){const items=INTERVIEW_TYPES[S.track]||INTERVIEW_TYPES.customer_service_agent;return (items[type]||items[0])[2]||[]}
 function chooseBankQuestions(){const all=QUESTION_BANK.filter(q=>q.track===S.track);const levels=({0:["beginner","intermediate"],1:["intermediate","beginner"],2:["advanced","intermediate"],3:["advanced","intermediate"]})[S.lvl]||["beginner","intermediate"];const preferred=typePreference(S.ty);const history=readQuestionHistory().flat();const recent=new Set(history);let pool=all.filter(q=>levels.includes(q.level)&&!recent.has(q.id));if(pool.length<S.n)pool=all.filter(q=>levels.includes(q.level));if(pool.length<S.n)pool=all.filter(q=>!recent.has(q.id));if(pool.length<S.n)pool=all;const a=shuffle(pool.filter(q=>preferred.includes(q.type))),b=shuffle(pool.filter(q=>!preferred.includes(q.type)));return [...a,...b].slice(0,S.n).map(q=>[q.id,preferred.indexOf(q.type),q.en,q.ar,q.track,q.level])}
 function rememberCompletedInterview(){if(S.historySaved)return;const ids=S.ans.filter(Boolean).map(x=>x.q[0]);if(ids.length)saveQuestionHistory(ids);S.historySaved=true;}
 let memoryDeviceId="";
@@ -137,7 +200,7 @@ if(S.i+1>=S.qs.length)fin();else{S.i++;S.draft=S.ans[S.i]?S.ans[S.i].text:'';R()
 function fin(){S.scr='r';S.ev=null;S.err='';if(S.ans.filter(Boolean).length){rememberCompletedInterview();evalAll()}else R()}
 const chips=(arr,sel,act)=>`<div class="chips">${arr.map((x,i)=>`<button class="chip" data-a="${act}" data-v="${i}" aria-pressed="${sel==i}">${esc(x)}</button>`).join('')}</div>`;
 const W=()=>`<div class="card"><span class="tag">${t('tag')}</span><h1>${t('h')}</h1><p class="mu">${t('d')}</p><button class="btn big" data-a="go">${t('start')}</button></div><div class="card"><h3>${t('how')}</h3><ol class="steps">${t('steps').map(s=>`<li>${s}</li>`).join('')}</ol></div>`;
-const Su=()=>`<div class="card"><h3>${t('lvl')}</h3>${chips(t('lvls'),S.lvl,'lv')}<h3>${t('il')}</h3>${chips(['English','العربية'],S.il=='ar'?1:0,'il')}<h3>${t('track')}</h3>${chips(t('tracks'),TRACKS.indexOf(S.track),'track')}<h3>${t('ty')}</h3>${chips(t('tys'),S.ty,'ty')}<h3>${t('nq')}</h3>${chips(['5'+t('qn'),'10'+t('qn')],S.n==10?1:0,'nq')}
+const Su=()=>`<div class="card"><h3>${t('lvl')}</h3>${chips(t('lvls'),S.lvl,'lv')}<h3>${t('il')}</h3>${chips(['English','العربية'],S.il=='ar'?1:0,'il')}<h3>${t('track')}</h3>${chips(t('tracks'),TRACKS.indexOf(S.track),'track')}<h3>${t('ty')}</h3>${chips(interviewTypeOptions(),S.ty,'ty')}<h3>${t('nq')}</h3>${chips(['5'+t('qn'),'10'+t('qn')],S.n==10?1:0,'nq')}
 <p class="mu">${t('aiNote')}</p><button class="btn big" data-a="begin">${t('go')}</button><button class="lnk" data-a="home">${t('back')}</button></div>`;
 const ulh=x=>x.length?`<ul style="margin:4px 0">${x.map(i=>`<li dir="auto">${esc(i)}</li>`).join('')}</ul>`:'';
 const lst=(h,x)=>x.length?`<h3 style="margin:12px 0 4px">${h}</h3>${ulh(x)}`:'';
@@ -150,7 +213,7 @@ if(!a.length)return`<div class="card"><p>${t('none')}</p><button class="btn" dat
 if(S.busy)return`<div class="card"><p><span class="spin"></span>${t('evalWait')}</p></div>`;
 if(!S.ev)return`<div class="card"><p class="er">${S.err}</p><p class="mu">${t('saved')}</p><p class="mu">${t('retryWarning')}</p><button class="btn" data-a="retry">${t('retry')}</button><button class="lnk" data-a="review">${t('review')}</button></div>`;
 const e=S.ev,weak=[...e.answers].sort((x,y)=>x.score-y.score).filter(x=>x.score<65).slice(0,2),
-plan=[t('pl')[0]+t('tys')[S.ty],...[...new Set(weak.flatMap(x=>x.improvements).concat(e.improvements))].slice(0,3),t('pl')[2]];
+plan=[t('pl')[0]+interviewTypeOptions()[S.ty],...[...new Set(weak.flatMap(x=>x.improvements).concat(e.improvements))].slice(0,3),t('pl')[2]];
 return`<div class="card"><div class="row"><div><div class="mu">${t('ov')}</div><div class="big-n">${e.ov}<span class="mu" style="font-size:18px">/100</span></div></div><span class="pill">${a.length} ${t('q')}</span></div>
 <p dir="auto">${esc(e.summary)}</p>${lst(t('sg'),e.strengths)}${lst(t('im'),e.improvements)}<p class="mu">${t('disc')}</p></div>
 <h3 style="margin:18px 4px 8px">${t('fb')}</h3>
