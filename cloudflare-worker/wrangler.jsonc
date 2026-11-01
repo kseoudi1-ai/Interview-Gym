@@ -1,5 +1,5 @@
 {
-  "name": "interview-gym-api",
+  "name": "interview-gym-api-test",
   "main": "worker.js",
   "compatibility_date": "2026-10-31",
   "durable_objects": {
