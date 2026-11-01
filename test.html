@@ -110,7 +110,7 @@ const errMsg=e=>{
 };
 async function evalAll(){if(S.busy)return;const a=S.ans.filter(Boolean);if(!a.length)return;S.busy=true;S.err='';S.ev=null;R();
 const ctl=new AbortController(),tm=setTimeout(()=>ctl.abort(),60000);
-try{let res;try{res=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},signal:ctl.signal,body:JSON.stringify({mode:"evaluateInterview",role:T.en.lvls[S.lvl],experience:EXP[S.lvl],language:S.il,deviceId:getDeviceId(),answers:a.map(x=>({question:x.q[S.il==="ar"?3:2],answer:x.text}))})})}catch(e){throw{k:e&&e.name==="AbortError"?"time":"net"}}
+try{let res;try{res=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},signal:ctl.signal,body:JSON.stringify({mode:"evaluateInterview",role:T.en.lvls[S.lvl],experience:EXP[S.lvl],language:S.il,deviceId:new URLSearchParams(window.location.search).get("test")==="1"?"test-device-2026-001":getDeviceId(),answers:a.map(x=>({question:x.q[S.il==="ar"?3:2],answer:x.text}))})})}catch(e){throw{k:e&&e.name==="AbortError"?"time":"net"}}
 let d;try{d=await res.json()}catch(e){console.warn("Interview Gym: response was not valid JSON (HTTP "+res.status+")");throw{k:"bad"}}
 if(!res.ok){const apiError=d&&d.error||{};console.warn("Interview Gym: HTTP "+res.status+" / "+(apiError.code||"unknown"));throw{k:"api",c:res.status,code:apiError.code||""}}
 const E=d&&d.evaluation;
