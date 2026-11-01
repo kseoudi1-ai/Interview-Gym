@@ -1,0 +1,631 @@
+{
+  "version": "0.4.0",
+  "batch": "04",
+  "languages": [
+    "en",
+    "ar"
+  ],
+  "questionCount": 50,
+  "questions": [
+    {
+      "id": "CSA-INT-016",
+      "track": "customer_service_agent",
+      "level": "intermediate",
+      "type": "behavioral",
+      "tags": [
+        "adaptability",
+        "customer"
+      ],
+      "en": "Tell me about a time you had to adapt your approach when the initial customer service approach did not work.",
+      "ar": "حدثني عن موقف اضطررت فيه إلى تعديل أسلوبك عندما لم ينجح النهج الأول في customer service."
+    },
+    {
+      "id": "CSA-INT-017",
+      "track": "customer_service_agent",
+      "level": "intermediate",
+      "type": "situational",
+      "tags": [
+        "handover",
+        "ownership",
+        "customer"
+      ],
+      "en": "You notice an important detail was missed during a handover. What would you do to prevent an impact?",
+      "ar": "لاحظت أن تسليم العمل أغفل تفصيلًا مهمًا. ماذا تفعل لمنع حدوث تأثير سلبي؟"
+    },
+    {
+      "id": "CSA-ADV-018",
+      "track": "customer_service_agent",
+      "level": "advanced",
+      "type": "analytical",
+      "tags": [
+        "analytics",
+        "early_warning",
+        "customer"
+      ],
+      "en": "What leading indicators would help you detect a customer service performance problem before the main KPI declines?",
+      "ar": "ما المؤشرات الاستباقية التي تساعدك على اكتشاف مشكلة أداء في customer service قبل تراجع مؤشر الأداء الرئيسي؟"
+    },
+    {
+      "id": "CSA-INT-019",
+      "track": "customer_service_agent",
+      "level": "intermediate",
+      "type": "situational",
+      "tags": [
+        "stakeholder_management",
+        "customer"
+      ],
+      "en": "A stakeholder disagrees with your customer service recommendation. How would you explain your reasoning and reach a decision?",
+      "ar": "يختلف أحد أصحاب المصلحة في customer service مع توصيتك في customer service. كيف تشرح أسبابك وتصل إلى قرار؟"
+    },
+    {
+      "id": "CSA-ADV-020",
+      "track": "customer_service_agent",
+      "level": "advanced",
+      "type": "behavioral",
+      "tags": [
+        "continuous_improvement",
+        "customer"
+      ],
+      "en": "Describe a time you improved a recurring customer service process rather than fixing individual cases.",
+      "ar": "صف موقفًا حسّنت فيه إجراءً متكررًا في هذا المجال بدلًا من معالجة الحالات الفردية فقط."
+    },
+    {
+      "id": "TS-INT-016",
+      "track": "technical_support",
+      "level": "intermediate",
+      "type": "behavioral",
+      "tags": [
+        "adaptability",
+        "technical"
+      ],
+      "en": "Tell me about a time you had to adapt your approach when the initial technical support approach did not work.",
+      "ar": "حدثني عن موقف اضطررت فيه إلى تعديل أسلوبك عندما لم ينجح النهج الأول في technical support."
+    },
+    {
+      "id": "TS-INT-017",
+      "track": "technical_support",
+      "level": "intermediate",
+      "type": "situational",
+      "tags": [
+        "handover",
+        "ownership",
+        "technical"
+      ],
+      "en": "You notice an important detail was missed during a handover. What would you do to prevent an impact?",
+      "ar": "لاحظت أن تسليم العمل أغفل تفصيلًا مهمًا. ماذا تفعل لمنع حدوث تأثير سلبي؟"
+    },
+    {
+      "id": "TS-ADV-018",
+      "track": "technical_support",
+      "level": "advanced",
+      "type": "analytical",
+      "tags": [
+        "analytics",
+        "early_warning",
+        "technical"
+      ],
+      "en": "What leading indicators would help you detect a technical support performance problem before the main KPI declines?",
+      "ar": "ما المؤشرات الاستباقية التي تساعدك على اكتشاف مشكلة أداء في technical support قبل تراجع مؤشر الأداء الرئيسي؟"
+    },
+    {
+      "id": "TS-INT-019",
+      "track": "technical_support",
+      "level": "intermediate",
+      "type": "situational",
+      "tags": [
+        "stakeholder_management",
+        "technical"
+      ],
+      "en": "A stakeholder disagrees with your technical support recommendation. How would you explain your reasoning and reach a decision?",
+      "ar": "يختلف أحد أصحاب المصلحة في technical support مع توصيتك في technical support. كيف تشرح أسبابك وتصل إلى قرار؟"
+    },
+    {
+      "id": "TS-ADV-020",
+      "track": "technical_support",
+      "level": "advanced",
+      "type": "behavioral",
+      "tags": [
+        "continuous_improvement",
+        "technical"
+      ],
+      "en": "Describe a time you improved a recurring technical support process rather than fixing individual cases.",
+      "ar": "صف موقفًا حسّنت فيه إجراءً متكررًا في هذا المجال بدلًا من معالجة الحالات الفردية فقط."
+    },
+    {
+      "id": "SR-INT-016",
+      "track": "sales_retention",
+      "level": "intermediate",
+      "type": "behavioral",
+      "tags": [
+        "adaptability",
+        "sales"
+      ],
+      "en": "Tell me about a time you had to adapt your approach when the initial sales and retention approach did not work.",
+      "ar": "حدثني عن موقف اضطررت فيه إلى تعديل أسلوبك عندما لم ينجح النهج الأول في sales and retention."
+    },
+    {
+      "id": "SR-INT-017",
+      "track": "sales_retention",
+      "level": "intermediate",
+      "type": "situational",
+      "tags": [
+        "handover",
+        "ownership",
+        "sales"
+      ],
+      "en": "You notice an important detail was missed during a handover. What would you do to prevent an impact?",
+      "ar": "لاحظت أن تسليم العمل أغفل تفصيلًا مهمًا. ماذا تفعل لمنع حدوث تأثير سلبي؟"
+    },
+    {
+      "id": "SR-ADV-018",
+      "track": "sales_retention",
+      "level": "advanced",
+      "type": "analytical",
+      "tags": [
+        "analytics",
+        "early_warning",
+        "sales"
+      ],
+      "en": "What leading indicators would help you detect a sales and retention performance problem before the main KPI declines?",
+      "ar": "ما المؤشرات الاستباقية التي تساعدك على اكتشاف مشكلة أداء في sales and retention قبل تراجع مؤشر الأداء الرئيسي؟"
+    },
+    {
+      "id": "SR-INT-019",
+      "track": "sales_retention",
+      "level": "intermediate",
+      "type": "situational",
+      "tags": [
+        "stakeholder_management",
+        "sales"
+      ],
+      "en": "A stakeholder disagrees with your sales and retention recommendation. How would you explain your reasoning and reach a decision?",
+      "ar": "يختلف أحد أصحاب المصلحة في sales and retention مع توصيتك في sales and retention. كيف تشرح أسبابك وتصل إلى قرار؟"
+    },
+    {
+      "id": "SR-ADV-020",
+      "track": "sales_retention",
+      "level": "advanced",
+      "type": "behavioral",
+      "tags": [
+        "continuous_improvement",
+        "sales"
+      ],
+      "en": "Describe a time you improved a recurring sales and retention process rather than fixing individual cases.",
+      "ar": "صف موقفًا حسّنت فيه إجراءً متكررًا في هذا المجال بدلًا من معالجة الحالات الفردية فقط."
+    },
+    {
+      "id": "TL-INT-016",
+      "track": "team_leader",
+      "level": "intermediate",
+      "type": "behavioral",
+      "tags": [
+        "adaptability",
+        "team"
+      ],
+      "en": "Tell me about a time you had to adapt your approach when the initial team leadership approach did not work.",
+      "ar": "حدثني عن موقف اضطررت فيه إلى تعديل أسلوبك عندما لم ينجح النهج الأول في team leadership."
+    },
+    {
+      "id": "TL-INT-017",
+      "track": "team_leader",
+      "level": "intermediate",
+      "type": "situational",
+      "tags": [
+        "handover",
+        "ownership",
+        "team"
+      ],
+      "en": "You notice an important detail was missed during a handover. What would you do to prevent an impact?",
+      "ar": "لاحظت أن تسليم العمل أغفل تفصيلًا مهمًا. ماذا تفعل لمنع حدوث تأثير سلبي؟"
+    },
+    {
+      "id": "TL-ADV-018",
+      "track": "team_leader",
+      "level": "advanced",
+      "type": "analytical",
+      "tags": [
+        "analytics",
+        "early_warning",
+        "team"
+      ],
+      "en": "What leading indicators would help you detect a team leadership performance problem before the main KPI declines?",
+      "ar": "ما المؤشرات الاستباقية التي تساعدك على اكتشاف مشكلة أداء في team leadership قبل تراجع مؤشر الأداء الرئيسي؟"
+    },
+    {
+      "id": "TL-INT-019",
+      "track": "team_leader",
+      "level": "intermediate",
+      "type": "situational",
+      "tags": [
+        "stakeholder_management",
+        "team"
+      ],
+      "en": "A stakeholder disagrees with your team leadership recommendation. How would you explain your reasoning and reach a decision?",
+      "ar": "يختلف أحد أصحاب المصلحة في team leadership مع توصيتك في team leadership. كيف تشرح أسبابك وتصل إلى قرار؟"
+    },
+    {
+      "id": "TL-ADV-020",
+      "track": "team_leader",
+      "level": "advanced",
+      "type": "behavioral",
+      "tags": [
+        "continuous_improvement",
+        "team"
+      ],
+      "en": "Describe a time you improved a recurring team leadership process rather than fixing individual cases.",
+      "ar": "صف موقفًا حسّنت فيه إجراءً متكررًا في هذا المجال بدلًا من معالجة الحالات الفردية فقط."
+    },
+    {
+      "id": "OM-INT-016",
+      "track": "operations_manager",
+      "level": "intermediate",
+      "type": "behavioral",
+      "tags": [
+        "adaptability",
+        "operations"
+      ],
+      "en": "Tell me about a time you had to adapt your approach when the initial operations management approach did not work.",
+      "ar": "حدثني عن موقف اضطررت فيه إلى تعديل أسلوبك عندما لم ينجح النهج الأول في operations management."
+    },
+    {
+      "id": "OM-INT-017",
+      "track": "operations_manager",
+      "level": "intermediate",
+      "type": "situational",
+      "tags": [
+        "handover",
+        "ownership",
+        "operations"
+      ],
+      "en": "You notice an important detail was missed during a handover. What would you do to prevent an impact?",
+      "ar": "لاحظت أن تسليم العمل أغفل تفصيلًا مهمًا. ماذا تفعل لمنع حدوث تأثير سلبي؟"
+    },
+    {
+      "id": "OM-ADV-018",
+      "track": "operations_manager",
+      "level": "advanced",
+      "type": "analytical",
+      "tags": [
+        "analytics",
+        "early_warning",
+        "operations"
+      ],
+      "en": "What leading indicators would help you detect a operations management performance problem before the main KPI declines?",
+      "ar": "ما المؤشرات الاستباقية التي تساعدك على اكتشاف مشكلة أداء في operations management قبل تراجع مؤشر الأداء الرئيسي؟"
+    },
+    {
+      "id": "OM-INT-019",
+      "track": "operations_manager",
+      "level": "intermediate",
+      "type": "situational",
+      "tags": [
+        "stakeholder_management",
+        "operations"
+      ],
+      "en": "A stakeholder disagrees with your operations management recommendation. How would you explain your reasoning and reach a decision?",
+      "ar": "يختلف أحد أصحاب المصلحة في operations management مع توصيتك في operations management. كيف تشرح أسبابك وتصل إلى قرار؟"
+    },
+    {
+      "id": "OM-ADV-020",
+      "track": "operations_manager",
+      "level": "advanced",
+      "type": "behavioral",
+      "tags": [
+        "continuous_improvement",
+        "operations"
+      ],
+      "en": "Describe a time you improved a recurring operations management process rather than fixing individual cases.",
+      "ar": "صف موقفًا حسّنت فيه إجراءً متكررًا في هذا المجال بدلًا من معالجة الحالات الفردية فقط."
+    },
+    {
+      "id": "QA-INT-016",
+      "track": "quality_assurance",
+      "level": "intermediate",
+      "type": "behavioral",
+      "tags": [
+        "adaptability",
+        "quality"
+      ],
+      "en": "Tell me about a time you had to adapt your approach when the initial quality assurance approach did not work.",
+      "ar": "حدثني عن موقف اضطررت فيه إلى تعديل أسلوبك عندما لم ينجح النهج الأول في quality assurance."
+    },
+    {
+      "id": "QA-INT-017",
+      "track": "quality_assurance",
+      "level": "intermediate",
+      "type": "situational",
+      "tags": [
+        "handover",
+        "ownership",
+        "quality"
+      ],
+      "en": "You notice an important detail was missed during a handover. What would you do to prevent an impact?",
+      "ar": "لاحظت أن تسليم العمل أغفل تفصيلًا مهمًا. ماذا تفعل لمنع حدوث تأثير سلبي؟"
+    },
+    {
+      "id": "QA-ADV-018",
+      "track": "quality_assurance",
+      "level": "advanced",
+      "type": "analytical",
+      "tags": [
+        "analytics",
+        "early_warning",
+        "quality"
+      ],
+      "en": "What leading indicators would help you detect a quality assurance performance problem before the main KPI declines?",
+      "ar": "ما المؤشرات الاستباقية التي تساعدك على اكتشاف مشكلة أداء في quality assurance قبل تراجع مؤشر الأداء الرئيسي؟"
+    },
+    {
+      "id": "QA-INT-019",
+      "track": "quality_assurance",
+      "level": "intermediate",
+      "type": "situational",
+      "tags": [
+        "stakeholder_management",
+        "quality"
+      ],
+      "en": "A stakeholder disagrees with your quality assurance recommendation. How would you explain your reasoning and reach a decision?",
+      "ar": "يختلف أحد أصحاب المصلحة في quality assurance مع توصيتك في quality assurance. كيف تشرح أسبابك وتصل إلى قرار؟"
+    },
+    {
+      "id": "QA-ADV-020",
+      "track": "quality_assurance",
+      "level": "advanced",
+      "type": "behavioral",
+      "tags": [
+        "continuous_improvement",
+        "quality"
+      ],
+      "en": "Describe a time you improved a recurring quality assurance process rather than fixing individual cases.",
+      "ar": "صف موقفًا حسّنت فيه إجراءً متكررًا في هذا المجال بدلًا من معالجة الحالات الفردية فقط."
+    },
+    {
+      "id": "WFM-INT-016",
+      "track": "workforce_management",
+      "level": "intermediate",
+      "type": "behavioral",
+      "tags": [
+        "adaptability",
+        "workforce"
+      ],
+      "en": "Tell me about a time you had to adapt your approach when the initial workforce management approach did not work.",
+      "ar": "حدثني عن موقف اضطررت فيه إلى تعديل أسلوبك عندما لم ينجح النهج الأول في workforce management."
+    },
+    {
+      "id": "WFM-INT-017",
+      "track": "workforce_management",
+      "level": "intermediate",
+      "type": "situational",
+      "tags": [
+        "handover",
+        "ownership",
+        "workforce"
+      ],
+      "en": "You notice an important detail was missed during a handover. What would you do to prevent an impact?",
+      "ar": "لاحظت أن تسليم العمل أغفل تفصيلًا مهمًا. ماذا تفعل لمنع حدوث تأثير سلبي؟"
+    },
+    {
+      "id": "WFM-ADV-018",
+      "track": "workforce_management",
+      "level": "advanced",
+      "type": "analytical",
+      "tags": [
+        "analytics",
+        "early_warning",
+        "workforce"
+      ],
+      "en": "What leading indicators would help you detect a workforce management performance problem before the main KPI declines?",
+      "ar": "ما المؤشرات الاستباقية التي تساعدك على اكتشاف مشكلة أداء في workforce management قبل تراجع مؤشر الأداء الرئيسي؟"
+    },
+    {
+      "id": "WFM-INT-019",
+      "track": "workforce_management",
+      "level": "intermediate",
+      "type": "situational",
+      "tags": [
+        "stakeholder_management",
+        "workforce"
+      ],
+      "en": "A stakeholder disagrees with your workforce management recommendation. How would you explain your reasoning and reach a decision?",
+      "ar": "يختلف أحد أصحاب المصلحة في workforce management مع توصيتك في workforce management. كيف تشرح أسبابك وتصل إلى قرار؟"
+    },
+    {
+      "id": "WFM-ADV-020",
+      "track": "workforce_management",
+      "level": "advanced",
+      "type": "behavioral",
+      "tags": [
+        "continuous_improvement",
+        "workforce"
+      ],
+      "en": "Describe a time you improved a recurring workforce management process rather than fixing individual cases.",
+      "ar": "صف موقفًا حسّنت فيه إجراءً متكررًا في هذا المجال بدلًا من معالجة الحالات الفردية فقط."
+    },
+    {
+      "id": "TD-INT-016",
+      "track": "training_development",
+      "level": "intermediate",
+      "type": "behavioral",
+      "tags": [
+        "adaptability",
+        "training"
+      ],
+      "en": "Tell me about a time you had to adapt your approach when the initial training and development approach did not work.",
+      "ar": "حدثني عن موقف اضطررت فيه إلى تعديل أسلوبك عندما لم ينجح النهج الأول في training and development."
+    },
+    {
+      "id": "TD-INT-017",
+      "track": "training_development",
+      "level": "intermediate",
+      "type": "situational",
+      "tags": [
+        "handover",
+        "ownership",
+        "training"
+      ],
+      "en": "You notice an important detail was missed during a handover. What would you do to prevent an impact?",
+      "ar": "لاحظت أن تسليم العمل أغفل تفصيلًا مهمًا. ماذا تفعل لمنع حدوث تأثير سلبي؟"
+    },
+    {
+      "id": "TD-ADV-018",
+      "track": "training_development",
+      "level": "advanced",
+      "type": "analytical",
+      "tags": [
+        "analytics",
+        "early_warning",
+        "training"
+      ],
+      "en": "What leading indicators would help you detect a training and development performance problem before the main KPI declines?",
+      "ar": "ما المؤشرات الاستباقية التي تساعدك على اكتشاف مشكلة أداء في training and development قبل تراجع مؤشر الأداء الرئيسي؟"
+    },
+    {
+      "id": "TD-INT-019",
+      "track": "training_development",
+      "level": "intermediate",
+      "type": "situational",
+      "tags": [
+        "stakeholder_management",
+        "training"
+      ],
+      "en": "A stakeholder disagrees with your training and development recommendation. How would you explain your reasoning and reach a decision?",
+      "ar": "يختلف أحد أصحاب المصلحة في training and development مع توصيتك في training and development. كيف تشرح أسبابك وتصل إلى قرار؟"
+    },
+    {
+      "id": "TD-ADV-020",
+      "track": "training_development",
+      "level": "advanced",
+      "type": "behavioral",
+      "tags": [
+        "continuous_improvement",
+        "training"
+      ],
+      "en": "Describe a time you improved a recurring training and development process rather than fixing individual cases.",
+      "ar": "صف موقفًا حسّنت فيه إجراءً متكررًا في هذا المجال بدلًا من معالجة الحالات الفردية فقط."
+    },
+    {
+      "id": "HR-INT-016",
+      "track": "recruitment_hr",
+      "level": "intermediate",
+      "type": "behavioral",
+      "tags": [
+        "adaptability",
+        "recruitment"
+      ],
+      "en": "Tell me about a time you had to adapt your approach when the initial recruitment and HR approach did not work.",
+      "ar": "حدثني عن موقف اضطررت فيه إلى تعديل أسلوبك عندما لم ينجح النهج الأول في recruitment and HR."
+    },
+    {
+      "id": "HR-INT-017",
+      "track": "recruitment_hr",
+      "level": "intermediate",
+      "type": "situational",
+      "tags": [
+        "handover",
+        "ownership",
+        "recruitment"
+      ],
+      "en": "You notice an important detail was missed during a handover. What would you do to prevent an impact?",
+      "ar": "لاحظت أن تسليم العمل أغفل تفصيلًا مهمًا. ماذا تفعل لمنع حدوث تأثير سلبي؟"
+    },
+    {
+      "id": "HR-ADV-018",
+      "track": "recruitment_hr",
+      "level": "advanced",
+      "type": "analytical",
+      "tags": [
+        "analytics",
+        "early_warning",
+        "recruitment"
+      ],
+      "en": "What leading indicators would help you detect a recruitment and HR performance problem before the main KPI declines?",
+      "ar": "ما المؤشرات الاستباقية التي تساعدك على اكتشاف مشكلة أداء في recruitment and HR قبل تراجع مؤشر الأداء الرئيسي؟"
+    },
+    {
+      "id": "HR-INT-019",
+      "track": "recruitment_hr",
+      "level": "intermediate",
+      "type": "situational",
+      "tags": [
+        "stakeholder_management",
+        "recruitment"
+      ],
+      "en": "A stakeholder disagrees with your recruitment and HR recommendation. How would you explain your reasoning and reach a decision?",
+      "ar": "يختلف أحد أصحاب المصلحة في recruitment and HR مع توصيتك في recruitment and HR. كيف تشرح أسبابك وتصل إلى قرار؟"
+    },
+    {
+      "id": "HR-ADV-020",
+      "track": "recruitment_hr",
+      "level": "advanced",
+      "type": "behavioral",
+      "tags": [
+        "continuous_improvement",
+        "recruitment"
+      ],
+      "en": "Describe a time you improved a recurring recruitment and HR process rather than fixing individual cases.",
+      "ar": "صف موقفًا حسّنت فيه إجراءً متكررًا في هذا المجال بدلًا من معالجة الحالات الفردية فقط."
+    },
+    {
+      "id": "CSM-INT-016",
+      "track": "client_success_account_management",
+      "level": "intermediate",
+      "type": "behavioral",
+      "tags": [
+        "adaptability",
+        "client"
+      ],
+      "en": "Tell me about a time you had to adapt your approach when the initial client success and account management approach did not work.",
+      "ar": "حدثني عن موقف اضطررت فيه إلى تعديل أسلوبك عندما لم ينجح النهج الأول في client success and account management."
+    },
+    {
+      "id": "CSM-INT-017",
+      "track": "client_success_account_management",
+      "level": "intermediate",
+      "type": "situational",
+      "tags": [
+        "handover",
+        "ownership",
+        "client"
+      ],
+      "en": "You notice an important detail was missed during a handover. What would you do to prevent an impact?",
+      "ar": "لاحظت أن تسليم العمل أغفل تفصيلًا مهمًا. ماذا تفعل لمنع حدوث تأثير سلبي؟"
+    },
+    {
+      "id": "CSM-ADV-018",
+      "track": "client_success_account_management",
+      "level": "advanced",
+      "type": "analytical",
+      "tags": [
+        "analytics",
+        "early_warning",
+        "client"
+      ],
+      "en": "What leading indicators would help you detect a client success and account management performance problem before the main KPI declines?",
+      "ar": "ما المؤشرات الاستباقية التي تساعدك على اكتشاف مشكلة أداء في client success and account management قبل تراجع مؤشر الأداء الرئيسي؟"
+    },
+    {
+      "id": "CSM-INT-019",
+      "track": "client_success_account_management",
+      "level": "intermediate",
+      "type": "situational",
+      "tags": [
+        "stakeholder_management",
+        "client"
+      ],
+      "en": "A stakeholder disagrees with your client success and account management recommendation. How would you explain your reasoning and reach a decision?",
+      "ar": "يختلف أحد أصحاب المصلحة في client success and account management مع توصيتك في client success and account management. كيف تشرح أسبابك وتصل إلى قرار؟"
+    },
+    {
+      "id": "CSM-ADV-020",
+      "track": "client_success_account_management",
+      "level": "advanced",
+      "type": "behavioral",
+      "tags": [
+        "continuous_improvement",
+        "client"
+      ],
+      "en": "Describe a time you improved a recurring client success and account management process rather than fixing individual cases.",
+      "ar": "صف موقفًا حسّنت فيه إجراءً متكررًا في هذا المجال بدلًا من معالجة الحالات الفردية فقط."
+    }
+  ]
+}
