@@ -206,6 +206,57 @@ export class UsageLimiter {
       });
     }
 
+    // Dry-run the exact reservation SQL inside a transaction that always rolls back.
+    if (body.action === "probe") {
+      try {
+        this.ctx.storage.transactionSync(() => {
+          const globalRows = this.sql.exec(
+            `INSERT INTO global_usage (day, count)
+             VALUES (?, 1)
+             ON CONFLICT(day) DO UPDATE SET count = count + 1
+             WHERE count < ?
+             RETURNING count`,
+            day,
+            LIMITS.globalDaily,
+          ).toArray();
+
+          if (globalRows.length === 0) {
+            throw new Error("DAILY_GLOBAL_LIMIT");
+          }
+
+          const deviceRows = this.sql.exec(
+            `INSERT INTO device_usage (day, device_id, count)
+             VALUES (?, ?, 1)
+             ON CONFLICT(day, device_id) DO UPDATE SET count = count + 1
+             WHERE count < ?
+             RETURNING count`,
+            day,
+            deviceId,
+            LIMITS.perDeviceDaily,
+          ).toArray();
+
+          if (deviceRows.length === 0) {
+            throw new Error("DAILY_USER_LIMIT");
+          }
+
+          // Force rollback even when the reservation would have been allowed.
+          throw new Error("PROBE_ROLLBACK_ALLOWED");
+        });
+      } catch (error) {
+        if (error.message === "DAILY_GLOBAL_LIMIT") {
+          return Response.json({ allowed: false, code: "daily_global_limit" });
+        }
+        if (error.message === "DAILY_USER_LIMIT") {
+          return Response.json({ allowed: false, code: "daily_user_limit" });
+        }
+        if (error.message === "PROBE_ROLLBACK_ALLOWED") {
+          return Response.json({ allowed: true, code: "would_be_allowed" });
+        }
+        console.error("Usage probe failed:", error.name);
+        return Response.json({ error: "Probe failed" }, { status: 503 });
+      }
+    }
+
     try {
       const result = this.ctx.storage.transactionSync(() => {
         // Remove old daily records.
@@ -569,13 +620,14 @@ export default {
         const deviceId = checkDeviceId(body.deviceId);
         const day = utcDay();
         const limiter = getLimiter(env);
+        const action = body.action === "probe" ? "probe" : "inspect";
 
         const response = await limiter.fetch(
-          new Request("https://usage-limiter/inspect", {
+          new Request(`https://usage-limiter/${action}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              action: "inspect",
+              action,
               day,
               deviceId,
             }),
