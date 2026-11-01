@@ -87,7 +87,7 @@ function saveQuestionHistory(ids){try{const h=readQuestionHistory();h.push(ids);
 function shuffle(a){return a.map(x=>[Math.random(),x]).sort((x,y)=>x[0]-y[0]).map(x=>x[1])}
 function typePreference(type){return ({0:["behavioral","role_knowledge"],1:["role_knowledge","behavioral"],2:["situational"],3:["situational","behavioral"],4:["analytical"],5:["behavioral","analytical"]})[type]||[]}
 function chooseBankQuestions(){const all=QUESTION_BANK.filter(q=>q.track===S.track);const levels=({0:["beginner","intermediate"],1:["intermediate","beginner"],2:["advanced","intermediate"],3:["advanced","intermediate"]})[S.lvl]||["beginner","intermediate"];const preferred=typePreference(S.ty);const history=readQuestionHistory().flat();const recent=new Set(history);let pool=all.filter(q=>levels.includes(q.level)&&!recent.has(q.id));if(pool.length<S.n)pool=all.filter(q=>levels.includes(q.level));if(pool.length<S.n)pool=all.filter(q=>!recent.has(q.id));if(pool.length<S.n)pool=all;const a=shuffle(pool.filter(q=>preferred.includes(q.type))),b=shuffle(pool.filter(q=>!preferred.includes(q.type)));return [...a,...b].slice(0,S.n).map(q=>[q.id,preferred.indexOf(q.type),q.en,q.ar,q.track,q.level])}
-function rememberCompletedInterview(){if(S.historySaved)return;const ids=S.qs.map(q=>q[0]);if(ids.length)saveQuestionHistory(ids);S.historySaved=true;}
+function rememberCompletedInterview(){if(S.historySaved)return;const ids=S.ans.filter(Boolean).map(x=>x.q[0]);if(ids.length)saveQuestionHistory(ids);S.historySaved=true;}
 let memoryDeviceId="";
 function getDeviceId(){
   const key="interview_gym_device_id";
