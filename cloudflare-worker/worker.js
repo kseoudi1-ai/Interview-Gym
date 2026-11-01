@@ -187,6 +187,23 @@ export class UsageLimiter {
       !DEVICE_ID_RE.test(deviceId)
     ) {
       return Response.json({ error: "Invalid reservation data" }, { status: 400 });
+    }     if (body.action === "inspect") {
+      const globalRows = this.sql.exec(
+        "SELECT count FROM global_usage WHERE day = ?",
+        day,
+      ).toArray();
+
+      const deviceRows = this.sql.exec(
+        "SELECT count FROM device_usage WHERE day = ? AND device_id = ?",
+        day,
+        deviceId,
+      ).toArray();
+
+      return Response.json({
+        day,
+        globalCount: globalRows[0]?.count ?? 0,
+        deviceCount: deviceRows[0]?.count ?? 0,
+      });
     }
 
     try {
@@ -539,7 +556,40 @@ export default {
 
     try {
       const body = await readJson(request);
+      if (body.mode === "diagnostic") {
+        const token = request.headers.get("Authorization");
 
+        if (
+          !env.DIAGNOSTIC_TOKEN ||
+          token !== `Bearer ${env.DIAGNOSTIC_TOKEN}`
+        ) {
+          throw new HttpError(401, "unauthorized", "Unauthorized.");
+        }
+
+        const deviceId = checkDeviceId(body.deviceId);
+        const day = utcDay();
+        const limiter = getLimiter(env);
+
+        const response = await limiter.fetch(
+          new Request("https://usage-limiter/inspect", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              action: "inspect",
+              day,
+              deviceId,
+            }),
+          }),
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new HttpError(503, "diagnostic_failed", "Diagnostic failed.");
+        }
+
+        return send(data);
+      }
       if (body.mode !== "evaluateInterview") {
         throw new HttpError(
           410,
