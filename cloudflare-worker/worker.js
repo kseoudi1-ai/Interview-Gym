@@ -187,6 +187,74 @@ export class UsageLimiter {
       !DEVICE_ID_RE.test(deviceId)
     ) {
       return Response.json({ error: "Invalid reservation data" }, { status: 400 });
+    }     if (body.action === "inspect") {
+      const globalRows = this.sql.exec(
+        "SELECT count FROM global_usage WHERE day = ?",
+        day,
+      ).toArray();
+
+      const deviceRows = this.sql.exec(
+        "SELECT count FROM device_usage WHERE day = ? AND device_id = ?",
+        day,
+        deviceId,
+      ).toArray();
+
+      return Response.json({
+        day,
+        globalCount: globalRows[0]?.count ?? 0,
+        deviceCount: deviceRows[0]?.count ?? 0,
+      });
+    }
+
+    // Dry-run the exact reservation SQL inside a transaction that always rolls back.
+    if (body.action === "probe") {
+      try {
+        this.ctx.storage.transactionSync(() => {
+          const globalRows = this.sql.exec(
+            `INSERT INTO global_usage (day, count)
+             VALUES (?, 1)
+             ON CONFLICT(day) DO UPDATE SET count = count + 1
+             WHERE count < ?
+             RETURNING count`,
+            day,
+            LIMITS.globalDaily,
+          ).toArray();
+
+          if (globalRows.length === 0) {
+            throw new Error("DAILY_GLOBAL_LIMIT");
+          }
+
+          const deviceRows = this.sql.exec(
+            `INSERT INTO device_usage (day, device_id, count)
+             VALUES (?, ?, 1)
+             ON CONFLICT(day, device_id) DO UPDATE SET count = count + 1
+             WHERE count < ?
+             RETURNING count`,
+            day,
+            deviceId,
+            LIMITS.perDeviceDaily,
+          ).toArray();
+
+          if (deviceRows.length === 0) {
+            throw new Error("DAILY_USER_LIMIT");
+          }
+
+          // Force rollback even when the reservation would have been allowed.
+          throw new Error("PROBE_ROLLBACK_ALLOWED");
+        });
+      } catch (error) {
+        if (error.message === "DAILY_GLOBAL_LIMIT") {
+          return Response.json({ allowed: false, code: "daily_global_limit" });
+        }
+        if (error.message === "DAILY_USER_LIMIT") {
+          return Response.json({ allowed: false, code: "daily_user_limit" });
+        }
+        if (error.message === "PROBE_ROLLBACK_ALLOWED") {
+          return Response.json({ allowed: true, code: "would_be_allowed" });
+        }
+        console.error("Usage probe failed:", error.name);
+        return Response.json({ error: "Probe failed" }, { status: 503 });
+      }
     }
 
     try {
@@ -539,7 +607,41 @@ export default {
 
     try {
       const body = await readJson(request);
+      if (body.mode === "diagnostic") {
+        const token = request.headers.get("Authorization");
 
+        if (
+          !env.DIAGNOSTIC_TOKEN ||
+          token !== `Bearer ${env.DIAGNOSTIC_TOKEN}`
+        ) {
+          throw new HttpError(401, "unauthorized", "Unauthorized.");
+        }
+
+        const deviceId = checkDeviceId(body.deviceId);
+        const day = utcDay();
+        const limiter = getLimiter(env);
+        const action = body.action === "probe" ? "probe" : "inspect";
+
+        const response = await limiter.fetch(
+          new Request(`https://usage-limiter/${action}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              action,
+              day,
+              deviceId,
+            }),
+          }),
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new HttpError(503, "diagnostic_failed", "Diagnostic failed.");
+        }
+
+        return send(data);
+      }
       if (body.mode !== "evaluateInterview") {
         throw new HttpError(
           410,
