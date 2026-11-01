@@ -1,0 +1,561 @@
+{
+  "version": "0.7.0",
+  "batch": "07",
+  "languages": [
+    "en",
+    "ar"
+  ],
+  "questionCount": 50,
+  "questions": [
+    {
+      "id": "CSA-BEG-031",
+      "track": "customer_service_agent",
+      "level": "beginner",
+      "type": "behavioral",
+      "tags": [
+        "knowledge"
+      ],
+      "en": "What would you do if you did not know the answer to a customer's question?",
+      "ar": "ماذا تفعل إذا لم تكن تعرف إجابة سؤال العميل؟"
+    },
+    {
+      "id": "CSA-INT-032",
+      "track": "customer_service_agent",
+      "level": "intermediate",
+      "type": "situational",
+      "tags": [
+        "accuracy"
+      ],
+      "en": "A customer says the previous agent gave incorrect information. How would you verify and correct it?",
+      "ar": "يقول العميل إن الموظف السابق قدم معلومات خاطئة. كيف تتحقق منها وتصحيحها؟"
+    },
+    {
+      "id": "CSA-ADV-033",
+      "track": "customer_service_agent",
+      "level": "advanced",
+      "type": "analytical",
+      "tags": [
+        "policy_impact"
+      ],
+      "en": "How would you assess the impact of a policy change on customer effort and contact demand?",
+      "ar": "كيف تقيّم تأثير تغيير في السياسة على مجهود العميل وحجم الاتصالات؟"
+    },
+    {
+      "id": "CSA-INT-034",
+      "track": "customer_service_agent",
+      "level": "intermediate",
+      "type": "behavioral",
+      "tags": [
+        "call_control"
+      ],
+      "en": "Describe a time you managed several customer needs while keeping the conversation organized.",
+      "ar": "صف موقفًا أدرت فيه عدة احتياجات للعميل مع الحفاظ على تنظيم المحادثة."
+    },
+    {
+      "id": "CSA-ADV-035",
+      "track": "customer_service_agent",
+      "level": "advanced",
+      "type": "situational",
+      "tags": [
+        "safety"
+      ],
+      "en": "A customer threatens to post personal information about an employee online. How would you respond and escalate?",
+      "ar": "هدد العميل بنشر معلومات شخصية عن موظف عبر الإنترنت. كيف ترد وتصعّد الأمر؟"
+    },
+    {
+      "id": "TS-BEG-031",
+      "track": "technical_support",
+      "level": "beginner",
+      "type": "situational",
+      "tags": [
+        "wifi"
+      ],
+      "en": "A customer cannot connect a new device to Wi-Fi. What basic checks would you guide them through?",
+      "ar": "لا يستطيع العميل توصيل جهاز جديد بشبكة Wi-Fi. ما الفحوصات الأساسية التي ترشده إليها؟"
+    },
+    {
+      "id": "TS-INT-032",
+      "track": "technical_support",
+      "level": "intermediate",
+      "type": "analytical",
+      "tags": [
+        "evidence"
+      ],
+      "en": "How would you use timestamps and error messages to narrow down the cause of a technical issue?",
+      "ar": "كيف تستخدم التوقيتات ورسائل الخطأ لتضييق نطاق سبب المشكلة التقنية؟"
+    },
+    {
+      "id": "TS-ADV-033",
+      "track": "technical_support",
+      "level": "advanced",
+      "type": "situational",
+      "tags": [
+        "change_approval"
+      ],
+      "en": "A fix requires a customer to temporarily lose service. How would you obtain agreement and minimize disruption?",
+      "ar": "يتطلب الحل انقطاع الخدمة مؤقتًا عن العميل. كيف تحصل على موافقته وتقلل التعطيل؟"
+    },
+    {
+      "id": "TS-INT-034",
+      "track": "technical_support",
+      "level": "intermediate",
+      "type": "behavioral",
+      "tags": [
+        "escalation"
+      ],
+      "en": "Tell me about a time you had to escalate an issue while keeping the customer informed.",
+      "ar": "حدثني عن موقف اضطررت فيه إلى تصعيد مشكلة مع إبقاء العميل على اطلاع."
+    },
+    {
+      "id": "TS-ADV-035",
+      "track": "technical_support",
+      "level": "advanced",
+      "type": "analytical",
+      "tags": [
+        "knowledge_management"
+      ],
+      "en": "How would you evaluate whether a knowledge-base article is effective for resolving a common fault?",
+      "ar": "كيف تقيّم فعالية مقال في قاعدة المعرفة لحل عطل شائع؟"
+    },
+    {
+      "id": "SR-BEG-031",
+      "track": "sales_retention",
+      "level": "beginner",
+      "type": "role_knowledge",
+      "tags": [
+        "disclosure"
+      ],
+      "en": "What information should a customer understand before agreeing to a new service or contract?",
+      "ar": "ما المعلومات التي يجب أن يفهمها العميل قبل الموافقة على خدمة أو عقد جديد؟"
+    },
+    {
+      "id": "SR-INT-032",
+      "track": "sales_retention",
+      "level": "intermediate",
+      "type": "situational",
+      "tags": [
+        "affordability"
+      ],
+      "en": "A customer is satisfied with the service but says they cannot afford the current plan. How would you respond?",
+      "ar": "العميل راضٍ عن الخدمة لكنه يقول إنه لا يستطيع تحمل تكلفة الباقة الحالية. كيف ترد؟"
+    },
+    {
+      "id": "SR-ADV-033",
+      "track": "sales_retention",
+      "level": "advanced",
+      "type": "analytical",
+      "tags": [
+        "retention_metrics"
+      ],
+      "en": "How would you compare retention success by saved revenue, future churn, and customer satisfaction?",
+      "ar": "كيف تقارن نجاح الاحتفاظ من حيث الإيرادات المحفوظة والتسرب المستقبلي ورضا العملاء؟"
+    },
+    {
+      "id": "SR-INT-034",
+      "track": "sales_retention",
+      "level": "intermediate",
+      "type": "behavioral",
+      "tags": [
+        "resilience"
+      ],
+      "en": "Describe a time you recovered a sales conversation after an objection you did not expect.",
+      "ar": "صف موقفًا استعدت فيه مسار محادثة بيع بعد اعتراض لم تكن تتوقعه."
+    },
+    {
+      "id": "SR-ADV-035",
+      "track": "sales_retention",
+      "level": "advanced",
+      "type": "situational",
+      "tags": [
+        "incentives"
+      ],
+      "en": "A sales incentive encourages volume but quality indicators are deteriorating. What changes would you recommend?",
+      "ar": "يشجع حافز المبيعات على زيادة الحجم لكن مؤشرات الجودة تتراجع. ما التغييرات التي توصي بها؟"
+    },
+    {
+      "id": "TL-BEG-031",
+      "track": "team_leader",
+      "level": "beginner",
+      "type": "role_knowledge",
+      "tags": [
+        "handover"
+      ],
+      "en": "What information should be included in a useful shift handover from one team leader to another?",
+      "ar": "ما المعلومات التي يجب أن يتضمنها تسليم الوردية المفيد من قائد فريق إلى آخر؟"
+    },
+    {
+      "id": "TL-INT-032",
+      "track": "team_leader",
+      "level": "intermediate",
+      "type": "situational",
+      "tags": [
+        "fairness"
+      ],
+      "en": "An agent says coaching is unfair because another agent makes the same mistake without action. How would you respond?",
+      "ar": "يقول موظف إن التوجيه غير عادل لأن موظفًا آخر يرتكب الخطأ نفسه دون إجراء. كيف ترد؟"
+    },
+    {
+      "id": "TL-ADV-033",
+      "track": "team_leader",
+      "level": "advanced",
+      "type": "analytical",
+      "tags": [
+        "causal_analysis"
+      ],
+      "en": "How would you determine whether a team's improvement came from coaching, staffing changes, or lower contact complexity?",
+      "ar": "كيف تحدد ما إذا كان تحسن الفريق ناتجًا عن التوجيه أم تغييرات التوظيف أم انخفاض تعقيد الاتصالات؟"
+    },
+    {
+      "id": "TL-INT-034",
+      "track": "team_leader",
+      "level": "intermediate",
+      "type": "behavioral",
+      "tags": [
+        "motivation"
+      ],
+      "en": "Describe a time you helped a team stay motivated during a difficult performance period.",
+      "ar": "صف موقفًا ساعدت فيه الفريق على الحفاظ على الحافز خلال فترة أداء صعبة."
+    },
+    {
+      "id": "TL-ADV-035",
+      "track": "team_leader",
+      "level": "advanced",
+      "type": "situational",
+      "tags": [
+        "employee_relations"
+      ],
+      "en": "A team member reports possible misconduct by a colleague. How would you respond while protecting confidentiality?",
+      "ar": "أبلغك أحد أعضاء الفريق عن سلوك مخالف محتمل من زميل. كيف تتصرف مع حماية السرية؟"
+    },
+    {
+      "id": "OM-BEG-031",
+      "track": "operations_manager",
+      "level": "beginner",
+      "type": "role_knowledge",
+      "tags": [
+        "risk_register"
+      ],
+      "en": "What is the purpose of a risk and issue log in account operations?",
+      "ar": "ما الهدف من سجل المخاطر والمشكلات في تشغيل الحساب؟"
+    },
+    {
+      "id": "OM-INT-032",
+      "track": "operations_manager",
+      "level": "intermediate",
+      "type": "situational",
+      "tags": [
+        "ownership"
+      ],
+      "en": "A new client requirement affects multiple teams but ownership is unclear. How would you establish accountability?",
+      "ar": "يؤثر متطلب جديد للعميل على عدة فرق لكن المسؤولية غير واضحة. كيف تحدد المساءلة؟"
+    },
+    {
+      "id": "OM-ADV-033",
+      "track": "operations_manager",
+      "level": "advanced",
+      "type": "analytical",
+      "tags": [
+        "attrition"
+      ],
+      "en": "How would you assess the impact of attrition on recruitment cost, training capacity, and service performance?",
+      "ar": "كيف تقيّم تأثير التسرب الوظيفي على تكلفة التوظيف والطاقة التدريبية وأداء الخدمة؟"
+    },
+    {
+      "id": "OM-INT-034",
+      "track": "operations_manager",
+      "level": "intermediate",
+      "type": "behavioral",
+      "tags": [
+        "governance"
+      ],
+      "en": "Describe a time you used a structured review cadence to keep a recovery plan on track.",
+      "ar": "صف موقفًا استخدمت فيه إيقاع مراجعة منظمًا للحفاظ على تقدم خطة تعافٍ."
+    },
+    {
+      "id": "OM-ADV-035",
+      "track": "operations_manager",
+      "level": "advanced",
+      "type": "situational",
+      "tags": [
+        "leadership"
+      ],
+      "en": "A major client escalation coincides with an internal leadership disagreement. How would you stabilize delivery and align decisions?",
+      "ar": "يتزامن تصعيد كبير من العميل مع خلاف داخلي بين القيادات. كيف تثبت التنفيذ وتوحد القرارات؟"
+    },
+    {
+      "id": "QA-BEG-031",
+      "track": "quality_assurance",
+      "level": "beginner",
+      "type": "role_knowledge",
+      "tags": [
+        "quality_outcomes"
+      ],
+      "en": "What is the difference between a quality defect and a customer outcome failure?",
+      "ar": "ما الفرق بين عيب في الجودة وإخفاق في نتيجة العميل؟"
+    },
+    {
+      "id": "QA-INT-032",
+      "track": "quality_assurance",
+      "level": "intermediate",
+      "type": "situational",
+      "tags": [
+        "evidence_integrity"
+      ],
+      "en": "A call recording is incomplete, but the evaluation deadline is approaching. How would you handle the sample?",
+      "ar": "تسجيل المكالمة غير مكتمل بينما يقترب موعد التقييم. كيف تتعامل مع العينة؟"
+    },
+    {
+      "id": "QA-ADV-033",
+      "track": "quality_assurance",
+      "level": "advanced",
+      "type": "analytical",
+      "tags": [
+        "risk_based_sampling"
+      ],
+      "en": "How would you prioritize quality risks when monitoring capacity is limited?",
+      "ar": "كيف ترتب أولويات مخاطر الجودة عندما تكون قدرة المراقبة محدودة؟"
+    },
+    {
+      "id": "QA-INT-034",
+      "track": "quality_assurance",
+      "level": "intermediate",
+      "type": "behavioral",
+      "tags": [
+        "objectivity"
+      ],
+      "en": "Describe a time you changed your opinion after reviewing additional call evidence.",
+      "ar": "صف موقفًا غيّرت فيه رأيك بعد مراجعة أدلة إضافية من المكالمة."
+    },
+    {
+      "id": "QA-ADV-035",
+      "track": "quality_assurance",
+      "level": "advanced",
+      "type": "situational",
+      "tags": [
+        "statistical_confidence"
+      ],
+      "en": "A quality trend suggests a systemic issue but the sample size is small. How would you communicate confidence and next steps?",
+      "ar": "يشير اتجاه الجودة إلى مشكلة منهجية لكن حجم العينة صغير. كيف توضح مستوى الثقة والخطوات التالية؟"
+    },
+    {
+      "id": "WFM-BEG-031",
+      "track": "workforce_management",
+      "level": "beginner",
+      "type": "role_knowledge",
+      "tags": [
+        "metrics"
+      ],
+      "en": "What is the difference between occupancy and utilization in a contact center?",
+      "ar": "ما الفرق بين الإشغال والاستغلال في مركز الاتصال؟"
+    },
+    {
+      "id": "WFM-INT-032",
+      "track": "workforce_management",
+      "level": "intermediate",
+      "type": "situational",
+      "tags": [
+        "holiday_planning"
+      ],
+      "en": "A client changes the opening hours for a public holiday. What schedule and forecast checks are needed?",
+      "ar": "غيّر العميل ساعات العمل في عطلة رسمية. ما مراجعات الجدولة والتنبؤ المطلوبة؟"
+    },
+    {
+      "id": "WFM-ADV-033",
+      "track": "workforce_management",
+      "level": "advanced",
+      "type": "analytical",
+      "tags": [
+        "AHT"
+      ],
+      "en": "How would you assess the impact of reducing average handle time on staffing without compromising customer outcomes?",
+      "ar": "كيف تقيّم أثر خفض متوسط وقت المعالجة على احتياجات التوظيف دون الإضرار بنتائج العملاء؟"
+    },
+    {
+      "id": "WFM-INT-034",
+      "track": "workforce_management",
+      "level": "intermediate",
+      "type": "behavioral",
+      "tags": [
+        "collaboration"
+      ],
+      "en": "Describe a time you resolved a disagreement between operations and WFM about staffing requirements.",
+      "ar": "صف موقفًا حللت فيه خلافًا بين العمليات وWFM بشأن احتياجات التوظيف."
+    },
+    {
+      "id": "WFM-ADV-035",
+      "track": "workforce_management",
+      "level": "advanced",
+      "type": "situational",
+      "tags": [
+        "data_governance"
+      ],
+      "en": "A client requests real-time staffing reports that conflict with existing data definitions. How would you resolve the issue?",
+      "ar": "طلب العميل تقارير توظيف لحظية تتعارض مع تعريفات البيانات الحالية. كيف تحل المشكلة؟"
+    },
+    {
+      "id": "TD-BEG-031",
+      "track": "training_development",
+      "level": "beginner",
+      "type": "role_knowledge",
+      "tags": [
+        "objectives"
+      ],
+      "en": "Why should training objectives be measurable and linked to job tasks?",
+      "ar": "لماذا يجب أن تكون أهداف التدريب قابلة للقياس ومرتبطة بمهام الوظيفة؟"
+    },
+    {
+      "id": "TD-INT-032",
+      "track": "training_development",
+      "level": "intermediate",
+      "type": "situational",
+      "tags": [
+        "remote_learning"
+      ],
+      "en": "A remote learner has limited access to the practice environment. How would you maintain learning quality?",
+      "ar": "لا يستطيع متدرب عن بُعد الوصول بسهولة إلى بيئة التدريب العملي. كيف تحافظ على جودة التعلم؟"
+    },
+    {
+      "id": "TD-ADV-033",
+      "track": "training_development",
+      "level": "advanced",
+      "type": "analytical",
+      "tags": [
+        "leadership_development"
+      ],
+      "en": "How would you evaluate the long-term impact of a leadership development program?",
+      "ar": "كيف تقيّم الأثر طويل المدى لبرنامج تطوير القيادات؟"
+    },
+    {
+      "id": "TD-INT-034",
+      "track": "training_development",
+      "level": "intermediate",
+      "type": "behavioral",
+      "tags": [
+        "job_aid"
+      ],
+      "en": "Describe a time you converted a complex procedure into a simple job aid.",
+      "ar": "صف موقفًا حولت فيه إجراءً معقدًا إلى دليل عمل مبسط."
+    },
+    {
+      "id": "TD-ADV-035",
+      "track": "training_development",
+      "level": "advanced",
+      "type": "situational",
+      "tags": [
+        "readiness"
+      ],
+      "en": "Training feedback is positive, but operational leaders say graduates are not ready. How would you reconcile the evidence?",
+      "ar": "تقييمات التدريب إيجابية لكن قادة التشغيل يرون أن الخريجين غير جاهزين. كيف توفق بين الأدلة؟"
+    },
+    {
+      "id": "HR-BEG-031",
+      "track": "recruitment_hr",
+      "level": "beginner",
+      "type": "situational",
+      "tags": [
+        "transparency"
+      ],
+      "en": "A candidate asks whether a role includes night shifts and weekend work. How should you explain the expectations?",
+      "ar": "يسأل المرشح عما إذا كانت الوظيفة تشمل ورديات ليلية وعملًا في عطلات نهاية الأسبوع. كيف توضح التوقعات؟"
+    },
+    {
+      "id": "HR-INT-032",
+      "track": "recruitment_hr",
+      "level": "intermediate",
+      "type": "analytical",
+      "tags": [
+        "funnel_metrics"
+      ],
+      "en": "How would you track conversion rates between application, assessment, interview, offer, and joining?",
+      "ar": "كيف تتابع معدلات التحويل بين التقديم والتقييم والمقابلة والعرض والالتحاق؟"
+    },
+    {
+      "id": "HR-ADV-033",
+      "track": "recruitment_hr",
+      "level": "advanced",
+      "type": "situational",
+      "tags": [
+        "bias_review"
+      ],
+      "en": "A hiring decision is challenged as potentially biased. What review steps would you initiate?",
+      "ar": "تم الطعن في قرار توظيف لاحتمال وجود تحيز. ما خطوات المراجعة التي تبدأها؟"
+    },
+    {
+      "id": "HR-INT-034",
+      "track": "recruitment_hr",
+      "level": "intermediate",
+      "type": "behavioral",
+      "tags": [
+        "collaboration"
+      ],
+      "en": "Describe a time you improved coordination between recruiters and onboarding teams.",
+      "ar": "صف موقفًا حسّنت فيه التنسيق بين مسؤولي التوظيف وفرق التأهيل."
+    },
+    {
+      "id": "HR-ADV-035",
+      "track": "recruitment_hr",
+      "level": "advanced",
+      "type": "analytical",
+      "tags": [
+        "time_to_hire"
+      ],
+      "en": "How would you evaluate the trade-off between hiring speed and early employee performance?",
+      "ar": "كيف تقيّم المفاضلة بين سرعة التوظيف والأداء المبكر للموظفين؟"
+    },
+    {
+      "id": "CSM-BEG-031",
+      "track": "client_success_account_management",
+      "level": "beginner",
+      "type": "role_knowledge",
+      "tags": [
+        "governance"
+      ],
+      "en": "What should be agreed during an account governance meeting?",
+      "ar": "ما الأمور التي يجب الاتفاق عليها خلال اجتماع حوكمة الحساب؟"
+    },
+    {
+      "id": "CSM-INT-032",
+      "track": "client_success_account_management",
+      "level": "intermediate",
+      "type": "situational",
+      "tags": [
+        "reporting"
+      ],
+      "en": "A client requests a report with data that is not currently captured. How would you manage expectations and close the gap?",
+      "ar": "طلب العميل تقريرًا ببيانات لا يتم تسجيلها حاليًا. كيف تدير التوقعات وتعالج الفجوة؟"
+    },
+    {
+      "id": "CSM-ADV-033",
+      "track": "client_success_account_management",
+      "level": "advanced",
+      "type": "analytical",
+      "tags": [
+        "scaling"
+      ],
+      "en": "How would you evaluate whether an account is ready to scale into additional markets or channels?",
+      "ar": "كيف تقيّم جاهزية الحساب للتوسع إلى أسواق أو قنوات إضافية؟"
+    },
+    {
+      "id": "CSM-INT-034",
+      "track": "client_success_account_management",
+      "level": "intermediate",
+      "type": "behavioral",
+      "tags": [
+        "action_planning"
+      ],
+      "en": "Describe a time you converted a difficult performance review into agreed actions and owners.",
+      "ar": "صف موقفًا حولت فيه مراجعة أداء صعبة إلى إجراءات ومسؤوليات متفق عليها."
+    },
+    {
+      "id": "CSM-ADV-035",
+      "track": "client_success_account_management",
+      "level": "advanced",
+      "type": "situational",
+      "tags": [
+        "executive_relationship"
+      ],
+      "en": "A client's senior sponsor changes and the new sponsor questions the partnership's value. How would you rebuild alignment?",
+      "ar": "تغير الراعي التنفيذي لدى العميل وأصبح الراعي الجديد يشكك في قيمة الشراكة. كيف تعيد بناء التوافق؟"
+    }
+  ]
+}
