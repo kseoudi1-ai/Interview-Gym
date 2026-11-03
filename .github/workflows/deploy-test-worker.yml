@@ -1,4 +1,4 @@
-name: Deploy Interview Gym Test Worker
+name: Deploy Interview Gym Staging Worker
 
 on:
   workflow_dispatch:
@@ -10,6 +10,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Verify staging-only deployment
+        run: |
+          test "${GITHUB_REF_NAME}" = "feature/structured-evaluation"
+          grep -q '"name": "interview-gym-api-staging"' cloudflare-worker/wrangler.jsonc
+          ! grep -q '"name": "interview-gym-api-test"' cloudflare-worker/wrangler.jsonc
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
