@@ -1,6 +1,9 @@
 name: Deploy Interview Gym Staging Worker
 
 on:
+  push:
+    branches:
+      - feature/structured-evaluation
   workflow_dispatch:
 
 jobs:
