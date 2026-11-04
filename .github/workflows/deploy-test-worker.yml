@@ -25,59 +25,42 @@ jobs:
         with:
           node-version: 22
 
-      - name: Verify Cloudflare authentication
-        working-directory: cloudflare-worker
-        run: npx wrangler whoami
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-
-      - name: Discover account that owns the production Worker
+      - name: Validate Cloudflare credentials
         shell: bash
         run: |
-          set -euo pipefail
-
-          accounts=$(curl --silent --show-error --fail \
-            --header "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
-            "https://api.cloudflare.com/client/v4/accounts")
-
-          if ! echo "$accounts" | jq -e '.success == true' >/dev/null; then
-            echo "Cloudflare API could not list accounts for this token."
+          if ! [[ "$CLOUDFLARE_ACCOUNT_ID" =~ ^[a-fA-F0-9]{32}$ ]]; then
+            echo "CLOUDFLARE_ACCOUNT_ID must be exactly 32 hexadecimal characters."
             exit 1
           fi
-
-          matched_account=""
-          match_count=0
-
-          while IFS= read -r account_id; do
-            scripts=$(curl --silent --show-error \
-              --header "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
-              "https://api.cloudflare.com/client/v4/accounts/$account_id/workers/scripts") || continue
-
-            if echo "$scripts" | jq -e '.success == true and any(.result[]?; .id == "interview-gym-api-test")' >/dev/null; then
-              matched_account="$account_id"
-              match_count=$((match_count + 1))
-            fi
-          done < <(echo "$accounts" | jq -r '.result[].id')
-
-          if [ "$match_count" -ne 1 ]; then
-            echo "Expected to find the production Worker in exactly one token-accessible account; found $match_count."
-            echo "Check that the API token has Workers Scripts Read/Edit and account access."
-            exit 1
-          fi
-
-          if ! [[ "$matched_account" =~ ^[a-fA-F0-9]{32}$ ]]; then
-            echo "Cloudflare returned an unexpected account identifier format."
-            exit 1
-          fi
-
-          echo "Confirmed account containing the existing production Worker."
-          echo "CLOUDFLARE_ACCOUNT_ID=$matched_account" >> "$GITHUB_ENV"
-
+          npx wrangler whoami
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-      - name: Deploy Test Worker
+      - name: Deploy Staging Worker
         working-directory: cloudflare-worker
         run: npx wrangler deploy --config wrangler.jsonc --account-id "$CLOUDFLARE_ACCOUNT_ID"
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Smoke test Staging Worker and Durable Object
+        shell: bash
+        run: |
+          set -euo pipefail
+          response=$(curl --silent --show-error --fail \
+            --request POST \
+            --header "Content-Type: application/json" \
+            --header "Authorization: Bearer $DIAGNOSTIC_TOKEN" \
+            --data '{"mode":"diagnostic","action":"probe","deviceId":"staging-smoke-test-0001"}' \
+            "https://interview-gym-api-staging.kseoudi1.workers.dev")
+
+          if ! echo "$response" | jq -e 'has("allowed") and has("code")' >/dev/null; then
+            echo "Staging diagnostic endpoint returned an unexpected response."
+            exit 1
+          fi
+
+          echo "Staging Worker and Durable Object diagnostic passed."
+          echo "$response" | jq '{allowed, code}'
+        env:
+          DIAGNOSTIC_TOKEN: ${{ secrets.DIAGNOSTIC_TOKEN }}
