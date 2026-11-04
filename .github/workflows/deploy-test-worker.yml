@@ -25,56 +25,59 @@ jobs:
         with:
           node-version: 22
 
-      - name: Verify Cloudflare authentication and account access
+      - name: Verify Cloudflare authentication
         working-directory: cloudflare-worker
-        run: |
-          test -n "$CLOUDFLARE_ACCOUNT_ID"
-          echo "Cloudflare Account ID length: ${#CLOUDFLARE_ACCOUNT_ID}"
-          npx wrangler whoami
+        run: npx wrangler whoami
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-      - name: Verify configured Account ID matches token-accessible accounts
-        working-directory: cloudflare-worker
+      - name: Discover account that owns the production Worker
         shell: bash
         run: |
-          if ! [[ "$CLOUDFLARE_ACCOUNT_ID" =~ ^[a-fA-F0-9]{32}$ ]]; then
-            echo "Configured Account ID format is invalid (expected 32 hexadecimal characters)."
-            echo "Configured value length: ${#CLOUDFLARE_ACCOUNT_ID}"
-            exit 1
-          fi
+          set -euo pipefail
 
-          response=$(curl --silent --show-error --fail \
+          accounts=$(curl --silent --show-error --fail \
             --header "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
             "https://api.cloudflare.com/client/v4/accounts")
 
-          if echo "$response" | jq -e --arg id "$CLOUDFLARE_ACCOUNT_ID" '.success == true and ([.result[].id] | index($id) != null)' >/dev/null; then
-            echo "Account ID matches an account accessible to this API token."
-          else
-            echo "Account ID does not match any account accessible to this API token."
-            echo "No account IDs or token values will be printed."
+          if ! echo "$accounts" | jq -e '.success == true' >/dev/null; then
+            echo "Cloudflare API could not list accounts for this token."
             exit 1
           fi
+
+          matched_account=""
+          match_count=0
+
+          while IFS= read -r account_id; do
+            scripts=$(curl --silent --show-error \
+              --header "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+              "https://api.cloudflare.com/client/v4/accounts/$account_id/workers/scripts") || continue
+
+            if echo "$scripts" | jq -e '.success == true and any(.result[]?; .id == "interview-gym-api-test")' >/dev/null; then
+              matched_account="$account_id"
+              match_count=$((match_count + 1))
+            fi
+          done < <(echo "$accounts" | jq -r '.result[].id')
+
+          if [ "$match_count" -ne 1 ]; then
+            echo "Expected to find the production Worker in exactly one token-accessible account; found $match_count."
+            echo "Check that the API token has Workers Scripts Read/Edit and account access."
+            exit 1
+          fi
+
+          if ! [[ "$matched_account" =~ ^[a-fA-F0-9]{32}$ ]]; then
+            echo "Cloudflare returned an unexpected account identifier format."
+            exit 1
+          fi
+
+          echo "Confirmed account containing the existing production Worker."
+          echo "CLOUDFLARE_ACCOUNT_ID=$matched_account" >> "$GITHUB_ENV"
+
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Deploy Test Worker
         working-directory: cloudflare-worker
-        run: npx wrangler deploy --config wrangler.jsonc
+        run: npx wrangler deploy --config wrangler.jsonc --account-id "$CLOUDFLARE_ACCOUNT_ID"
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-
-# Trigger a fresh staging deployment after credential refresh.
-
-# Retry staging deployment after account ID correction.
-
-# Trigger staging deployment after Cloudflare account ID update.
-
-# Retry deployment after correcting the Cloudflare account ID secret.
-
-# Recheck Cloudflare account ID after secret update.
-
-# Retry after confirmed Account ID secret correction.
