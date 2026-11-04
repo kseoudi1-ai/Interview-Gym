@@ -35,6 +35,31 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
+      - name: Verify configured Account ID matches token-accessible accounts
+        working-directory: cloudflare-worker
+        shell: bash
+        run: |
+          if ! [[ "$CLOUDFLARE_ACCOUNT_ID" =~ ^[a-fA-F0-9]{32}$ ]]; then
+            echo "Configured Account ID format is invalid (expected 32 hexadecimal characters)."
+            echo "Configured value length: ${#CLOUDFLARE_ACCOUNT_ID}"
+            exit 1
+          fi
+
+          response=$(curl --silent --show-error --fail \
+            --header "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            "https://api.cloudflare.com/client/v4/accounts")
+
+          if echo "$response" | jq -e --arg id "$CLOUDFLARE_ACCOUNT_ID" '.success == true and ([.result[].id] | index($id) != null)' >/dev/null; then
+            echo "Account ID matches an account accessible to this API token."
+          else
+            echo "Account ID does not match any account accessible to this API token."
+            echo "No account IDs or token values will be printed."
+            exit 1
+          fi
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
       - name: Deploy Test Worker
         working-directory: cloudflare-worker
         run: npx wrangler deploy --config wrangler.jsonc
