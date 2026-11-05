@@ -586,7 +586,7 @@ export default {
         const data = await response.json();
 
         if (!response.ok) {
-          throw new HttpError(503, "diagnostic_failed", "Diagnostic failed: " + String(data?.error?.detail || data?.error?.message || "unknown durable object error").slice(0, 120));
+          throw new HttpError(503, "diagnostic_failed", "Diagnostic failed: " + String(data?.error?.detail || data?.error?.message || (typeof data?.error === "string" ? data.error : "unknown durable object error")).slice(0, 120));
         }
 
         return send(data);
