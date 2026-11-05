@@ -4,8 +4,7 @@
 // Required binding: USAGE_LIMITER -> Durable Object namespace for UsageLimiter
 // Required migration: new_sqlite_classes: ["UsageLimiter"]
 
-// Usage limits are reserved atomically BEFORE calling Gemini.
-// A failed Gemini evaluation still consumes one quota slot to protect the API budget.
+// Usage limits use temporary reservations; only completed evaluations are counted.
 
 const GEMINI_URL =
   "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent";
@@ -159,7 +158,7 @@ export class UsageLimiter {
 
     const { day, deviceId, reservationId } = body;
     const action = body.action || "reserve";
-    if (typeof day !== "string" || !/^\\d{4}-\\d{2}-\\d{2}$/.test(day) ||
+    if (typeof day !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(day) ||
         typeof deviceId !== "string" || !DEVICE_ID_RE.test(deviceId)) {
       return Response.json({ error: "Invalid reservation data" }, { status: 400 });
     }
