@@ -583,10 +583,35 @@ return `<div class="setup-page">${setupProgress(2)}${setupHero(S.ui==="ar"?"خص
 };
 const ulh=x=>x.length?`<ul style="margin:4px 0">${x.map(i=>`<li dir="auto">${esc(i)}</li>`).join('')}</ul>`:'';
 const lst=(h,x)=>x.length?`<h3 style="margin:12px 0 4px">${h}</h3>${ulh(x)}`:'';
-const I=()=>{const q=S.qs[S.i],n=S.qs.length,p=Math.round(S.i/n*100),last=S.i+1>=n;
-return`<div class="card"><div class="row"><span class="mu">${t('q')} ${S.i+1} ${t('of')} ${n}</span><span class="mu">${p}%</span></div><div class="bar"><i style="width:${p}%"></i></div><h2 dir="auto" lang="${S.il}">${esc(q[S.il=='ar'?3:2])}</h2>
-<textarea id="ans" dir="auto" maxlength="4000" placeholder="${t('ph')}">${esc(S.draft)}</textarea>${S.err?`<p class="er">${S.err}</p>`:''}<button class="btn" data-a="sub">${last?t('sub2'):t('sub')}</button>
-<div class="row"><button class="lnk" data-a="bk" ${S.i?'':'disabled'}>${t('back')}</button><button class="lnk" data-a="end">${t('end')}</button></div></div>`};
+.interview-workspace{max-width:920px;margin:0 auto;padding:28px 30px;background:linear-gradient(145deg,#fff 0%,#fbf9ff 52%,#f2ebff 100%);border:1px solid #e4d9fa;border-radius:22px;box-shadow:0 14px 36px rgba(64,42,110,.07);position:relative;overflow:hidden}
+.interview-workspace:before{content:"";position:absolute;inset:-90px -80px auto auto;width:230px;height:190px;border-radius:50%;background:radial-gradient(circle,rgba(176,109,229,.16),transparent 70%);pointer-events:none}
+.interview-topline{display:flex;align-items:center;justify-content:space-between;gap:12px;position:relative}
+.interview-step-label{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;color:#6840b5}
+.interview-step-dot{width:34px;height:34px;border-radius:12px;background:#f0e8ff;display:grid;place-items:center;font-size:18px}
+.interview-percent{font-size:12px;font-weight:700;color:#7651bf}
+.interview-progress-track{height:9px;border-radius:99px;background:#e9e0f7;overflow:hidden;margin:14px 0 22px;position:relative}
+.interview-progress-track i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#7041c8,#b06de5);transition:width .3s ease}
+.interview-question-card{position:relative;padding:20px 22px;border:1px solid #e5daf9;border-radius:17px;background:rgba(255,255,255,.78);margin-bottom:18px}
+.interview-question-kicker{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#8650d8;margin-bottom:9px}
+.interview-question-card h2{font-size:clamp(19px,2.4vw,25px);line-height:1.42;margin:0;color:#17123c}
+.answer-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 9px}
+.answer-heading label{font-size:14px;font-weight:750;color:#211943}
+.answer-word-count{font-size:12px;color:var(--mu);font-variant-numeric:tabular-nums}
+#ans{display:block;width:100%;min-height:220px;padding:17px 18px;border:1px solid #ded3f2;border-radius:15px;background:#fff;color:#211943;font:inherit;line-height:1.75;resize:vertical;transition:border-color .18s ease,box-shadow .18s ease}
+#ans:focus{outline:0;border-color:#8650d8;box-shadow:0 0 0 4px rgba(134,80,216,.12)}
+.answer-guidance{display:flex;align-items:center;gap:8px;margin:9px 0 18px;color:#75688e;font-size:12px;line-height:1.5}
+.answer-guidance span{width:22px;height:22px;display:grid;place-items:center;flex:none;border-radius:8px;background:#f0e8ff;color:#7041c8}
+.interview-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.interview-actions .btn{min-width:150px;box-shadow:0 7px 17px rgba(112,65,200,.18)}
+.interview-secondary-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;padding-top:13px;border-top:1px solid #e9e0f7}
+.interview-end-link{color:#8a6ac0}
+@media(max-width:600px){.interview-workspace{padding:20px 16px;border-radius:17px}.interview-question-card{padding:17px 15px}#ans{min-height:190px}.interview-actions .btn{width:100%}}
+const I=()=>{const q=S.qs[S.i],n=S.qs.length,p=Math.round(S.i/n*100),last=S.i+1>=n,words=(S.draft.trim().match(/\\S+/g)||[]).length;
+return`<section class="interview-workspace"><div class="interview-topline"><div class="interview-step-label"><span class="interview-step-dot">✦</span><span>${t('q')} ${S.i+1} ${t('of')} ${n}</span></div><span class="interview-percent">${p}%</span></div><div class="interview-progress-track" role="progressbar" aria-valuenow="${p}" aria-valuemin="0" aria-valuemax="100"><i style="width:${p}%"></i></div>
+<div class="interview-question-card"><div class="interview-question-kicker">${S.ui==="ar"?"سؤال المقابلة":"Interview Coach · Your question"}</div><h2 dir="auto" lang="${S.il}">${esc(q[S.il=='ar'?3:2])}</h2></div>
+<div class="answer-heading"><label for="ans">${S.ui==="ar"?"اكتب إجابتك":"Your answer"}</label><span class="answer-word-count" id="answerCount">${words} ${S.ui==="ar"?"كلمة":"words"} / 4000 ${S.ui==="ar"?"حرف":"characters"}</span></div>
+<textarea id="ans" dir="auto" maxlength="4000" placeholder="${t('ph')}">${esc(S.draft)}</textarea><div class="answer-guidance"><span>✎</span>${S.ui==="ar"?"استخدم مثالًا واضحًا، واشرح ما فعلته والنتيجة التي حققتها.":"Use a clear example. Explain what you did and the result you achieved."}</div>${S.err?`<p class="er">${S.err}</p>`:''}
+<div class="interview-actions"><button class="btn" data-a="sub">${last?t('sub2'):t('sub')}</button></div><div class="interview-secondary-actions"><button class="lnk" data-a="bk" ${S.i?'':'disabled'}>${t('back')}</button><button class="lnk interview-end-link" data-a="end">${t('end')}</button></div></section>`};
 const Rp=()=>{const a=S.ans.filter(Boolean);
 if(!a.length)return`<div class="card"><p>${t('none')}</p><button class="btn" data-a="again">${t('again')}</button></div>`;
 if(S.busy)return`<div class="card"><p><span class="spin"></span>${t('evalWait')}</p></div>`;
@@ -639,8 +664,8 @@ lv:v=>{S.lvl=+v;R()},il:v=>{S.il=v==1?'ar':'en';S.ui=S.il;R()},ty:v=>{S.ty=+v;R(
 begin:async()=>{const b=document.querySelector('[data-a="begin"]');if(b){b.disabled=true;b.textContent=S.ui==="ar"?"جارٍ تحميل الأسئلة…":"Loading questions…"}try{await loadQuestionBank();build();S.scr='i';R()}catch(e){if(b){b.disabled=false;b.textContent=t('go')}alert(S.ui==="ar"?"تعذر تحميل بنك الأسئلة. تحقق من الاتصال وحاول مرة أخرى.":"Could not load the question bank. Check your connection and try again.");}},sub,
 retry:()=>evalAll(),review:()=>{if(S.busy)return;S.scr='i';S.i=Math.max(0,Math.min(S.qs.length-1,S.ans.length-1));S.draft=S.ans[S.i]?S.ans[S.i].text:'';S.err='';R()},
 bk:()=>{if(S.i<1||S.busy)return;S.i--;S.fbOn=false;S.err='';S.draft=S.ans[S.i]?S.ans[S.i].text:'';R()},
-end:()=>{if(!S.busy)fin()},again:()=>{S.scr='s';R()}};
+end:()=>{if(!S.busy&&confirm(S.ui==='ar'?'هل تريد إنهاء المقابلة الآن؟ سيتم الانتقال إلى التقييم.':'End this interview now? You will move to the evaluation.'))fin()},again:()=>{S.scr='s';R()}};
 $('#app').addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(b&&H[b.dataset.a]&&!b.disabled)H[b.dataset.a](b.dataset.v)});
-$('#app').addEventListener('input',e=>{if(e.target.id=='ans'){S.draft=e.target.value;if(S.err){S.err='';const p=document.querySelector('.er');if(p)p.remove()}}if(e.target.id=='fu')S.fu=e.target.value;if(e.target.id=='smartAnswer'){S.smartAnswer=e.target.value;const b=document.querySelector('[data-a="smartSave"]');if(b)b.disabled=S.smartAnswer.trim().length<10;}});
+$('#app').addEventListener('input',e=>{if(e.target.id=='ans'){S.draft=e.target.value;const c=document.querySelector('#answerCount');if(c){const words=(S.draft.trim().match(/\\S+/g)||[]).length;c.textContent=words+' '+(S.ui==='ar'?'كلمة':'words')+' / 4000 '+(S.ui==='ar'?'حرف':'characters')}if(S.err){S.err='';const p=document.querySelector('.er');if(p)p.remove()}}if(e.target.id=='fu')S.fu=e.target.value;if(e.target.id=='smartAnswer'){S.smartAnswer=e.target.value;const b=document.querySelector('[data-a="smartSave"]');if(b)b.disabled=S.smartAnswer.trim().length<10;}});
 R();
 </script></body></html>
