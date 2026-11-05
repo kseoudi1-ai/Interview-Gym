@@ -286,8 +286,11 @@ header{padding:12px 4px 20px}
 .level-copy small,.track-option small{color:var(--mu);font-size:12px;line-height:1.45}
 .select-mark{width:25px;height:25px;flex:none;border:1.5px solid #bdb2d8;border-radius:50%;display:grid;place-items:center;color:white;font-weight:900}
 .selected .select-mark{background:var(--tl);border-color:var(--tl)}
-.track-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.track-option{position:relative;display:flex;flex-direction:column;align-items:flex-start;text-align:start;gap:7px;min-height:142px;padding:18px;border:1px solid var(--bd);border-radius:17px;background:var(--card);color:var(--tx);font:inherit;cursor:pointer;transition:.16s ease}
+.track-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:1fr;gap:12px}
+.track-option{position:relative;display:flex;flex-direction:column;align-items:flex-start;text-align:start;gap:7px;min-height:142px;height:100%;padding:18px;border:1px solid var(--bd);border-radius:17px;background:var(--card);color:var(--tx);font:inherit;cursor:pointer;transition:border-color .18s ease,background .18s ease,box-shadow .18s ease,transform .18s ease}
+.track-option:last-child{grid-column:2;justify-self:stretch}
+.track-option:nth-child(4),.track-option:nth-child(5){background-image:linear-gradient(145deg,rgba(166,107,231,.055),transparent 68%)}
+.track-option:nth-child(4):hover,.track-option:nth-child(5):hover{box-shadow:0 9px 22px rgba(112,65,200,.12)}
 .track-option .track-emoji{width:45px;height:45px;border-radius:14px;background:var(--tl2);display:grid;place-items:center;font-size:25px}
 .track-option b{font-size:15px;line-height:1.3;padding-inline-end:20px}
 .track-option small{display:block}
@@ -306,7 +309,8 @@ header{padding:12px 4px 20px}
  .setup-hero{padding:18px;gap:12px}
  .setup-hero-art{width:76px;height:76px;border-radius:22px;font-size:44px}
  .selection-panel{padding:18px}
- .track-options{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .track-options{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:1fr}
+ .track-option:last-child{grid-column:1/-1;justify-self:center;width:calc(50% - 6px)}
  .level-options{grid-template-columns:1fr}
 }
 @media(max-width:460px){
@@ -316,6 +320,7 @@ header{padding:12px 4px 20px}
  .setup-progress>i{width:12px}
  .setup-hero-art{display:none}
  .track-option{min-height:128px;padding:13px}
+ .track-option:last-child{grid-column:1;justify-self:stretch;width:100%}
  .level-option{min-height:92px;padding:12px}
 }
 
