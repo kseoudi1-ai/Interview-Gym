@@ -227,8 +227,8 @@ export class UsageLimiter {
           resetAt: iso,
         } }, { status: 429, headers: { "Retry-After": String(seconds) } });
       }
-      console.error("Usage reservation operation failed:", error.name);
-      return Response.json({ error: { code: "usage_unavailable", message: "Usage tracking is temporarily unavailable." } }, { status: 503 });
+      console.error("Usage reservation operation failed:", error.name, error.message);
+      return Response.json({ error: { code: "usage_unavailable", message: "Usage tracking is temporarily unavailable.", detail: error.name } }, { status: 503 });
     }
   }
 }
@@ -582,7 +582,7 @@ export default {
         const data = await response.json();
 
         if (!response.ok) {
-          throw new HttpError(503, "diagnostic_failed", "Diagnostic failed.");
+          throw new HttpError(503, "diagnostic_failed", "Diagnostic failed: " + String(data?.error?.detail || data?.error?.message || "unknown durable object error").slice(0, 120));
         }
 
         return send(data);
