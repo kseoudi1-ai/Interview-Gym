@@ -175,13 +175,18 @@ export class UsageLimiter {
     }
 
     if (action === "probe") {
-      const now = Date.now();
-      const g = this.sql.exec("SELECT count FROM global_usage_v2 WHERE day = ?", day).toArray();
-      const d = this.sql.exec("SELECT count FROM device_usage_v2 WHERE day = ? AND device_id = ?", day, deviceId).toArray();
-      const pg = this.sql.exec("SELECT COUNT(*) AS count FROM pending_reservations WHERE day = ? AND expires_at > ?", day, now).toArray()[0]?.count ?? 0;
-      const pd = this.sql.exec("SELECT COUNT(*) AS count FROM pending_reservations WHERE day = ? AND device_id = ? AND expires_at > ?", day, deviceId, now).toArray()[0]?.count ?? 0;
-      const allowed = (g[0]?.count ?? 0) + pg < LIMITS.globalDaily && (d[0]?.count ?? 0) + pd < LIMITS.perDeviceDaily;
-      return Response.json({ allowed, code: allowed ? "would_be_allowed" : ((g[0]?.count ?? 0) + pg >= LIMITS.globalDaily ? "daily_global_limit" : "daily_user_limit") });
+      try {
+        const now = Date.now();
+        const g = this.sql.exec("SELECT count FROM global_usage_v2 WHERE day = ?", day).toArray();
+        const d = this.sql.exec("SELECT count FROM device_usage_v2 WHERE day = ? AND device_id = ?", day, deviceId).toArray();
+        const pg = this.sql.exec("SELECT COUNT(*) AS count FROM pending_reservations WHERE day = ? AND expires_at > ?", day, now).toArray()[0]?.count ?? 0;
+        const pd = this.sql.exec("SELECT COUNT(*) AS count FROM pending_reservations WHERE day = ? AND device_id = ? AND expires_at > ?", day, deviceId, now).toArray()[0]?.count ?? 0;
+        const allowed = (g[0]?.count ?? 0) + pg < LIMITS.globalDaily && (d[0]?.count ?? 0) + pd < LIMITS.perDeviceDaily;
+        return Response.json({ allowed, code: allowed ? "would_be_allowed" : ((g[0]?.count ?? 0) + pg >= LIMITS.globalDaily ? "daily_global_limit" : "daily_user_limit") });
+      } catch (error) {
+        console.error("Usage probe failed:", error.name, error.message);
+        return Response.json({ error: { detail: String(error.message || error.name).slice(0, 160) } }, { status: 503 });
+      }
     }
 
     try {
