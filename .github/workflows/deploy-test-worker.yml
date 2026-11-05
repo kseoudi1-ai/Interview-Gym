@@ -20,6 +20,10 @@ jobs:
           grep -q '"name": "interview-gym-api-staging"' cloudflare-worker/wrangler.jsonc
           ! grep -q '"name": "interview-gym-api-test"' cloudflare-worker/wrangler.jsonc
 
+      - name: Validate frontend JavaScript syntax
+        run: |
+          node -e 'const fs=require("fs"); const html=fs.readFileSync("index.html","utf8"); const scripts=[...html.matchAll(/<script\\b[^>]*>([\\s\\S]*?)<\\/script>/gi)]; if(!scripts.length) throw new Error("No inline application script found"); scripts.forEach((m,i)=>{new Function(m[1]); console.log("Inline script "+(i+1)+" syntax passed")})'
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
