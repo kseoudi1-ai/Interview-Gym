@@ -258,6 +258,67 @@ header{padding:12px 4px 20px}
 :root[data-theme="dark"] .hero{background:linear-gradient(115deg,#191d3b,#252047)!important}
 :root[data-theme="dark"] .steps li{background:linear-gradient(145deg,#191d3b,#211d3e);border-color:#393052}
 
+
+/* Four-stage interview setup experience — Staging only */
+.setup-page{max-width:1040px;margin:0 auto}
+.setup-progress{display:flex;align-items:center;justify-content:center;gap:12px;margin:10px auto 26px;max-width:720px}
+.setup-progress-item{display:flex;align-items:center;gap:9px;color:var(--mu);font-size:13px;white-space:nowrap}
+.setup-progress-item span{width:32px;height:32px;border:1px solid #cfc4e9;border-radius:50%;display:grid;place-items:center;font-weight:800;background:var(--card);color:var(--mu)}
+.setup-progress-item.active{color:var(--tl);font-weight:800}
+.setup-progress-item.active span,.setup-progress-item.done span{background:linear-gradient(135deg,#a66be7,#7041c8);border-color:transparent;color:#fff;box-shadow:0 4px 12px rgba(112,65,200,.2)}
+.setup-progress>i{height:2px;width:clamp(20px,8vw,76px);background:linear-gradient(90deg,#d9c9f4,#eee8f8)}
+.setup-hero{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px 28px;margin-bottom:20px;border-radius:22px;background:linear-gradient(110deg,rgba(255,255,255,.9),rgba(240,232,255,.85));border:1px solid var(--bd)}
+.setup-hero h1{margin:8px 0;font-size:clamp(28px,4vw,38px)}
+.setup-hero .mu{max-width:600px;margin:0}
+.setup-hero-art{flex:none;width:116px;height:116px;border-radius:30px;display:grid;place-items:center;background:radial-gradient(circle at 30% 25%,#fff,#e5d7ff 72%);box-shadow:inset 0 1px 0 #fff,0 12px 24px rgba(112,65,200,.1);color:#7945ce;font-size:68px}
+.selection-panel{background:var(--card);border:1px solid var(--bd);border-radius:22px;padding:26px;box-shadow:0 10px 30px rgba(42,31,89,.045)}
+.selection-heading{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.selection-heading h2,.custom-section h2{margin:0 0 4px;font-size:20px}
+.selection-heading .mu{margin:0}
+.selection-symbol{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;background:var(--tl2);color:var(--tl);font-size:29px}
+.level-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.level-option{display:flex;align-items:center;gap:14px;text-align:start;min-height:104px;padding:15px;border:1px solid var(--bd);border-radius:17px;background:var(--card);color:var(--tx);font:inherit;cursor:pointer;transition:.16s ease}
+.level-option:hover,.track-option:hover{border-color:var(--tl);transform:translateY(-2px)}
+.level-option.selected,.track-option.selected{border:2px solid var(--tl);background:linear-gradient(120deg,var(--tl2),var(--card));box-shadow:0 6px 18px rgba(112,65,200,.1)}
+.level-emoji{width:54px;height:54px;flex:none;border-radius:16px;display:grid;place-items:center;background:var(--tl2);font-size:30px}
+.level-copy{display:grid;gap:4px;flex:1}
+.level-copy b{font-size:17px}
+.level-copy small,.track-option small{color:var(--mu);font-size:12px;line-height:1.45}
+.select-mark{width:25px;height:25px;flex:none;border:1.5px solid #bdb2d8;border-radius:50%;display:grid;place-items:center;color:white;font-weight:900}
+.selected .select-mark{background:var(--tl);border-color:var(--tl)}
+.track-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.track-option{position:relative;display:flex;flex-direction:column;align-items:flex-start;text-align:start;gap:7px;min-height:142px;padding:18px;border:1px solid var(--bd);border-radius:17px;background:var(--card);color:var(--tx);font:inherit;cursor:pointer;transition:.16s ease}
+.track-option .track-emoji{width:45px;height:45px;border-radius:14px;background:var(--tl2);display:grid;place-items:center;font-size:25px}
+.track-option b{font-size:15px;line-height:1.3;padding-inline-end:20px}
+.track-option small{display:block}
+.track-option .select-mark{position:absolute;top:12px;right:12px;width:22px;height:22px}
+:root[dir="rtl"] .track-option .select-mark{right:auto;left:12px}
+.setup-actions{display:flex;flex-direction:column;align-items:center;gap:7px;margin:20px auto 8px;max-width:540px}
+.setup-actions .btn{width:100%;min-height:54px}
+.setup-actions .lnk{margin:0}
+.custom-panel{display:grid;gap:20px}
+.custom-section{padding-bottom:16px;border-bottom:1px solid var(--bd)}
+.custom-section:last-of-type{padding-bottom:0;border:0}
+.custom-section .mu{margin:4px 0 12px}
+.custom-chips{margin:8px 0 0}
+.ai-note{margin:0;padding:13px 15px;background:var(--tl2);border-radius:13px}
+@media(max-width:700px){
+ .setup-hero{padding:18px;gap:12px}
+ .setup-hero-art{width:76px;height:76px;border-radius:22px;font-size:44px}
+ .selection-panel{padding:18px}
+ .track-options{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .level-options{grid-template-columns:1fr}
+}
+@media(max-width:460px){
+ .setup-progress{gap:6px;justify-content:space-between}
+ .setup-progress-item{gap:5px;font-size:11px}
+ .setup-progress-item span{width:27px;height:27px}
+ .setup-progress>i{width:12px}
+ .setup-hero-art{display:none}
+ .track-option{min-height:128px;padding:13px}
+ .level-option{min-height:92px;padding:12px}
+}
+
 </style></head>
 <body><div id="app"></div>
 <script>
@@ -449,8 +510,31 @@ if(S.i+1>=S.qs.length)fin();else{S.i++;S.draft=S.ans[S.i]?S.ans[S.i].text:'';R()
 function fin(){S.scr='r';S.ev=null;S.err='';if(S.ans.filter(Boolean).length){rememberCompletedInterview();evalAll()}else R()}
 const chips=(arr,sel,act)=>`<div class="chips">${arr.map((x,i)=>`<button class="chip" data-a="${act}" data-v="${i}" aria-pressed="${sel==i}">${esc(x)}</button>`).join('')}</div>`;
 const W=()=>`<div class="hero card"><div class="hero-copy"><span class="tag">${t('tag')}</span><h1>${t('h')}</h1><p class="mu">${t('d')}</p><button class="btn big" data-a="go">${t('start')}</button></div><div class="hero-art" aria-hidden="true"><svg viewBox="0 0 560 390" role="img" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="heroGlow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#eee4ff"/><stop offset="1" stop-color="#d7c4ff"/></linearGradient><linearGradient id="screen" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#28245c"/><stop offset="1" stop-color="#5140a4"/></linearGradient><linearGradient id="purple" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#bd83ff"/><stop offset="1" stop-color="#7136c9"/></linearGradient><filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#46328c" flood-opacity=".18"/></filter></defs><ellipse cx="302" cy="335" rx="235" ry="27" fill="#b7a0eb" opacity=".22"/><circle cx="330" cy="175" r="160" fill="url(#heroGlow)" opacity=".9"/><g filter="url(#shadow)"><path d="M155 93Q155 78 171 78H443Q459 78 459 94V278H155Z" fill="#25234f"/><path d="M168 94H446V263H168Z" fill="url(#screen)"/><rect x="190" y="116" width="112" height="126" rx="13" fill="#7560c5" opacity=".8"/><circle cx="246" cy="151" r="23" fill="#d9caff"/><path d="M209 214q4-35 37-35t37 35" fill="#d9caff"/><rect x="318" y="116" width="107" height="126" rx="13" fill="#fff" opacity=".13"/><rect x="333" y="133" width="76" height="9" rx="5" fill="#e7ddff"/><g fill="#5de0b0"><circle cx="342" cy="171" r="9"/><circle cx="342" cy="202" r="9"/><circle cx="342" cy="231" r="9"/></g><g stroke="#e9e2ff" stroke-width="5" stroke-linecap="round" opacity=".9"><path d="M359 171h48M359 202h39M359 231h51"/></g><path d="M126 280H487L526 306Q529 313 512 315H103Q88 313 96 305Z" fill="#b9c3e5"/><path d="M145 282H468L494 301H121Z" fill="#e9edff"/><path d="M245 286h125l-10 10H255Z" fill="#b7bce0"/></g><g filter="url(#shadow)"><path d="M183 91q0-72 72-72t72 72" fill="none" stroke="#29265e" stroke-width="17" stroke-linecap="round"/><rect x="174" y="77" width="25" height="64" rx="12" fill="url(#purple)"/><rect x="310" y="77" width="25" height="64" rx="12" fill="url(#purple)"/><path d="M322 129q-8 31-39 31" fill="none" stroke="#8d5cdb" stroke-width="8" stroke-linecap="round"/><circle cx="280" cy="160" r="8" fill="#8d5cdb"/></g><g filter="url(#shadow)"><path d="M45 264q-2-48 25-68 9 36-4 59 21-45 57-51-5 42-47 61 36-21 65-10-23 33-74 25Z" fill="#64b98c"/><path d="M50 277h80l-9 45H59Z" fill="#fff" stroke="#d9d1ef" stroke-width="3"/><path d="M60 291h60" stroke="#e5def4" stroke-width="4"/></g><g filter="url(#shadow)"><path d="M450 252h65v68q0 12-12 12h-41q-12 0-12-12Z" fill="#fff"/><path d="M515 266h13q22 0 22 22t-22 22h-13" fill="none" stroke="#fff" stroke-width="10"/><path d="M470 283q-10-17 0-29M489 283q-10-17 0-29" stroke="#b18be9" stroke-width="5" stroke-linecap="round" fill="none"/><path d="M472 301h22" stroke="#8e5ad6" stroke-width="5" stroke-linecap="round"/></g><g filter="url(#shadow)"><path d="M155 324h142l-14 25H169Z" fill="#fff" stroke="#d9d1ef" stroke-width="3"/><path d="M171 333h106M180 340h89" stroke="#c8b7e8" stroke-width="3" stroke-linecap="round"/><path d="M206 315l65 7" stroke="#51458a" stroke-width="5" stroke-linecap="round"/></g><g fill="#8b55d6"><path d="M476 59l9-18 7 3-9 18Z"/><path d="M500 73l17-10 4 7-17 10Z"/><circle cx="452" cy="52" r="5"/></g></svg></div></div><div class="card how-card"><h3>${t('how')}</h3><ol class="steps">${t('steps').map((s,i)=>`<li><span class="step-icon" aria-hidden="true">${i===0?'<svg viewBox="0 0 48 48"><circle cx="21" cy="25" r="13"/><circle cx="21" cy="25" r="6"/><path d="M25 21 39 7m-1 1 5 1-1 5"/></svg>':i===1?'<svg viewBox="0 0 48 48"><path d="M9 27v-5a15 15 0 0 1 30 0v5"/><rect x="6" y="24" width="8" height="13" rx="4"/><rect x="34" y="24" width="8" height="13" rx="4"/><path d="M38 36q-2 6-11 6h-4"/></svg>':'<svg viewBox="0 0 48 48"><path d="M7 40h35"/><rect x="10" y="27" width="7" height="13" rx="2"/><rect x="22" y="19" width="7" height="21" rx="2"/><rect x="34" y="9" width="7" height="31" rx="2"/><path d="m9 20 12-7 9 2 11-9m-1 0h-8m8 0v8"/></svg>'}</span><span class="step-copy">${s}</span><span class="step-number">${i+1}</span></li>`).join('')}</ol></div>`; 
-const Su=()=>`<div class="card"><h3>${t('lvl')}</h3>${chips(t('lvls'),S.lvl,'lv')}<h3>${t('il')}</h3>${chips(['English','العربية'],S.il=='ar'?1:0,'il')}<h3>${t('track')}</h3>${chips(t('tracks'),TRACKS.indexOf(S.track),'track')}<h3>${t('ty')}</h3>${chips(interviewTypeOptions(),S.ty,'ty')}<h3>${t('nq')}</h3>${chips(['5'+t('qn'),'10'+t('qn')],S.n==10?1:0,'nq')}
-<p class="mu">${t('aiNote')}</p><button class="btn big" data-a="begin">${t('go')}</button><button class="lnk" data-a="home">${t('back')}</button></div>`;
+
+const setupProgress=(step)=>`<div class="setup-progress">${["Setup","Career track","Customize"].map((x,i)=>`<div class="setup-progress-item ${i===step?'active':i<step?'done':''}"><span>${i<step?'✓':i+1}</span><b>${S.ui==="ar"?["المستوى","المسار الوظيفي","إعداد المقابلة"][i]:x}</b></div>${i<2?'<i></i>':''}`).join('')}</div>`;
+const setupHero=(title,desc,art)=>`<div class="setup-hero"><div><span class="tag">${S.ui==="ar"?"جهّز تجربتك التدريبية":"YOUR PRACTICE JOURNEY"}</span><h1>${title}</h1><p class="mu">${desc}</p></div><div class="setup-hero-art" aria-hidden="true">${art}</div></div>`;
+const levelDescriptions=[
+ ["New to call centers or with limited experience.","حديث التخرج أو خبرتك محدودة في مراكز الاتصال.","🚀"],
+ ["You have experience and want to sharpen your skills.","لديك خبرة وتريد تطوير مهاراتك.","📈"],
+ ["You lead people or are preparing for a leadership role.","تقود فريقًا أو تستعد لدور قيادي.","🏆"],
+ ["You manage operations or are targeting a senior role.","تدير العمليات أو تستهدف منصبًا إداريًا متقدمًا.","🎯"]
+];
+const levelPage=()=>`<div class="setup-page">${setupProgress(0)}${setupHero(S.ui==="ar"?"اختر مستوى خبرتك":"Choose your experience level",S.ui==="ar"?"اختار المستوى الأقرب لخبرتك الحالية. سنخصص الأسئلة بناءً على اختيارك.":"Choose the option that best describes your experience. We’ll tailor the questions to your level.",'<div class="setup-art-icon">✦</div>')}<div class="selection-panel"><div class="selection-heading"><span class="selection-symbol">▱</span><div><h2>${t("lvl")}</h2><p class="mu">${S.ui==="ar"?"اختر المستوى المناسب لك":"Select the level that fits you best."}</p></div></div><div class="level-options">${t("lvls").map((name,i)=>`<button class="level-option ${S.lvl===i?'selected':''}" data-a="lv" data-v="${i}" aria-pressed="${S.lvl===i}"><span class="level-emoji">${levelDescriptions[i][2]}</span><span class="level-copy"><b>${name}</b><small>${S.ui==="ar"?levelDescriptions[i][1]:levelDescriptions[i][0]}</small></span><span class="select-mark">${S.lvl===i?'✓':''}</span></button>`).join('')}</div></div><div class="setup-actions"><button class="btn big" data-a="toTrack">${S.ui==="ar"?"التالي: اختر المسار":"Continue to career track"} <span aria-hidden="true">→</span></button><button class="lnk" data-a="home">${t("back")}</button></div></div>`;
+const trackIcons=["🎧","🛠️","💼","👥","⚙️","🔎","📊","🎓","🤝","🚀"];
+const trackDescriptions=[
+ ["Customer conversations and service quality","التواصل مع العملاء وجودة الخدمة"],
+ ["Troubleshooting and technical problem solving","حل المشكلات والدعم الفني"],
+ ["Sales conversations, retention and objections","المبيعات والاحتفاظ بالعملاء"],
+ ["Coaching, team leadership and daily performance","قيادة الفريق والتوجيه ومتابعة الأداء"],
+ ["Operational strategy, KPIs and client governance","الاستراتيجية التشغيلية والمؤشرات وإدارة العميل"],
+ ["Quality monitoring, calibration and compliance","مراقبة الجودة والمعايرة والالتزام"],
+ ["Forecasting, scheduling and real-time management","التنبؤ والجداول والإدارة اللحظية"],
+ ["Learning, facilitation and coaching","التدريب والتيسير والتوجيه"],
+ ["Talent acquisition and people processes","استقطاب المواهب وعمليات الموارد البشرية"],
+ ["Client relationships and account performance","علاقات العملاء وأداء الحساب"]
+];
+const trackPage=()=>`<div class="setup-page">${setupProgress(1)}${setupHero(S.ui==="ar"?"اختر المسار الوظيفي":"Choose your career track",S.ui==="ar"?"حدد الوظيفة التي تريد التدريب على مقابلتها.":"Select the role you want to prepare for. Each track has tailored interview questions.",'<div class="setup-art-icon">✧</div>')}<div class="selection-panel"><div class="selection-heading"><span class="selection-symbol">▣</span><div><h2>${t("track")}</h2><p class="mu">${S.ui==="ar"?"اختر مجالًا واحدًا للمتابعة":"Choose one role to continue."}</p></div></div><div class="track-options">${TRACKS.map((key,i)=>`<button class="track-option ${S.track===key?'selected':''}" data-a="track" data-v="${i}" aria-pressed="${S.track===key}"><span class="track-emoji">${trackIcons[i]}</span><b>${t("tracks")[i]}</b><small>${S.ui==="ar"?trackDescriptions[i][1]:trackDescriptions[i][0]}</small><span class="select-mark">${S.track===key?'✓':''}</span></button>`).join('')}</div></div><div class="setup-actions"><button class="btn big" data-a="toCustom">${S.ui==="ar"?"التالي: إعداد المقابلة":"Continue to interview setup"} <span aria-hidden="true">→</span></button><button class="lnk" data-a="toLevel">${S.ui==="ar"?"رجوع للمستوى":"Back to level"}</button></div></div>`;
+const customPage=()=>`<div class="setup-page">${setupProgress(2)}${setupHero(S.ui==="ar"?"خصص مقابلتك":"Customize your interview",S.ui==="ar"?"اختر اللغة ونوع المقابلة وعدد الأسئلة قبل أن تبدأ.":"Choose your interview language, focus and session length before you begin.",'<div class="setup-art-icon">✓</div>')}<div class="selection-panel custom-panel"><div class="custom-section"><h2>${t("il")}</h2>${chips(["English","العربية"],S.il==="ar"?1:0,"il")}</div><div class="custom-section"><h2>${t("ty")}</h2><p class="mu">${S.ui==="ar"?"اختر نوع الأسئلة التي تريد التركيز عليها":"Choose the interview focus you want to practice."}</p><div class="chips custom-chips">${chips(interviewTypeOptions(),S.ty,"ty").replace('<div class="chips">','').replace(/<\/div>$/,'')}</div></div><div class="custom-section"><h2>${t("nq")}</h2>${chips(["5"+t("qn"),"10"+t("qn")],S.n===10?1:0,"nq")}</div><p class="mu ai-note">${t("aiNote")}</p></div><div class="setup-actions"><button class="btn big" data-a="begin">${t("go")} <span aria-hidden="true">→</span></button><button class="lnk" data-a="toTrack">${S.ui==="ar"?"رجوع للمسار الوظيفي":"Back to career track"}</button></div></div>`;
 const ulh=x=>x.length?`<ul style="margin:4px 0">${x.map(i=>`<li dir="auto">${esc(i)}</li>`).join('')}</ul>`:'';
 const lst=(h,x)=>x.length?`<h3 style="margin:12px 0 4px">${h}</h3>${ulh(x)}`:'';
 const I=()=>{const q=S.qs[S.i],n=S.qs.length,p=Math.round(S.i/n*100),last=S.i+1>=n;
@@ -503,8 +587,8 @@ const fmt=d=>new Date(d).toLocaleDateString(S.ui==="ar"?"ar-EG":"en-GB",{day:"nu
 return '<div class="card"><div class="row"><h2>'+t("myProgress")+'</h2><span class="pill">'+h.length+' / 30</span></div><p class="mu">'+t("progressIntro")+'</p><div class="progress-grid"><div class="stat"><strong>'+h.length+'</strong><span>'+t("completed")+'</span></div><div class="stat"><strong>'+avg+'</strong><span>'+t("average")+'</span></div><div class="stat"><strong>'+latest+'</strong><span>'+t("latest")+'</span></div></div><h3 style="margin-top:20px">'+t("skillProgress")+'</h3>'+skills.map(x=>'<div class="d"><div class="row"><b>'+esc(x.name)+'</b><b>'+x.score+'/100</b></div><div class="bar"><i style="width:'+x.score+'%"></i></div></div>').join("")+'</div><div class="card"><h3>'+t("smartPractice")+'</h3><p class="mu">'+t("practiceIntro")+'</p><button class="btn" data-a="smartPractice">'+t("practiceNow")+'</button></div><div class="card"><h3>'+t("history")+'</h3>'+h.map(x=>'<div class="history-item"><div class="row"><b>'+esc(x.role||x.track||"Interview")+'</b><b>'+Math.round(Number(x.overall))+'/100</b></div><div class="row mu"><span>'+fmt(x.date)+'</span><span>'+(x.language==="ar"?"العربية":"English")+'</span></div><div class="bar"><i style="width:'+Math.max(0,Math.min(100,Number(x.overall)))+'%"></i></div></div>').join("")+'<button class="btn" data-a="home">'+t("backHome")+'</button></div>';
 }
 function R(){const h=document.documentElement;h.lang=S.ui;h.dir=S.ui=='ar'?'rtl':'ltr';
-$('#app').innerHTML=`<header><div data-a="home" style="cursor:pointer"><div class="brand">Interview <b>Gym</b></div><div class="sig">By K.Seoudi</div></div><button class="lnk" data-a="progress" style="margin:0 10px">${t("myProgress")}</button><div class="lang"><button data-a="ui" data-v="en" aria-pressed="${S.ui=='en'}">English</button><button data-a="ui" data-v="ar" aria-pressed="${S.ui=='ar'}">العربية</button></div></header>`+{w:W,s:Su,i:I,r:Rp,p:MP,sp:SP}[S.scr]()+`<footer class="ft">Created by K.Seoudi</footer>`}
-const H={ui:v=>{S.ui=v;S.il=v;R()},home:()=>{if(S.busy)return;S.scr='w';R()},go:()=>{S.scr='s';R()},progress:()=>{S.scr='p';R()},smartPractice:()=>{S.scr='sp';S.smartAnswer='';S.smartSaved=false;S.smartFeedback=null;R()},smartSave:()=>{if(S.smartSaved||S.smartAnswer.trim().length<10)return;const weak=getWeakestSkill();if(!weak)return;const feedback=assessPracticeAnswer(S.smartAnswer,S.ui);const list=readSmartPractice();list.push({date:new Date().toISOString(),skill:weak.id,answer:S.smartAnswer.trim(),feedback});try{localStorage.setItem(PRACTICE_KEY,JSON.stringify(list.slice(-30)));S.smartFeedback=feedback;S.smartSaved=true;R()}catch(e){alert(S.ui==='ar'?'تعذر حفظ التدريب في المتصفح.':'Could not save practice in this browser.')}},smartAgain:()=>{S.smartAnswer='';S.smartSaved=false;S.smartFeedback=null;R()},
+$('#app').innerHTML=`<header><div data-a="home" style="cursor:pointer"><div class="brand">Interview <b>Gym</b></div><div class="sig">By K.Seoudi</div></div><button class="lnk" data-a="progress" style="margin:0 10px">${t("myProgress")}</button><div class="lang"><button data-a="ui" data-v="en" aria-pressed="${S.ui=='en'}">English</button><button data-a="ui" data-v="ar" aria-pressed="${S.ui=='ar'}">العربية</button></div></header>`+{w:W,s:levelPage,track:trackPage,custom:customPage,i:I,r:Rp,p:MP,sp:SP}[S.scr]()+`<footer class="ft">Created by K.Seoudi</footer>`}
+const H={ui:v=>{S.ui=v;S.il=v;R()},home:()=>{if(S.busy)return;S.scr='w';R()},go:()=>{S.scr='s';R()},toTrack:()=>{S.scr='track';R()},toLevel:()=>{S.scr='s';R()},toCustom:()=>{S.scr='custom';R()},progress:()=>{S.scr='p';R()},smartPractice:()=>{S.scr='sp';S.smartAnswer='';S.smartSaved=false;S.smartFeedback=null;R()},smartSave:()=>{if(S.smartSaved||S.smartAnswer.trim().length<10)return;const weak=getWeakestSkill();if(!weak)return;const feedback=assessPracticeAnswer(S.smartAnswer,S.ui);const list=readSmartPractice();list.push({date:new Date().toISOString(),skill:weak.id,answer:S.smartAnswer.trim(),feedback});try{localStorage.setItem(PRACTICE_KEY,JSON.stringify(list.slice(-30)));S.smartFeedback=feedback;S.smartSaved=true;R()}catch(e){alert(S.ui==='ar'?'تعذر حفظ التدريب في المتصفح.':'Could not save practice in this browser.')}},smartAgain:()=>{S.smartAnswer='';S.smartSaved=false;S.smartFeedback=null;R()},
 lv:v=>{S.lvl=+v;R()},il:v=>{S.il=v==1?'ar':'en';S.ui=S.il;R()},ty:v=>{S.ty=+v;R()},track:v=>{S.track=TRACKS[+v]||TRACKS[0];R()},nq:v=>{S.n=v==1?10:5;R()},ai:()=>{S.ai=!S.ai;R()},
 begin:async()=>{const b=document.querySelector('[data-a="begin"]');if(b){b.disabled=true;b.textContent=S.ui==="ar"?"جارٍ تحميل الأسئلة…":"Loading questions…"}try{await loadQuestionBank();build();S.scr='i';R()}catch(e){if(b){b.disabled=false;b.textContent=t('go')}alert(S.ui==="ar"?"تعذر تحميل بنك الأسئلة. تحقق من الاتصال وحاول مرة أخرى.":"Could not load the question bank. Check your connection and try again.");}},sub,
 retry:()=>evalAll(),review:()=>{if(S.busy)return;S.scr='i';S.i=Math.max(0,Math.min(S.qs.length-1,S.ans.length-1));S.draft=S.ans[S.i]?S.ans[S.i].text:'';S.err='';R()},
