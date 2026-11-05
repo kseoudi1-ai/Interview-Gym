@@ -147,196 +147,88 @@ export class UsageLimiter {
   constructor(ctx, env) {
     this.ctx = ctx;
     this.sql = ctx.storage.sql;
-
-    this.sql.exec(`
-      CREATE TABLE IF NOT EXISTS global_usage (
-        day TEXT PRIMARY KEY,
-        count INTEGER NOT NULL DEFAULT 0
-      )
-    `);
-
-    this.sql.exec(`
-      CREATE TABLE IF NOT EXISTS device_usage (
-        day TEXT NOT NULL,
-        device_id TEXT NOT NULL,
-        count INTEGER NOT NULL DEFAULT 0,
-        PRIMARY KEY (day, device_id)
-      )
-    `);
+    this.sql.exec(`CREATE TABLE IF NOT EXISTS global_usage_v2 (day TEXT PRIMARY KEY, count INTEGER NOT NULL DEFAULT 0)`);
+    this.sql.exec(`CREATE TABLE IF NOT EXISTS device_usage_v2 (day TEXT NOT NULL, device_id TEXT NOT NULL, count INTEGER NOT NULL DEFAULT 0, PRIMARY KEY (day, device_id))`);
+    this.sql.exec(`CREATE TABLE IF NOT EXISTS pending_reservations (reservation_id TEXT PRIMARY KEY, day TEXT NOT NULL, device_id TEXT NOT NULL, expires_at INTEGER NOT NULL)`);
   }
 
   async fetch(request) {
-    if (request.method !== "POST") {
-      return Response.json({ error: "POST required" }, { status: 405 });
-    }
-
+    if (request.method !== "POST") return Response.json({ error: "POST required" }, { status: 405 });
     let body;
-    try {
-      body = await request.json();
-    } catch {
-      return Response.json({ error: "Invalid JSON" }, { status: 400 });
-    }
+    try { body = await request.json(); } catch { return Response.json({ error: "Invalid JSON" }, { status: 400 }); }
 
-    const day = body.day;
-    const deviceId = body.deviceId;
-
-    if (
-      typeof day !== "string" ||
-      !/^\d{4}-\d{2}-\d{2}$/.test(day) ||
-      typeof deviceId !== "string" ||
-      !DEVICE_ID_RE.test(deviceId)
-    ) {
+    const { day, deviceId, reservationId } = body;
+    const action = body.action || "reserve";
+    if (typeof day !== "string" || !/^\\d{4}-\\d{2}-\\d{2}$/.test(day) ||
+        typeof deviceId !== "string" || !DEVICE_ID_RE.test(deviceId)) {
       return Response.json({ error: "Invalid reservation data" }, { status: 400 });
-    }     if (body.action === "inspect") {
-      const globalRows = this.sql.exec(
-        "SELECT count FROM global_usage WHERE day = ?",
-        day,
-      ).toArray();
-
-      const deviceRows = this.sql.exec(
-        "SELECT count FROM device_usage WHERE day = ? AND device_id = ?",
-        day,
-        deviceId,
-      ).toArray();
-
-      return Response.json({
-        day,
-        globalCount: globalRows[0]?.count ?? 0,
-        deviceCount: deviceRows[0]?.count ?? 0,
-      });
+    }
+    if (["reserve", "commit", "release"].includes(action) &&
+        (typeof reservationId !== "string" || !/^[a-f0-9-]{36}$/i.test(reservationId))) {
+      return Response.json({ error: "Invalid reservation ID" }, { status: 400 });
     }
 
-    // Dry-run the exact reservation SQL inside a transaction that always rolls back.
-    if (body.action === "probe") {
-      try {
-        this.ctx.storage.transactionSync(() => {
-          const globalRows = this.sql.exec(
-            `INSERT INTO global_usage (day, count)
-             VALUES (?, 1)
-             ON CONFLICT(day) DO UPDATE SET count = count + 1
-             WHERE count < ?
-             RETURNING count`,
-            day,
-            LIMITS.globalDaily,
-          ).toArray();
+    if (action === "inspect") {
+      const g = this.sql.exec("SELECT count FROM global_usage_v2 WHERE day = ?", day).toArray();
+      const d = this.sql.exec("SELECT count FROM device_usage_v2 WHERE day = ? AND device_id = ?", day, deviceId).toArray();
+      return Response.json({ day, globalCount: g[0]?.count ?? 0, deviceCount: d[0]?.count ?? 0 });
+    }
 
-          if (globalRows.length === 0) {
-            throw new Error("DAILY_GLOBAL_LIMIT");
-          }
-
-          const deviceRows = this.sql.exec(
-            `INSERT INTO device_usage (day, device_id, count)
-             VALUES (?, ?, 1)
-             ON CONFLICT(day, device_id) DO UPDATE SET count = count + 1
-             WHERE count < ?
-             RETURNING count`,
-            day,
-            deviceId,
-            LIMITS.perDeviceDaily,
-          ).toArray();
-
-          if (deviceRows.length === 0) {
-            throw new Error("DAILY_USER_LIMIT");
-          }
-
-          // Force rollback even when the reservation would have been allowed.
-          throw new Error("PROBE_ROLLBACK_ALLOWED");
-        });
-      } catch (error) {
-        if (error.message === "DAILY_GLOBAL_LIMIT") {
-          return Response.json({ allowed: false, code: "daily_global_limit" });
-        }
-        if (error.message === "DAILY_USER_LIMIT") {
-          return Response.json({ allowed: false, code: "daily_user_limit" });
-        }
-        if (error.message === "PROBE_ROLLBACK_ALLOWED") {
-          return Response.json({ allowed: true, code: "would_be_allowed" });
-        }
-        console.error("Usage probe failed:", error.name);
-        return Response.json({ error: "Probe failed" }, { status: 503 });
-      }
+    if (action === "probe") {
+      const now = Date.now();
+      const g = this.sql.exec("SELECT count FROM global_usage_v2 WHERE day = ?", day).toArray();
+      const d = this.sql.exec("SELECT count FROM device_usage_v2 WHERE day = ? AND device_id = ?", day, deviceId).toArray();
+      const pg = this.sql.exec("SELECT COUNT(*) AS count FROM pending_reservations WHERE day = ? AND expires_at > ?", day, now).toArray()[0]?.count ?? 0;
+      const pd = this.sql.exec("SELECT COUNT(*) AS count FROM pending_reservations WHERE day = ? AND device_id = ? AND expires_at > ?", day, deviceId, now).toArray()[0]?.count ?? 0;
+      const allowed = (g[0]?.count ?? 0) + pg < LIMITS.globalDaily && (d[0]?.count ?? 0) + pd < LIMITS.perDeviceDaily;
+      return Response.json({ allowed, code: allowed ? "would_be_allowed" : ((g[0]?.count ?? 0) + pg >= LIMITS.globalDaily ? "daily_global_limit" : "daily_user_limit") });
     }
 
     try {
       const result = this.ctx.storage.transactionSync(() => {
-        // Remove old daily records.
-        this.sql.exec("DELETE FROM global_usage WHERE day < ?", day);
-        this.sql.exec("DELETE FROM device_usage WHERE day < ?", day);
+        const now = Date.now();
+        this.sql.exec("DELETE FROM pending_reservations WHERE expires_at <= ?", now);
+        this.sql.exec("DELETE FROM global_usage_v2 WHERE day < ?", day);
+        this.sql.exec("DELETE FROM device_usage_v2 WHERE day < ?", day);
 
-        // Reserve one global evaluation slot.
-        const globalRows = this.sql.exec(
-          `INSERT INTO global_usage (day, count)
-           VALUES (?, 1)
-           ON CONFLICT(day) DO UPDATE SET count = count + 1
-           WHERE count < ?
-           RETURNING count`,
-          day,
-          LIMITS.globalDaily,
-        ).toArray();
-
-        if (globalRows.length === 0) {
-          throw new Error("DAILY_GLOBAL_LIMIT");
+        if (action === "release") {
+          this.sql.exec("DELETE FROM pending_reservations WHERE reservation_id = ? AND day = ? AND device_id = ?", reservationId, day, deviceId);
+          return { ok: true, released: true };
         }
-
-        // Reserve one device evaluation slot.
-        const deviceRows = this.sql.exec(
-          `INSERT INTO device_usage (day, device_id, count)
-           VALUES (?, ?, 1)
-           ON CONFLICT(day, device_id) DO UPDATE SET count = count + 1
-           WHERE count < ?
-           RETURNING count`,
-          day,
-          deviceId,
-          LIMITS.perDeviceDaily,
-        ).toArray();
-
-        if (deviceRows.length === 0) {
-          throw new Error("DAILY_USER_LIMIT");
+        if (action === "commit") {
+          const pending = this.sql.exec("SELECT reservation_id FROM pending_reservations WHERE reservation_id = ? AND day = ? AND device_id = ?", reservationId, day, deviceId).toArray();
+          if (!pending.length) return { ok: false, code: "reservation_expired" };
+          this.sql.exec("DELETE FROM pending_reservations WHERE reservation_id = ?", reservationId);
+          this.sql.exec("INSERT INTO global_usage_v2 (day, count) VALUES (?, 1) ON CONFLICT(day) DO UPDATE SET count = count + 1", day);
+          this.sql.exec("INSERT INTO device_usage_v2 (day, device_id, count) VALUES (?, ?, 1) ON CONFLICT(day, device_id) DO UPDATE SET count = count + 1", day, deviceId);
+          return { ok: true, committed: true };
         }
+        if (action !== "reserve") return { ok: false, code: "invalid_action" };
 
-        return {
-          allowed: true,
-          globalCount: globalRows[0].count,
-          deviceCount: deviceRows[0].count,
-        };
+        const g = this.sql.exec("SELECT count FROM global_usage_v2 WHERE day = ?", day).toArray();
+        const d = this.sql.exec("SELECT count FROM device_usage_v2 WHERE day = ? AND device_id = ?", day, deviceId).toArray();
+        const pg = this.sql.exec("SELECT COUNT(*) AS count FROM pending_reservations WHERE day = ?", day).toArray()[0]?.count ?? 0;
+        const pd = this.sql.exec("SELECT COUNT(*) AS count FROM pending_reservations WHERE day = ? AND device_id = ?", day, deviceId).toArray()[0]?.count ?? 0;
+        if ((g[0]?.count ?? 0) + pg >= LIMITS.globalDaily) throw new Error("DAILY_GLOBAL_LIMIT");
+        if ((d[0]?.count ?? 0) + pd >= LIMITS.perDeviceDaily) throw new Error("DAILY_USER_LIMIT");
+        this.sql.exec("INSERT INTO pending_reservations (reservation_id, day, device_id, expires_at) VALUES (?, ?, ?, ?)", reservationId, day, deviceId, now + RESERVATION_TTL_MS);
+        return { ok: true, reserved: true };
       });
-
+      if (result.code === "reservation_expired") return Response.json({ error: { code: result.code, message: "The evaluation reservation expired. Please try again." } }, { status: 409 });
+      if (result.code === "invalid_action") return Response.json({ error: "Invalid action" }, { status: 400 });
       return Response.json(result);
     } catch (error) {
       const { seconds, iso } = untilMidnightUtc();
-      const headers = { "Retry-After": String(seconds) };
-
-      if (error.message === "DAILY_GLOBAL_LIMIT") {
-        return Response.json(
-          {
-            error: {
-              code: "daily_global_limit",
-              message: "The service has reached its daily evaluation limit. Please try again after midnight UTC.",
-              resetAt: iso,
-            },
-          },
-          { status: 429, headers },
-        );
+      if (error.message === "DAILY_GLOBAL_LIMIT" || error.message === "DAILY_USER_LIMIT") {
+        const global = error.message === "DAILY_GLOBAL_LIMIT";
+        return Response.json({ error: {
+          code: global ? "daily_global_limit" : "daily_user_limit",
+          message: global ? "The service has reached its daily evaluation limit. Please try again after midnight UTC." : "You have reached today's limit of 2 completed interview evaluations. It resets at midnight UTC.",
+          resetAt: iso,
+        } }, { status: 429, headers: { "Retry-After": String(seconds) } });
       }
-
-      if (error.message === "DAILY_USER_LIMIT") {
-        return Response.json(
-          {
-            error: {
-              code: "daily_user_limit",
-              message: "You have reached today's limit of 2 interview evaluations. It resets at midnight UTC.",
-              resetAt: iso,
-            },
-          },
-          { status: 429, headers },
-        );
-      }
-
-      console.error("Usage reservation failed:", error.name);
-      return Response.json(
-        { error: { code: "usage_unavailable", message: "Usage tracking is temporarily unavailable." } },
-        { status: 503 },
-      );
+      console.error("Usage reservation operation failed:", error.name);
+      return Response.json({ error: { code: "usage_unavailable", message: "Usage tracking is temporarily unavailable." } }, { status: 503 });
     }
   }
 }
@@ -525,37 +417,26 @@ async function runBatch(body, env) {
   const language = langName(body.language);
   const deviceId = checkDeviceId(body.deviceId);
 
-  // Reserve quota atomically before making the Gemini request.
+  // Reserve a temporary slot; commit only after a complete evaluation is validated.
   const limiter = getLimiter(env);
-  const reservationResponse = await limiter.fetch(
-    new Request("https://usage-limiter/reserve", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        day: utcDay(),
-        deviceId,
-      }),
-    }),
-  );
-
+  const reservationId = crypto.randomUUID();
+  const reservationBody = { day: utcDay(), deviceId, reservationId };
+  const reservationResponse = await limiter.fetch(new Request("https://usage-limiter/reserve", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(reservationBody),
+  }));
   let reservation;
-  try {
-    reservation = await reservationResponse.json();
-  } catch {
-    throw new HttpError(503, "usage_unavailable", "Usage tracking is temporarily unavailable.");
-  }
-
-  if (!reservationResponse.ok) {
+  try { reservation = await reservationResponse.json(); }
+  catch { throw new HttpError(503, "usage_unavailable", "Usage tracking is temporarily unavailable."); }
+  if (!reservationResponse.ok || !reservation?.reserved) {
     const error = reservation.error || {};
-    throw new HttpError(
-      reservationResponse.status,
-      error.code || "usage_unavailable",
+    throw new HttpError(reservationResponse.status || 503, error.code || "usage_unavailable",
       error.message || "Usage tracking is temporarily unavailable.",
-      Object.fromEntries(reservationResponse.headers),
-      { resetAt: error.resetAt },
-    );
+      Object.fromEntries(reservationResponse.headers), { resetAt: error.resetAt });
   }
 
+  try {
   const promptData = {
     role,
     experience,
@@ -621,7 +502,7 @@ async function runBatch(body, env) {
     skills.reduce((total, skill) => total + skill.score * skill.weight, 0) / 100,
   );
 
-  return {
+  const response = {
     evaluation: {
       overallScore,
       scoringMethod: "weighted_skill_rubric_v1",
@@ -632,6 +513,28 @@ async function runBatch(body, env) {
       answers: perAnswer,
     },
   };
+  const commitResponse = await limiter.fetch(new Request("https://usage-limiter/commit", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ...reservationBody, action: "commit" }),
+  }));
+  const committed = await commitResponse.json().catch(() => ({}));
+  if (!commitResponse.ok || !committed.committed) {
+    throw new HttpError(503, "usage_commit_failed", "The evaluation was generated but could not be safely recorded. Please contact support before retrying.");
+  }
+  return response;
+  } catch (error) {
+    try {
+      await limiter.fetch(new Request("https://usage-limiter/release", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...reservationBody, action: "release" }),
+      }));
+    } catch (releaseError) {
+      console.error("Usage reservation release failed:", releaseError.name);
+    }
+    throw error;
+  }
 }
 
 // ---------- Main Worker ----------
