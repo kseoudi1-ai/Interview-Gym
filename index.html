@@ -196,6 +196,68 @@ header{padding:12px 4px 20px}
  #app > .card:first-of-type:after{display:none}
 }
 
+
+/* Hero illustration and unified feature icons — Staging only */
+.hero{
+ display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,1.05fr);
+ align-items:center;gap:18px;min-height:390px;padding:clamp(24px,4vw,42px)!important;
+ background:linear-gradient(115deg,#fff 0%,#fbf9ff 48%,#eee6ff 100%)!important;
+}
+.hero-copy{position:relative;z-index:1}
+.hero-copy h1{max-width:570px}
+.hero-copy .mu{max-width:520px;margin:14px 0 20px}
+.hero-copy .btn.big{max-width:360px}
+.hero-art{min-width:0;display:flex;align-items:center;justify-content:center}
+.hero-art svg{display:block;width:100%;max-width:560px;height:auto;overflow:visible}
+.how-card{padding:26px!important}
+.how-card h3{font-size:19px;margin-bottom:20px}
+.steps{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:0}
+.steps li{
+ min-height:128px;padding:22px 18px 22px 76px;position:relative;
+ display:flex;align-items:center;gap:10px;
+ background:linear-gradient(145deg,#fff,#f8f5ff);
+ border:1px solid #e4dcf6;border-radius:18px;
+ box-shadow:0 8px 22px rgba(64,43,120,.06);
+}
+.steps li:before{display:none}
+.step-icon{
+ position:absolute;left:16px;top:50%;transform:translateY(-50%);
+ width:48px;height:48px;border-radius:15px;display:grid;place-items:center;
+ background:linear-gradient(145deg,#f0e5ff,#dfd0ff);
+ box-shadow:inset 0 1px 0 #fff,0 5px 12px rgba(100,64,170,.12)
+}
+.step-icon svg{width:31px;height:31px;fill:none;stroke:#7041c8;stroke-width:2.7;stroke-linecap:round;stroke-linejoin:round}
+.step-copy{font-weight:600;line-height:1.45;padding-inline-end:22px}
+.step-number{
+ position:absolute;right:14px;top:12px;width:28px;height:28px;border-radius:50%;
+ display:grid;place-items:center;color:white;font-size:13px;font-weight:800;
+ background:linear-gradient(135deg,#a86be7,#7136c9);
+ box-shadow:0 4px 10px rgba(112,65,200,.2)
+}
+:root[dir="rtl"] .steps li{padding:22px 76px 22px 18px}
+:root[dir="rtl"] .step-icon{left:auto;right:16px}
+:root[dir="rtl"] .step-number{right:auto;left:14px}
+@media(max-width:760px){
+ .hero{grid-template-columns:1fr;gap:4px;min-height:0}
+ .hero-art{grid-row:1;max-width:440px;margin:0 auto -4px}
+ .hero-copy{grid-row:2}
+ .hero-copy .btn.big{max-width:none}
+ .steps{grid-template-columns:1fr}
+ .steps li{min-height:88px}
+}
+@media(max-width:520px){
+ .hero{padding:20px!important}
+ .hero-art{max-width:340px}
+ .how-card{padding:19px!important}
+ .steps li{min-height:82px}
+}
+@media(prefers-color-scheme:dark){
+ :root:not([data-theme="light"]) .hero{background:linear-gradient(115deg,#191d3b,#252047)!important}
+ :root:not([data-theme="light"]) .steps li{background:linear-gradient(145deg,#191d3b,#211d3e);border-color:#393052}
+}
+:root[data-theme="dark"] .hero{background:linear-gradient(115deg,#191d3b,#252047)!important}
+:root[data-theme="dark"] .steps li{background:linear-gradient(145deg,#191d3b,#211d3e);border-color:#393052}
+
 </style></head>
 <body><div id="app"></div>
 <script>
@@ -386,7 +448,7 @@ S.err='';S.ans[S.i]={q:S.qs[S.i],text:v};
 if(S.i+1>=S.qs.length)fin();else{S.i++;S.draft=S.ans[S.i]?S.ans[S.i].text:'';R()}}
 function fin(){S.scr='r';S.ev=null;S.err='';if(S.ans.filter(Boolean).length){rememberCompletedInterview();evalAll()}else R()}
 const chips=(arr,sel,act)=>`<div class="chips">${arr.map((x,i)=>`<button class="chip" data-a="${act}" data-v="${i}" aria-pressed="${sel==i}">${esc(x)}</button>`).join('')}</div>`;
-const W=()=>`<div class="card"><span class="tag">${t('tag')}</span><h1>${t('h')}</h1><p class="mu">${t('d')}</p><button class="btn big" data-a="go">${t('start')}</button></div><div class="card"><h3>${t('how')}</h3><ol class="steps">${t('steps').map(s=>`<li>${s}</li>`).join('')}</ol></div>`;
+const W=()=>`<div class="hero card"><div class="hero-copy"><span class="tag">${t('tag')}</span><h1>${t('h')}</h1><p class="mu">${t('d')}</p><button class="btn big" data-a="go">${t('start')}</button></div><div class="hero-art" aria-hidden="true"><svg viewBox="0 0 560 390" role="img" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="heroGlow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#eee4ff"/><stop offset="1" stop-color="#d7c4ff"/></linearGradient><linearGradient id="screen" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#28245c"/><stop offset="1" stop-color="#5140a4"/></linearGradient><linearGradient id="purple" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#bd83ff"/><stop offset="1" stop-color="#7136c9"/></linearGradient><filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#46328c" flood-opacity=".18"/></filter></defs><ellipse cx="302" cy="335" rx="235" ry="27" fill="#b7a0eb" opacity=".22"/><circle cx="330" cy="175" r="160" fill="url(#heroGlow)" opacity=".9"/><g filter="url(#shadow)"><path d="M155 93Q155 78 171 78H443Q459 78 459 94V278H155Z" fill="#25234f"/><path d="M168 94H446V263H168Z" fill="url(#screen)"/><rect x="190" y="116" width="112" height="126" rx="13" fill="#7560c5" opacity=".8"/><circle cx="246" cy="151" r="23" fill="#d9caff"/><path d="M209 214q4-35 37-35t37 35" fill="#d9caff"/><rect x="318" y="116" width="107" height="126" rx="13" fill="#fff" opacity=".13"/><rect x="333" y="133" width="76" height="9" rx="5" fill="#e7ddff"/><g fill="#5de0b0"><circle cx="342" cy="171" r="9"/><circle cx="342" cy="202" r="9"/><circle cx="342" cy="231" r="9"/></g><g stroke="#e9e2ff" stroke-width="5" stroke-linecap="round" opacity=".9"><path d="M359 171h48M359 202h39M359 231h51"/></g><path d="M126 280H487L526 306Q529 313 512 315H103Q88 313 96 305Z" fill="#b9c3e5"/><path d="M145 282H468L494 301H121Z" fill="#e9edff"/><path d="M245 286h125l-10 10H255Z" fill="#b7bce0"/></g><g filter="url(#shadow)"><path d="M183 91q0-72 72-72t72 72" fill="none" stroke="#29265e" stroke-width="17" stroke-linecap="round"/><rect x="174" y="77" width="25" height="64" rx="12" fill="url(#purple)"/><rect x="310" y="77" width="25" height="64" rx="12" fill="url(#purple)"/><path d="M322 129q-8 31-39 31" fill="none" stroke="#8d5cdb" stroke-width="8" stroke-linecap="round"/><circle cx="280" cy="160" r="8" fill="#8d5cdb"/></g><g filter="url(#shadow)"><path d="M45 264q-2-48 25-68 9 36-4 59 21-45 57-51-5 42-47 61 36-21 65-10-23 33-74 25Z" fill="#64b98c"/><path d="M50 277h80l-9 45H59Z" fill="#fff" stroke="#d9d1ef" stroke-width="3"/><path d="M60 291h60" stroke="#e5def4" stroke-width="4"/></g><g filter="url(#shadow)"><path d="M450 252h65v68q0 12-12 12h-41q-12 0-12-12Z" fill="#fff"/><path d="M515 266h13q22 0 22 22t-22 22h-13" fill="none" stroke="#fff" stroke-width="10"/><path d="M470 283q-10-17 0-29M489 283q-10-17 0-29" stroke="#b18be9" stroke-width="5" stroke-linecap="round" fill="none"/><path d="M472 301h22" stroke="#8e5ad6" stroke-width="5" stroke-linecap="round"/></g><g filter="url(#shadow)"><path d="M155 324h142l-14 25H169Z" fill="#fff" stroke="#d9d1ef" stroke-width="3"/><path d="M171 333h106M180 340h89" stroke="#c8b7e8" stroke-width="3" stroke-linecap="round"/><path d="M206 315l65 7" stroke="#51458a" stroke-width="5" stroke-linecap="round"/></g><g fill="#8b55d6"><path d="M476 59l9-18 7 3-9 18Z"/><path d="M500 73l17-10 4 7-17 10Z"/><circle cx="452" cy="52" r="5"/></g></svg></div></div><div class="card how-card"><h3>${t('how')}</h3><ol class="steps">${t('steps').map((s,i)=>`<li><span class="step-icon" aria-hidden="true">${i===0?'<svg viewBox="0 0 48 48"><circle cx="21" cy="25" r="13"/><circle cx="21" cy="25" r="6"/><path d="M25 21 39 7m-1 1 5 1-1 5"/></svg>':i===1?'<svg viewBox="0 0 48 48"><path d="M9 27v-5a15 15 0 0 1 30 0v5"/><rect x="6" y="24" width="8" height="13" rx="4"/><rect x="34" y="24" width="8" height="13" rx="4"/><path d="M38 36q-2 6-11 6h-4"/></svg>':'<svg viewBox="0 0 48 48"><path d="M7 40h35"/><rect x="10" y="27" width="7" height="13" rx="2"/><rect x="22" y="19" width="7" height="21" rx="2"/><rect x="34" y="9" width="7" height="31" rx="2"/><path d="m9 20 12-7 9 2 11-9m-1 0h-8m8 0v8"/></svg>'}</span><span class="step-copy">${s}</span><span class="step-number">${i+1}</span></li>`).join('')}</ol></div>`; 
 const Su=()=>`<div class="card"><h3>${t('lvl')}</h3>${chips(t('lvls'),S.lvl,'lv')}<h3>${t('il')}</h3>${chips(['English','العربية'],S.il=='ar'?1:0,'il')}<h3>${t('track')}</h3>${chips(t('tracks'),TRACKS.indexOf(S.track),'track')}<h3>${t('ty')}</h3>${chips(interviewTypeOptions(),S.ty,'ty')}<h3>${t('nq')}</h3>${chips(['5'+t('qn'),'10'+t('qn')],S.n==10?1:0,'nq')}
 <p class="mu">${t('aiNote')}</p><button class="btn big" data-a="begin">${t('go')}</button><button class="lnk" data-a="home">${t('back')}</button></div>`;
 const ulh=x=>x.length?`<ul style="margin:4px 0">${x.map(i=>`<li dir="auto">${esc(i)}</li>`).join('')}</ul>`:'';
