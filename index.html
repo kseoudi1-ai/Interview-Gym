@@ -39,14 +39,343 @@ textarea:focus,button:focus-visible{outline:2px solid var(--tl);outline-offset:2
 .ex{border-inline-start:3px solid var(--tl);padding-inline-start:12px;margin:10px 0}
 .spin{display:inline-block;width:14px;height:14px;border:2px solid var(--bd);border-top-color:var(--tl);border-radius:50%;animation:r .8s linear infinite;vertical-align:-2px;margin-inline-end:6px}@keyframes r{to{transform:rotate(360deg)}}
 .sig{font-size:12px;letter-spacing:.08em;color:var(--mu);margin-top:-2px;font-weight:500}
-.ft{text-align:center;color:var(--mu);font-size:13px;padding:20px 0 8px;letter-spacing:.04em}.ft:before{content:"";display:block;width:36px;height:2px;background:var(--tl);margin:0 auto 12px;border-radius:2px}
+.progress-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.stat{background:var(--bg);border:1px solid var(--bd);border-radius:12px;padding:12px}.stat strong{display:block;font-size:24px;color:var(--tl)}.stat span{font-size:12px;color:var(--mu)}.history-item{padding:12px 0;border-top:1px solid var(--bd)}.history-item .bar{margin:5px 0}\n.ft{text-align:center;color:var(--mu);font-size:13px;padding:20px 0 8px;letter-spacing:.04em}.ft:before{content:"";display:block;width:36px;height:2px;background:var(--tl);margin:0 auto 12px;border-radius:2px}
 @media(min-width:700px){#app{padding:32px 16px}h1{font-size:40px}.btn{width:auto}.btn.big{width:100%}}
+ 
+/* Modern visual refresh — Staging branch only */
+:root{
+ --bg:#f3f6fb;--card:#ffffff;--tx:#10243d;--mu:#65758b;--bd:#e1e8f2;
+ --tl:#087f8c;--tl2:#e5f5f5;--on:#ffffff;
+}
+@media(prefers-color-scheme:dark){
+ :root:not([data-theme="light"]){--bg:#0b1422;--card:#111f32;--tx:#edf4ff;--mu:#a5b4c8;--bd:#263950;--tl:#35c4c8;--tl2:#12343b;--on:#06232a}
+}
+:root[data-theme="dark"]{--bg:#0b1422;--card:#111f32;--tx:#edf4ff;--mu:#a5b4c8;--bd:#263950;--tl:#35c4c8;--tl2:#12343b;--on:#06232a}
+body{
+ background:radial-gradient(ellipse at 12% 0%,rgba(8,127,140,.09),transparent 34%),var(--bg);
+ font-size:15px;line-height:1.65;letter-spacing:.005em;
+}
+#app{max-width:900px;padding:22px 18px 36px}
+header{padding:8px 2px 18px;margin-bottom:18px;border-bottom:1px solid var(--bd);gap:14px}
+.brand{font-size:23px;letter-spacing:-.7px;line-height:1.15}
+.sig{font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin-top:4px}
+.card{
+ border:1px solid var(--bd);border-radius:20px;padding:24px;margin-bottom:18px;
+ box-shadow:0 8px 28px rgba(18,38,63,.045);animation:up .28s ease;
+}
+h1{font-size:clamp(30px,5vw,44px);letter-spacing:-1.25px;line-height:1.12;margin:10px 0 14px}
+h2{font-size:clamp(20px,3vw,24px);letter-spacing:-.45px;margin:8px 0 16px}
+h3{font-size:16px;letter-spacing:-.15px;margin:0 0 10px}
+.mu{font-size:14px;line-height:1.7}
+.tag{font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+.btn{
+ border-radius:13px;padding:13px 22px;min-height:48px;
+ box-shadow:0 5px 14px rgba(8,127,140,.14);transition:transform .16s ease,box-shadow .16s ease,filter .16s ease;
+}
+.btn:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 8px 18px rgba(8,127,140,.2);filter:brightness(1.03)}
+.btn.big{min-height:54px}
+.lnk{font-weight:600}
+.chips{gap:10px}
+.chip{border-radius:12px;padding:10px 15px;transition:border-color .15s ease,background .15s ease,transform .15s ease}
+.chip:hover{border-color:var(--tl);transform:translateY(-1px)}
+.lang{padding:3px;border-radius:14px}
+.lang button{border-radius:11px;padding:7px 13px;font-weight:600}
+textarea{border-radius:14px;padding:15px;line-height:1.7;min-height:180px}
+textarea:focus{border-color:var(--tl);box-shadow:0 0 0 3px rgba(8,127,140,.12)}
+.bar{height:10px;background:var(--bd);margin:9px 0 13px}
+.bar i{border-radius:99px;background:linear-gradient(90deg,var(--tl),#27b4b0)}
+.pill{padding:5px 11px;font-size:12px;letter-spacing:.02em}
+.fb{border:1px solid var(--bd);border-radius:15px;padding:16px}
+.steps{gap:12px}
+.steps li{align-items:flex-start;line-height:1.5}
+.steps li:before{width:28px;height:28px;box-shadow:0 3px 8px rgba(8,127,140,.18)}
+.progress-grid{gap:12px}
+.stat{border-radius:15px;padding:16px;min-height:88px}
+.stat strong{font-size:28px;letter-spacing:-.8px}
+.stat span{font-size:12px;line-height:1.4}
+.history-item{padding:16px 0}
+.history-item .bar{height:8px}
+.big-n{font-size:clamp(48px,8vw,64px);letter-spacing:-2px}
+.d{margin:14px 0 18px}
+.ft{text-align:center;color:var(--mu);font-size:12px;padding:26px 0 10px;letter-spacing:.04em}
+.ft:before{content:"";display:block;width:42px;height:3px;background:var(--tl);margin:0 auto 13px;border-radius:3px}
+@media(min-width:700px){
+ #app{padding:30px 20px 44px}
+ header{margin-bottom:22px}
+ .card{padding:28px}
+ .progress-grid{gap:14px}
+}
+@media(max-width:520px){
+ #app{padding:14px 12px 28px}
+ header{align-items:flex-start;flex-wrap:wrap}
+ .brand{font-size:21px}
+ .card{padding:18px;border-radius:17px}
+ .progress-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .progress-grid .stat:last-child:nth-child(odd){grid-column:1/-1}
+ .row{align-items:flex-start}
+ h1{font-size:32px}
+ .btn{width:100%}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
+}
+
+/* Approved elegant navy + violet identity — Staging only */
+:root{
+ --bg:#f5f4fc;--card:#ffffff;--tx:#151b3b;--mu:#68708c;--bd:#e4e0f4;
+ --tl:#7041c8;--tl2:#f0eaff;--on:#ffffff;
+}
+@media(prefers-color-scheme:dark){
+ :root:not([data-theme="light"]){--bg:#101329;--card:#191d3b;--tx:#f3f0ff;--mu:#b7b3d0;--bd:#343052;--tl:#b18aff;--tl2:#30264b;--on:#17132a}
+}
+:root[data-theme="dark"]{--bg:#101329;--card:#191d3b;--tx:#f3f0ff;--mu:#b7b3d0;--bd:#343052;--tl:#b18aff;--tl2:#30264b;--on:#17132a}
+body{
+ background:
+  radial-gradient(ellipse at 88% 7%,rgba(139,92,246,.14),transparent 32%),
+  radial-gradient(ellipse at 8% 32%,rgba(99,102,241,.08),transparent 30%),
+  var(--bg);
+ color:var(--tx);
+}
+#app{max-width:1080px}
+header{padding:12px 4px 20px}
+.brand{font-size:25px;letter-spacing:-.9px;color:var(--tx)}
+.brand b{background:linear-gradient(100deg,#7543d1,#b46be8);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lang{border-radius:999px;padding:4px;background:var(--card);box-shadow:0 4px 16px rgba(35,25,75,.06)}
+.lang button{border-radius:999px;padding:8px 16px}
+.lang button[aria-pressed=true]{
+ background:linear-gradient(115deg,#7041c8,#9859df);color:#fff;
+ box-shadow:0 3px 10px rgba(112,65,200,.22)
+}
+.lnk{color:var(--tl)}
+.card{
+ border-color:var(--bd);
+ box-shadow:0 12px 34px rgba(42,31,89,.055);
+}
+#app > .card:first-of-type{
+ position:relative;overflow:hidden;
+ padding:clamp(28px,5vw,54px);
+ background:linear-gradient(115deg,#fff 0%,#faf8ff 56%,#f0eaff 100%);
+ border-color:#e2d9f7;
+}
+#app > .card:first-of-type:after{
+ content:"";position:absolute;width:280px;height:280px;border-radius:50%;
+ right:-100px;top:-145px;
+ background:radial-gradient(circle,rgba(151,104,226,.18),rgba(151,104,226,0));
+ pointer-events:none;
+}
+#app > .card:first-of-type .tag{color:#7543d1;letter-spacing:.13em}
+#app > .card:first-of-type h1{max-width:760px;color:#171d3e}
+#app > .card:first-of-type .mu{max-width:720px;color:#626b8b;font-size:15px}
+.btn{
+ background:linear-gradient(110deg,#7041c8,#8e4fd2);
+ box-shadow:0 7px 18px rgba(112,65,200,.2);
+}
+.btn:hover:not(:disabled){box-shadow:0 10px 24px rgba(112,65,200,.28)}
+.chip[aria-pressed=true]{background:var(--tl2);border-color:var(--tl);color:var(--tl)}
+.bar i{background:linear-gradient(90deg,#7041c8,#b06de5)}
+.steps{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:18px}
+.steps li{
+ position:relative;min-height:100px;padding:18px 14px 18px 52px;
+ align-items:center;background:linear-gradient(145deg,var(--card),var(--bg));
+ border:1px solid var(--bd);border-radius:16px;
+ box-shadow:0 5px 16px rgba(42,31,89,.035)
+}
+.steps li:before{
+ position:absolute;left:14px;top:50%;transform:translateY(-50%);
+ background:linear-gradient(135deg,#7041c8,#a66be0);
+ box-shadow:0 4px 10px rgba(112,65,200,.2)
+}
+:root[dir="rtl"] .steps li{padding:18px 52px 18px 14px}
+:root[dir="rtl"] .steps li:before{left:auto;right:14px}
+@media(max-width:700px){
+ .steps{grid-template-columns:1fr;gap:10px}
+ .steps li{min-height:70px}
+ #app > .card:first-of-type{padding:25px 20px}
+}
+@media(prefers-reduced-motion:reduce){
+ #app > .card:first-of-type:after{display:none}
+}
+
+
+/* Hero illustration and unified feature icons — Staging only */
+.hero{
+ display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,1.05fr);
+ align-items:center;gap:18px;min-height:390px;padding:clamp(24px,4vw,42px)!important;
+ background:linear-gradient(115deg,#fff 0%,#fbf9ff 48%,#eee6ff 100%)!important;
+}
+.hero-copy{position:relative;z-index:1}
+.hero-copy h1{max-width:570px}
+.hero-copy .mu{max-width:520px;margin:14px 0 20px}
+.hero-copy .btn.big{max-width:360px}
+.hero-art{min-width:0;display:flex;align-items:center;justify-content:center}
+.hero-art svg{display:block;width:100%;max-width:560px;height:auto;overflow:visible}
+.how-card{padding:26px!important}
+.how-card h3{font-size:19px;margin-bottom:20px}
+.steps{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:0}
+.steps li{
+ min-height:128px;padding:22px 18px 22px 76px;position:relative;
+ display:flex;align-items:center;gap:10px;
+ background:linear-gradient(145deg,#fff,#f8f5ff);
+ border:1px solid #e4dcf6;border-radius:18px;
+ box-shadow:0 8px 22px rgba(64,43,120,.06);
+}
+.steps li:before{display:none}
+.step-icon{
+ position:absolute;left:16px;top:50%;transform:translateY(-50%);
+ width:48px;height:48px;border-radius:15px;display:grid;place-items:center;
+ background:linear-gradient(145deg,#f0e5ff,#dfd0ff);
+ box-shadow:inset 0 1px 0 #fff,0 5px 12px rgba(100,64,170,.12)
+}
+.step-icon svg{width:31px;height:31px;fill:none;stroke:#7041c8;stroke-width:2.7;stroke-linecap:round;stroke-linejoin:round}
+.step-copy{font-weight:600;line-height:1.45;padding-inline-end:22px}
+.step-number{
+ position:absolute;right:14px;top:12px;width:28px;height:28px;border-radius:50%;
+ display:grid;place-items:center;color:white;font-size:13px;font-weight:800;
+ background:linear-gradient(135deg,#a86be7,#7136c9);
+ box-shadow:0 4px 10px rgba(112,65,200,.2)
+}
+:root[dir="rtl"] .steps li{padding:22px 76px 22px 18px}
+:root[dir="rtl"] .step-icon{left:auto;right:16px}
+:root[dir="rtl"] .step-number{right:auto;left:14px}
+@media(max-width:760px){
+ .hero{grid-template-columns:1fr;gap:4px;min-height:0}
+ .hero-art{grid-row:1;max-width:440px;margin:0 auto -4px}
+ .hero-copy{grid-row:2}
+ .hero-copy .btn.big{max-width:none}
+ .steps{grid-template-columns:1fr}
+ .steps li{min-height:88px}
+}
+@media(max-width:520px){
+ .hero{padding:20px!important}
+ .hero-art{max-width:340px}
+ .how-card{padding:19px!important}
+ .steps li{min-height:82px}
+}
+@media(prefers-color-scheme:dark){
+ :root:not([data-theme="light"]) .hero{background:linear-gradient(115deg,#191d3b,#252047)!important}
+ :root:not([data-theme="light"]) .steps li{background:linear-gradient(145deg,#191d3b,#211d3e);border-color:#393052}
+}
+:root[data-theme="dark"] .hero{background:linear-gradient(115deg,#191d3b,#252047)!important}
+:root[data-theme="dark"] .steps li{background:linear-gradient(145deg,#191d3b,#211d3e);border-color:#393052}
+
+
+/* Four-stage interview setup experience — Staging only */
+.setup-page{max-width:1040px;margin:0 auto}
+.setup-progress{display:flex;align-items:center;justify-content:center;gap:12px;margin:0 auto 22px;padding:12px 18px;max-width:760px;border:1px solid var(--bd);border-radius:18px;background:linear-gradient(110deg,rgba(255,255,255,.92),rgba(240,232,255,.9));box-shadow:0 6px 18px rgba(42,31,89,.045)}
+.setup-progress-item{display:flex;align-items:center;gap:9px;color:var(--mu);font-size:13px;white-space:nowrap;flex:1;justify-content:center}
+.setup-progress-item span{width:32px;height:32px;border:1px solid #cfc4e9;border-radius:50%;display:grid;place-items:center;font-weight:800;background:var(--card);color:var(--mu)}
+.setup-progress-item.active{color:var(--tl);font-weight:800}
+.setup-progress-item.active span,.setup-progress-item.done span{background:linear-gradient(135deg,#a66be7,#7041c8);border-color:transparent;color:#fff;box-shadow:0 4px 12px rgba(112,65,200,.2)}
+.setup-progress>i{height:3px;width:clamp(20px,8vw,76px);flex:0 1 76px;border-radius:9px;background:linear-gradient(90deg,#cbb8ee,#e7def7)}
+.setup-hero{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px 28px;margin-bottom:20px;border-radius:22px;background:linear-gradient(110deg,rgba(255,255,255,.9),rgba(240,232,255,.85));border:1px solid var(--bd)}
+.setup-hero h1{margin:8px 0;font-size:clamp(28px,4vw,38px)}
+.setup-hero .mu{max-width:600px;margin:0}
+.setup-hero-art{flex:none;width:116px;height:116px;border-radius:30px;display:grid;place-items:center;background:radial-gradient(circle at 30% 25%,#fff,#e5d7ff 72%);box-shadow:inset 0 1px 0 #fff,0 12px 24px rgba(112,65,200,.1);color:#7945ce;font-size:68px}
+.selection-panel{background:var(--card);border:1px solid var(--bd);border-radius:22px;padding:26px;box-shadow:0 10px 30px rgba(42,31,89,.045)}
+.selection-heading{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.selection-heading h2,.custom-section h2{margin:0 0 4px;font-size:20px}
+.selection-heading .mu{margin:0}
+.selection-symbol{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;background:var(--tl2);color:var(--tl);font-size:29px}
+.level-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.level-option{display:flex;align-items:center;gap:14px;text-align:start;min-height:104px;padding:15px;border:1px solid var(--bd);border-radius:17px;background:var(--card);color:var(--tx);font:inherit;cursor:pointer;transition:.16s ease}
+.level-option:hover,.track-option:hover{border-color:var(--tl);transform:translateY(-2px)}
+.level-option.selected,.track-option.selected{border:2px solid var(--tl);background:linear-gradient(120deg,var(--tl2),var(--card));box-shadow:0 6px 18px rgba(112,65,200,.1)}
+.level-emoji{width:54px;height:54px;flex:none;border-radius:16px;display:grid;place-items:center;background:var(--tl2);font-size:30px}
+.level-copy{display:grid;gap:4px;flex:1}
+.level-copy b{font-size:17px}
+.level-copy small,.track-option small{color:var(--mu);font-size:12px;line-height:1.45}
+.select-mark{width:25px;height:25px;flex:none;border:1.5px solid #bdb2d8;border-radius:50%;display:grid;place-items:center;color:white;font-weight:900}
+.selected .select-mark{background:var(--tl);border-color:var(--tl)}
+.track-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:1fr;gap:12px}
+.track-option{position:relative;display:flex;flex-direction:column;align-items:flex-start;text-align:start;gap:7px;min-height:142px;height:100%;padding:18px;border:1px solid var(--bd);border-radius:17px;background:var(--card);color:var(--tx);font:inherit;cursor:pointer;transition:border-color .18s ease,background .18s ease,box-shadow .18s ease,transform .18s ease}
+.track-option:last-child{grid-column:2;justify-self:stretch}
+.track-option:nth-child(4),.track-option:nth-child(5){background-image:linear-gradient(145deg,rgba(166,107,231,.055),transparent 68%)}
+.track-option:nth-child(4):hover,.track-option:nth-child(5):hover{box-shadow:0 9px 22px rgba(112,65,200,.12)}
+.track-option .track-emoji{width:45px;height:45px;border-radius:14px;background:var(--tl2);display:grid;place-items:center;font-size:25px}
+.track-option b{font-size:15px;line-height:1.3;padding-inline-end:20px}
+.track-option small{display:block}
+.track-option .select-mark{position:absolute;top:12px;right:12px;width:22px;height:22px}
+:root[dir="rtl"] .track-option .select-mark{right:auto;left:12px}
+.setup-actions{display:flex;flex-direction:column;align-items:center;gap:7px;margin:20px auto 8px;max-width:540px}
+.setup-actions .btn{width:100%;min-height:54px}
+.setup-actions .lnk{margin:0}
+.custom-panel{display:grid;gap:22px}
+.custom-section{padding-bottom:20px;border-bottom:1px solid var(--bd)}
+.custom-section:last-of-type{padding-bottom:0;border:0}
+.custom-section .mu{margin:4px 0 12px}
+.custom-section h2{font-size:19px}
+.custom-language-grid,.question-count-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:620px}
+.custom-choice{position:relative;display:flex;align-items:center;gap:14px;min-height:82px;padding:14px 16px;border:1px solid var(--bd);border-radius:17px;background:var(--card);color:var(--tx);text-align:start;font:inherit;cursor:pointer;transition:border-color .18s ease,background .18s ease,box-shadow .18s ease,transform .18s ease}
+.custom-choice:hover{border-color:var(--tl);transform:translateY(-2px)}
+.custom-choice.selected{border:2px solid var(--tl);background:linear-gradient(120deg,var(--tl2),var(--card));box-shadow:0 6px 18px rgba(112,65,200,.1)}
+.custom-choice-icon{width:48px;height:48px;flex:none;display:grid;place-items:center;border-radius:15px;background:var(--tl2);font-size:27px}
+.custom-choice-copy{display:grid;gap:4px;flex:1}
+.custom-choice-copy b{font-size:15px}
+.custom-choice-copy small{font-size:12px;color:var(--mu);line-height:1.45}
+.custom-choice .select-mark{width:23px;height:23px;flex:none;border:1.5px solid #bdb2d8;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:900}
+.custom-choice.selected .select-mark{background:var(--tl);border-color:var(--tl)}
+.interview-type-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+.interview-type-card{grid-column:span 2}
+.interview-type-card:nth-child(4):nth-last-child(2){grid-column:2/span 2}
+.interview-type-card:last-child:nth-child(5){grid-column:4/span 2}
+.interview-type-card{min-height:132px;align-items:flex-start;flex-direction:column;gap:8px;padding:15px}
+.interview-type-card .custom-choice-icon{width:42px;height:42px;font-size:24px}
+.interview-type-card .select-mark{position:absolute;top:12px;right:12px}
+:root[dir="rtl"] .interview-type-card .select-mark{right:auto;left:12px}
+.interview-type-card .custom-choice-copy{padding-inline-end:16px}
+.question-count-grid{max-width:560px}
+.question-count-card{min-height:112px}
+.ai-note{margin:0;padding:14px 16px;background:var(--tl2);border-radius:14px;line-height:1.6}
+@media(max-width:700px){.interview-type-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.interview-type-card{grid-column:span 2}.interview-type-card:nth-child(4):nth-last-child(2){grid-column:2/span 2}.interview-type-card:last-child:nth-child(5){grid-column:2/span 2}.custom-language-grid,.question-count-grid{max-width:none}}
+@media(max-width:460px){.interview-type-grid,.custom-language-grid,.question-count-grid{grid-template-columns:1fr}.interview-type-card,.interview-type-card:nth-child(4):nth-last-child(2),.interview-type-card:last-child:nth-child(5){grid-column:1;min-height:100px;flex-direction:row;align-items:center}.interview-type-card .custom-choice-copy{padding-inline-end:20px}}
+@media(max-width:700px){
+ .setup-hero{padding:18px;gap:12px}
+ .setup-hero-art{width:76px;height:76px;border-radius:22px;font-size:44px}
+ .selection-panel{padding:18px}
+ .track-options{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:1fr}
+ .track-option:last-child{grid-column:1/-1;justify-self:center;width:calc(50% - 6px)}
+ .level-options{grid-template-columns:1fr}
+}
+@media(max-width:460px){
+ .setup-progress{gap:6px;justify-content:space-between;padding:9px 8px;margin-bottom:18px}
+ .setup-progress-item{gap:5px;font-size:11px}
+ .setup-progress-item span{width:27px;height:27px}
+ .setup-progress>i{width:12px}
+ .setup-hero-art{display:none}
+ .track-option{min-height:128px;padding:13px}
+ .track-option:last-child{grid-column:1;justify-self:stretch;width:100%}
+ .level-option{min-height:92px;padding:12px}
+}
+
+.interview-workspace{max-width:920px;margin:0 auto;padding:28px 30px;background:linear-gradient(145deg,#fff 0%,#fbf9ff 52%,#f2ebff 100%);border:1px solid #e4d9fa;border-radius:22px;box-shadow:0 14px 36px rgba(64,42,110,.07);position:relative;overflow:hidden}
+.interview-workspace:before{content:"";position:absolute;inset:-90px -80px auto auto;width:230px;height:190px;border-radius:50%;background:radial-gradient(circle,rgba(176,109,229,.16),transparent 70%);pointer-events:none}
+.interview-topline{display:flex;align-items:center;justify-content:space-between;gap:12px;position:relative}
+.interview-step-label{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;color:#6840b5}
+.interview-step-dot{width:34px;height:34px;border-radius:12px;background:#f0e8ff;display:grid;place-items:center;font-size:18px}
+.interview-percent{font-size:12px;font-weight:700;color:#7651bf}
+.interview-progress-track{height:9px;border-radius:99px;background:#e9e0f7;overflow:hidden;margin:14px 0 22px;position:relative}
+.interview-progress-track i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#7041c8,#b06de5);transition:width .3s ease}
+.interview-question-card{position:relative;padding:20px 22px;border:1px solid #e5daf9;border-radius:17px;background:rgba(255,255,255,.78);margin-bottom:18px}
+.interview-question-kicker{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#8650d8;margin-bottom:9px}
+.interview-question-card h2{font-size:clamp(19px,2.4vw,25px);line-height:1.42;margin:0;color:#17123c}
+.answer-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 9px}
+.answer-heading label{font-size:14px;font-weight:750;color:#211943}
+.answer-word-count{font-size:12px;color:var(--mu);font-variant-numeric:tabular-nums}
+#ans{display:block;width:100%;min-height:220px;padding:17px 18px;border:1px solid #ded3f2;border-radius:15px;background:#fff;color:#211943;font:inherit;line-height:1.75;resize:vertical;transition:border-color .18s ease,box-shadow .18s ease}
+#ans:focus{outline:0;border-color:#8650d8;box-shadow:0 0 0 4px rgba(134,80,216,.12)}
+.answer-guidance{display:flex;align-items:center;gap:8px;margin:9px 0 18px;color:#75688e;font-size:12px;line-height:1.5}
+.answer-guidance span{width:22px;height:22px;display:grid;place-items:center;flex:none;border-radius:8px;background:#f0e8ff;color:#7041c8}
+.interview-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.interview-actions .btn{min-width:150px;box-shadow:0 7px 17px rgba(112,65,200,.18)}
+.interview-secondary-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;padding-top:13px;border-top:1px solid #e9e0f7}
+.interview-end-link{color:#8a6ac0}
+@media(max-width:600px){.interview-workspace{padding:20px 16px;border-radius:17px}.interview-question-card{padding:17px 15px}#ans{min-height:190px}.interview-actions .btn{width:100%}}
 </style></head>
 <body><div id="app"></div>
 <script>
 const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const T={en:{tag:"Practice Like It’s Real.",h:"Your next interview starts here.",d:"Practice call center and customer service interviews in English or Arabic, with instant coaching feedback.",start:"Start Practice",how:"How it works",steps:["Choose your level and interview type","Answer one question at a time","Get feedback and a coaching report"],lvl:"Experience level",lvls:["Beginner / Fresh Graduate","Experienced Agent","Team Leader / Supervisor","Operations Manager"],il:"Interview language",ty:"Interview type",track:"Job role",tracks:["Customer Service Agent","Technical Support","Sales & Retention","Team Leader","Operations Manager","Quality Assurance","Workforce Management","Training & Development","Recruitment & HR","Client Success / Account Management"],tys:["General HR Interview","Customer Service Interview","Angry Customer Scenario","Sales and Objection Handling","KPI and Performance Management","Leadership and Operations"],nq:"Number of questions",qn:" questions",go:"Start Interview",ai:"AI coaching",aiOn:"Gemini evaluates your actual answers. You may be asked to allow this once.",aiOff:"AI isn’t available here, so a transparent rule-based rubric is used instead.",q:"Question",of:"of",ph:"Type your answer…",sub:"Submit Answer",empty:"Please write an answer before submitting.",back:"Back",end:"End session",next:"Next question",fin:"See report",fup:"Follow-up",fupPh:"Optional: practice your follow-up answer (not scored)",fb:"Feedback",chk:"Evaluating your answer…",rep:"Your report",ov:"Overall score",dims:["Answer Relevance","Communication and Clarity","Problem-Solving","Customer Focus","Role-Specific Competency"],st:"Strongest answers",im:"Areas for improvement",rc:"Recommendations",ex:"Example improved answers",plan:"Practice plan for next session",disc:"Scores are coaching estimates, not official hiring assessments.",again:"New session",mAI:"Evaluated by Gemini (AI)",mRule:"Rule-based estimate (not AI)",fall:"AI evaluation failed, so a rule-based estimate was used.",none:"No answers were submitted in this session.",tpl:"Generic template answer for this interview type",yours:"Your answer",noWeak:"No weak answers. Great work!",pl:["Take a 5-question session on: ","Focus on: ","Rewrite your weakest answer using the example, then practice a timed 90-second spoken version."],gen:"Preparing your report…",score:"Score",sg:"Strengths",pq:"Per-question scores",aiNote:"You’ll answer all the questions first, then get one AI evaluation at the end. It’s a coaching estimate only.",eNet:"Couldn’t reach the AI service. Check your internet connection and try again. Your answers are saved.",eHttp:"The AI service returned an error (code ",eBad:"The AI service sent an unexpected response. Please try again.",eTime:"The AI service took too long to respond. Please try again.",evalWait:"Evaluating your full interview. This can take up to a minute…",sub2:"Finish and get evaluation",retry:"Retry",review:"Review answers",saved:"Your answers are saved.",e429:"The AI service has reached its usage limit (quota). Please wait a few minutes, then tap Retry.",e502:"The AI service had a problem producing your evaluation. Please tap Retry.",e503:"The AI service is temporarily unavailable. Please try again shortly.",eReq:"The request was rejected (an answer may be too long). Use Review answers to shorten it, then retry.",eNoEval:"The AI service replied, but the evaluation was missing from the response. Please try again, and contact the site owner if it keeps happening.",eUserLimit:"You have reached your limit of 2 evaluations for this device today. It resets at midnight UTC.",eGlobalLimit:"Interview Gym has reached its daily limit of 250 evaluations. Please try again after midnight UTC.",eUsage:"Usage tracking is temporarily unavailable. No evaluation was started. Please try again later.",eProgress:"An evaluation from this device is already in progress. Please wait for it to finish.",retryWarning:"Important: a retry may use another daily evaluation because the previous attempt may already have reserved a quota slot.",skillTitle:"Skill breakdown",skillNames:["Communication & Clarity","Answer Relevance","Problem Solving","Answer Structure","Role Knowledge"],skillWeight:"Weight",skillStrengths:"What you did well",skillImprovements:"What to improve"},
-ar:{tag:"تدرّب كأنها حقيقية.",h:"استعد لمقابلتك القادمة بثقة.",d:"تدرّب على مقابلات مراكز الاتصال وخدمة العملاء بالعربية أو الإنجليزية مع ملاحظات تدريبية فورية.",start:"ابدأ التدريب",how:"كيف تعمل الجلسة",steps:["اختر مستواك ونوع المقابلة","أجب عن سؤال واحد في كل مرة","احصل على ملاحظات وتقرير تدريبي"],lvl:"مستوى الخبرة",lvls:["مبتدئ / حديث التخرج","موظف خبير","قائد فريق / مشرف","مدير عمليات"],il:"لغة المقابلة",ty:"نوع المقابلة",track:"المسار الوظيفي",tracks:["خدمة العملاء","الدعم الفني","المبيعات والاحتفاظ بالعملاء","قائد فريق","مدير عمليات","ضمان الجودة","تخطيط القوى العاملة","التدريب والتطوير","التوظيف والموارد البشرية","نجاح العملاء وإدارة الحسابات"],tys:["مقابلة موارد بشرية عامة","مقابلة خدمة العملاء","سيناريو عميل غاضب","المبيعات والتعامل مع الاعتراضات","المؤشرات وإدارة الأداء","القيادة والعمليات"],nq:"عدد الأسئلة",qn:" أسئلة",go:"ابدأ المقابلة",ai:"التدريب بالذكاء الاصطناعي",aiOn:"يقيّم Gemini إجاباتك الفعلية. قد يُطلب منك السماح بذلك مرة واحدة.",aiOff:"الذكاء الاصطناعي غير متاح هنا، لذا يُستخدم معيار تقييم شفاف قائم على القواعد.",q:"السؤال",of:"من",ph:"اكتب إجابتك…",sub:"أرسل الإجابة",empty:"من فضلك اكتب إجابة قبل الإرسال.",back:"رجوع",end:"إنهاء الجلسة",next:"السؤال التالي",fin:"عرض التقرير",fup:"سؤال متابعة",fupPh:"اختياري: تدرّب على إجابة المتابعة (لا تُحتسب)",fb:"الملاحظات",chk:"جارٍ تقييم إجابتك…",rep:"تقريرك",ov:"الدرجة الإجمالية",dims:["ملاءمة الإجابة","التواصل والوضوح","حل المشكلات","التركيز على العميل","الكفاءة الخاصة بالدور"],st:"أقوى الإجابات",im:"نقاط التحسين",rc:"التوصيات",ex:"أمثلة لإجابات محسّنة",plan:"خطة التدريب للجلسة القادمة",disc:"الدرجات تقديرات تدريبية وليست تقييمًا رسميًا للتوظيف.",again:"جلسة جديدة",mAI:"تقييم Gemini (ذكاء اصطناعي)",mRule:"تقدير قائم على القواعد (ليس ذكاءً اصطناعيًا)",fall:"فشل التقييم بالذكاء الاصطناعي، فاستُخدم تقدير قائم على القواعد.",none:"لم تُرسل أي إجابات في هذه الجلسة.",tpl:"إجابة نموذجية عامة لهذا النوع من المقابلات",yours:"إجابتك",noWeak:"لا توجد إجابات ضعيفة. عمل رائع!",pl:["جلسة من 5 أسئلة في: ","ركّز على: ","أعد كتابة أضعف إجابة باستخدام المثال، ثم تدرّب على نسخة شفهية مدتها 90 ثانية."],gen:"جارٍ إعداد تقريرك…",score:"الدرجة",sg:"نقاط القوة",pq:"درجات الأسئلة",aiNote:"ستجيب عن جميع الأسئلة أولًا ثم تحصل على تقييم واحد بالذكاء الاصطناعي في النهاية. وهو تقدير تدريبي فقط.",eNet:"تعذّر الوصول إلى خدمة الذكاء الاصطناعي. تحقق من الإنترنت وحاول مرة أخرى. إجاباتك محفوظة.",eHttp:"أعادت الخدمة خطأً (الرمز ",eBad:"أرسلت الخدمة ردًا غير متوقع. حاول مرة أخرى.",eTime:"استغرقت الخدمة وقتًا طويلًا. حاول مرة أخرى.",evalWait:"جارٍ تقييم مقابلتك كاملة. قد يستغرق ذلك حتى دقيقة…",sub2:"إنهاء والحصول على التقييم",retry:"إعادة المحاولة",review:"مراجعة الإجابات",saved:"إجاباتك محفوظة.",e429:"وصلت خدمة الذكاء الاصطناعي إلى حد الاستخدام (الحصة). انتظر بضع دقائق ثم اضغط إعادة المحاولة.",e502:"حدثت مشكلة في خدمة الذكاء الاصطناعي أثناء إعداد تقييمك. اضغط إعادة المحاولة.",e503:"خدمة الذكاء الاصطناعي غير متاحة مؤقتًا. حاول مرة أخرى بعد قليل.",eReq:"تم رفض الطلب (قد تكون إحدى الإجابات طويلة جدًا). راجع إجاباتك واختصرها ثم أعد المحاولة.",eNoEval:"ردّت الخدمة لكن التقييم غير موجود في الاستجابة. حاول مرة أخرى، وتواصل مع مالك الموقع إذا استمرت المشكلة.",eUserLimit:"وصلت إلى الحد اليومي المسموح لهذا الجهاز (تقييمان). يتجدد الحد عند منتصف الليل بتوقيت UTC.",eGlobalLimit:"وصل Interview Gym إلى الحد اليومي البالغ 250 تقييمًا. حاول مرة أخرى بعد منتصف الليل بتوقيت UTC.",eUsage:"خدمة تسجيل الاستخدام غير متاحة مؤقتًا. لم يبدأ التقييم. حاول مرة أخرى لاحقًا.",eProgress:"يوجد تقييم جارٍ بالفعل من هذا الجهاز. انتظر حتى ينتهي.",retryWarning:"مهم: إعادة المحاولة قد تستهلك محاولة يومية إضافية، لأن المحاولة السابقة ربما حجزت مكانًا من الحصة بالفعل.",skillTitle:"تقييم المهارات",skillNames:["التواصل والوضوح","ملاءمة الإجابة","حل المشكلات","تنظيم الإجابة","المعرفة بالدور الوظيفي"],skillWeight:"الوزن",skillStrengths:"نقاط القوة",skillImprovements:"ما يحتاج إلى تحسين"}};
+const T={en:{tag:"Practice Like It’s Real.",h:"Your next interview starts here.",d:"Practice call center and customer service interviews in English or Arabic, with instant coaching feedback.",start:"Start Practice",how:"How it works",steps:["Choose your level and interview type","Answer one question at a time","Get feedback and a coaching report"],lvl:"Experience level",lvls:["Beginner / Fresh Graduate","Experienced Professional","Team Leader / Supervisor","Operations Manager"],il:"Interview language",ty:"Interview type",track:"Job role",tracks:["Customer Service Agent","Technical Support","Sales & Retention","Team Leader","Operations Manager","Quality Assurance","Workforce Management","Training & Development","Recruitment & HR","Client Success / Account Management"],tys:["General HR Interview","Customer Service Interview","Angry Customer Scenario","Sales and Objection Handling","KPI and Performance Management","Leadership and Operations"],nq:"Number of questions",qn:" questions",go:"Start Interview",ai:"AI coaching",aiOn:"Gemini evaluates your actual answers. You may be asked to allow this once.",aiOff:"AI isn’t available here, so a transparent rule-based rubric is used instead.",q:"Question",of:"of",ph:"Type your answer…",sub:"Submit Answer",empty:"Please write an answer before submitting.",back:"Back",end:"End session",next:"Next question",fin:"See report",fup:"Follow-up",fupPh:"Optional: practice your follow-up answer (not scored)",fb:"Feedback",chk:"Evaluating your answer…",rep:"Your report",ov:"Overall score",dims:["Answer Relevance","Communication and Clarity","Problem-Solving","Customer Focus","Role-Specific Competency"],st:"Strongest answers",im:"Areas for improvement",rc:"Recommendations",ex:"Example improved answers",plan:"Practice plan for next session",disc:"Scores are coaching estimates, not official hiring assessments.",again:"New session",mAI:"Evaluated by Gemini (AI)",mRule:"Rule-based estimate (not AI)",fall:"AI evaluation failed, so a rule-based estimate was used.",none:"No answers were submitted in this session.",tpl:"Generic template answer for this interview type",yours:"Your answer",noWeak:"No weak answers. Great work!",pl:["Take a 5-question session on: ","Focus on: ","Rewrite your weakest answer using the example, then practice a timed 90-second spoken version."],gen:"Preparing your report…",score:"Score",sg:"Strengths",pq:"Per-question scores",aiNote:"You’ll answer all the questions first, then get one AI evaluation at the end. It’s a coaching estimate only.",eNet:"Couldn’t reach the AI service. Check your internet connection and try again. Your answers are saved.",eHttp:"The AI service returned an error (code ",eBad:"The AI service sent an unexpected response. Please try again.",eTime:"The AI service took too long to respond. Please try again.",evalWait:"Evaluating your full interview. This can take up to a minute…",sub2:"Finish and get evaluation",retry:"Retry",review:"Review answers",saved:"Your answers are saved.",e429:"The AI service has reached its usage limit (quota). Please wait a few minutes, then tap Retry.",e502:"The AI service had a problem producing your evaluation. Please tap Retry.",e503:"The AI service is temporarily unavailable. Please try again shortly.",eReq:"The request was rejected (an answer may be too long). Use Review answers to shorten it, then retry.",eNoEval:"The AI service replied, but the evaluation was missing from the response. Please try again, and contact the site owner if it keeps happening.",eUserLimit:"You have reached your limit of 2 evaluations for this device today. It resets at midnight UTC.",eGlobalLimit:"Interview Gym has reached its daily limit of 250 evaluations. Please try again after midnight UTC.",eUsage:"Usage tracking is temporarily unavailable. No evaluation was started. Please try again later.",eProgress:"An evaluation from this device is already in progress. Please wait for it to finish.",retryWarning:"Important: a retry may use another daily evaluation because the previous attempt may already have reserved a quota slot.",skillTitle:"Skill breakdown",skillNames:["Communication & Clarity","Answer Relevance","Problem Solving","Answer Structure","Role Knowledge"],skillWeight:"Weight",skillStrengths:"What you did well",skillImprovements:"What to improve",myProgress:"My Progress",completed:"Completed interviews",average:"Average score",latest:"Latest score",skillProgress:"Skill progress",history:"Interview history",noHistory:"Complete an interview to start tracking progress.",viewProgress:"View my progress",backHome:"Back to home",progressIntro:"Your results are saved on this browser only.",smartPractice:"Smart Practice",practiceIntro:"A short exercise built around your lowest-scoring skill.",practiceNow:"Practice this skill",practiceSaved:"Practice saved on this browser.",practiceQuestion:"Your practice question",practiceAnswer:"Write your answer",practicePlaceholder:"Write a short answer here…",practiceGuide:"A useful structure",practiceSteps:["Set the context: what was happening?","Explain the action: what did you do and why?","Share the result: what changed, and what did you learn?"],practiceTip:"Aim for a clear 60–90 second answer. Use a real example where possible.",savePractice:"Save practice",practiceAgain:"Try another exercise",weakestSkill:"Your focus skill",noPractice:"Complete an interview first to unlock targeted practice.",practiceQuestionStructure:"Tell me about a time you handled a difficult customer. Explain the situation, the actions you took, and the result.",practiceQuestionCommunication:"Explain a complex process or policy to a customer in simple, clear language. What would you say?",practiceQuestionRelevance:"A customer asks for help with an issue outside your usual process. How would you make sure your answer addresses their actual need?",practiceQuestionProblem:"A customer reports that their internet service keeps disconnecting. Walk me through how you would investigate and resolve the issue.",practiceQuestionRole:"Which performance metrics would you monitor in a customer service role, and how would you use them to improve customer outcomes?",practiceStructureName:"Situation – Action – Result (SAR)",practiceFeedback:"Quick answer review",practiceFeedbackNote:"This is a local structure check, not an AI or hiring assessment.",practiceStrengths:"What is working",practiceImprovements:"What to improve",practiceChecklist:"SAR checklist",practiceSituation:"Situation",practiceAction:"Action",practiceResult:"Result"},
+ar:{tag:"تدرّب كأنها حقيقية.",h:"استعد لمقابلتك القادمة بثقة.",d:"تدرّب على مقابلات مراكز الاتصال وخدمة العملاء بالعربية أو الإنجليزية مع ملاحظات تدريبية فورية.",start:"ابدأ التدريب",how:"كيف تعمل الجلسة",steps:["اختر مستواك ونوع المقابلة","أجب عن سؤال واحد في كل مرة","احصل على ملاحظات وتقرير تدريبي"],lvl:"مستوى الخبرة",lvls:["مبتدئ / حديث التخرج","محترف ذو خبرة","قائد فريق / مشرف","مدير عمليات"],il:"لغة المقابلة",ty:"نوع المقابلة",track:"المسار الوظيفي",tracks:["خدمة العملاء","الدعم الفني","المبيعات والاحتفاظ بالعملاء","قائد فريق","مدير عمليات","ضمان الجودة","تخطيط القوى العاملة","التدريب والتطوير","التوظيف والموارد البشرية","نجاح العملاء وإدارة الحسابات"],tys:["مقابلة موارد بشرية عامة","مقابلة خدمة العملاء","سيناريو عميل غاضب","المبيعات والتعامل مع الاعتراضات","المؤشرات وإدارة الأداء","القيادة والعمليات"],nq:"عدد الأسئلة",qn:" أسئلة",go:"ابدأ المقابلة",ai:"التدريب بالذكاء الاصطناعي",aiOn:"يقيّم Gemini إجاباتك الفعلية. قد يُطلب منك السماح بذلك مرة واحدة.",aiOff:"الذكاء الاصطناعي غير متاح هنا، لذا يُستخدم معيار تقييم شفاف قائم على القواعد.",q:"السؤال",of:"من",ph:"اكتب إجابتك…",sub:"أرسل الإجابة",empty:"من فضلك اكتب إجابة قبل الإرسال.",back:"رجوع",end:"إنهاء الجلسة",next:"السؤال التالي",fin:"عرض التقرير",fup:"سؤال متابعة",fupPh:"اختياري: تدرّب على إجابة المتابعة (لا تُحتسب)",fb:"الملاحظات",chk:"جارٍ تقييم إجابتك…",rep:"تقريرك",ov:"الدرجة الإجمالية",dims:["ملاءمة الإجابة","التواصل والوضوح","حل المشكلات","التركيز على العميل","الكفاءة الخاصة بالدور"],st:"أقوى الإجابات",im:"نقاط التحسين",rc:"التوصيات",ex:"أمثلة لإجابات محسّنة",plan:"خطة التدريب للجلسة القادمة",disc:"الدرجات تقديرات تدريبية وليست تقييمًا رسميًا للتوظيف.",again:"جلسة جديدة",mAI:"تقييم Gemini (ذكاء اصطناعي)",mRule:"تقدير قائم على القواعد (ليس ذكاءً اصطناعيًا)",fall:"فشل التقييم بالذكاء الاصطناعي، فاستُخدم تقدير قائم على القواعد.",none:"لم تُرسل أي إجابات في هذه الجلسة.",tpl:"إجابة نموذجية عامة لهذا النوع من المقابلات",yours:"إجابتك",noWeak:"لا توجد إجابات ضعيفة. عمل رائع!",pl:["جلسة من 5 أسئلة في: ","ركّز على: ","أعد كتابة أضعف إجابة باستخدام المثال، ثم تدرّب على نسخة شفهية مدتها 90 ثانية."],gen:"جارٍ إعداد تقريرك…",score:"الدرجة",sg:"نقاط القوة",pq:"درجات الأسئلة",aiNote:"ستجيب عن جميع الأسئلة أولًا ثم تحصل على تقييم واحد بالذكاء الاصطناعي في النهاية. وهو تقدير تدريبي فقط.",eNet:"تعذّر الوصول إلى خدمة الذكاء الاصطناعي. تحقق من الإنترنت وحاول مرة أخرى. إجاباتك محفوظة.",eHttp:"أعادت الخدمة خطأً (الرمز ",eBad:"أرسلت الخدمة ردًا غير متوقع. حاول مرة أخرى.",eTime:"استغرقت الخدمة وقتًا طويلًا. حاول مرة أخرى.",evalWait:"جارٍ تقييم مقابلتك كاملة. قد يستغرق ذلك حتى دقيقة…",sub2:"إنهاء والحصول على التقييم",retry:"إعادة المحاولة",review:"مراجعة الإجابات",saved:"إجاباتك محفوظة.",e429:"وصلت خدمة الذكاء الاصطناعي إلى حد الاستخدام (الحصة). انتظر بضع دقائق ثم اضغط إعادة المحاولة.",e502:"حدثت مشكلة في خدمة الذكاء الاصطناعي أثناء إعداد تقييمك. اضغط إعادة المحاولة.",e503:"خدمة الذكاء الاصطناعي غير متاحة مؤقتًا. حاول مرة أخرى بعد قليل.",eReq:"تم رفض الطلب (قد تكون إحدى الإجابات طويلة جدًا). راجع إجاباتك واختصرها ثم أعد المحاولة.",eNoEval:"ردّت الخدمة لكن التقييم غير موجود في الاستجابة. حاول مرة أخرى، وتواصل مع مالك الموقع إذا استمرت المشكلة.",eUserLimit:"وصلت إلى الحد اليومي المسموح لهذا الجهاز (تقييمان). يتجدد الحد عند منتصف الليل بتوقيت UTC.",eGlobalLimit:"وصل Interview Gym إلى الحد اليومي البالغ 250 تقييمًا. حاول مرة أخرى بعد منتصف الليل بتوقيت UTC.",eUsage:"خدمة تسجيل الاستخدام غير متاحة مؤقتًا. لم يبدأ التقييم. حاول مرة أخرى لاحقًا.",eProgress:"يوجد تقييم جارٍ بالفعل من هذا الجهاز. انتظر حتى ينتهي.",retryWarning:"مهم: إعادة المحاولة قد تستهلك محاولة يومية إضافية، لأن المحاولة السابقة ربما حجزت مكانًا من الحصة بالفعل.",skillTitle:"تقييم المهارات",skillNames:["التواصل والوضوح","ملاءمة الإجابة","حل المشكلات","تنظيم الإجابة","المعرفة بالدور الوظيفي"],skillWeight:"الوزن",skillStrengths:"نقاط القوة",skillImprovements:"ما يحتاج إلى تحسين",myProgress:"تقدمي",completed:"المقابلات المكتملة",average:"متوسط الدرجات",latest:"آخر درجة",skillProgress:"تطور المهارات",history:"سجل المقابلات",noHistory:"أكمل مقابلة لبدء متابعة تقدمك.",viewProgress:"عرض تقدمي",backHome:"العودة للرئيسية",progressIntro:"تُحفظ نتائجك على هذا المتصفح فقط.",smartPractice:"التدريب الذكي",practiceIntro:"تمرين قصير مصمم لتحسين أضعف مهارة لديك.",practiceNow:"تدرّب على هذه المهارة",practiceSaved:"تم حفظ التدريب على هذا المتصفح.",practiceQuestion:"سؤال التدريب",practiceAnswer:"اكتب إجابتك",practicePlaceholder:"اكتب إجابة مختصرة هنا…",practiceGuide:"هيكل مقترح للإجابة",practiceSteps:["وضّح الموقف: ماذا كان يحدث؟","اشرح الإجراء: ماذا فعلت ولماذا؟","اذكر النتيجة: ما الذي تغيّر وماذا تعلمت؟"],practiceTip:"استهدف إجابة واضحة مدتها من 60 إلى 90 ثانية، واستخدم مثالًا حقيقيًا كلما أمكن.",savePractice:"حفظ التدريب",practiceAgain:"جرّب تمرينًا آخر",weakestSkill:"المهارة التي تحتاج إلى تركيز",noPractice:"أكمل مقابلة أولًا لفتح التدريب المخصص.",practiceQuestionStructure:"احكِ عن موقف تعاملت فيه مع عميل صعب. اشرح الموقف والإجراءات التي اتخذتها والنتيجة.",practiceQuestionCommunication:"اشرح لعميل إجراءً أو سياسة معقدة بلغة بسيطة وواضحة. ماذا ستقول؟",practiceQuestionRelevance:"طلب عميل مساعدة في مشكلة خارج الإجراء المعتاد. كيف تتأكد أن إجابتك تعالج احتياجه الفعلي؟",practiceQuestionProblem:"عميل يشتكي من انقطاع اتصال الإنترنت بشكل متكرر. اشرح خطواتك لفحص المشكلة وحلها.",practiceQuestionRole:"ما مؤشرات الأداء التي تتابعها في وظيفة خدمة العملاء؟ وكيف تستخدمها لتحسين تجربة العميل؟",practiceStructureName:"الموقف – الإجراء – النتيجة (SAR)",practiceFeedback:"مراجعة سريعة للإجابة",practiceFeedbackNote:"هذه مراجعة آلية لترتيب الإجابة فقط، وليست تقييمًا بالذكاء الاصطناعي أو حكمًا على فرص التوظيف.",practiceStrengths:"نقاط جيدة في إجابتك",practiceImprovements:"ما يمكنك تحسينه",practiceChecklist:"قائمة مراجعة SAR",practiceSituation:"الموقف",practiceAction:"الإجراء",practiceResult:"النتيجة"}};
 // [levels, type, EN, AR]  types: 0 HR,1 CS,2 Angry,3 Sales,4 KPI,5 Leadership
 const Q=[
 ["01",0,"Tell me about yourself and why you want a customer service career.","عرّفنا بنفسك ولماذا تريد العمل في خدمة العملاء؟"],
@@ -73,7 +402,7 @@ const Q=[
 ["3",5,"The forecast shows volume up 20% next month with flat headcount. What is your plan?","التوقعات تُظهر زيادة 20% في الحجم الشهر القادم بنفس عدد الموظفين. ما خطتك؟"],
 ["23",0,"Why should we trust you to lead a team?","لماذا نثق بك لقيادة فريق؟"],
 ["0123",1,"Tell me about a mistake you made with a customer and what you learned.","حدثنا عن خطأ ارتكبته مع عميل وماذا تعلمت."]];
-let S={ui:'en',scr:'w',lvl:0,il:'en',ty:0,track:'customer_service_agent',n:5,ai:true,smp:null,qs:[],i:0,ans:[],busy:false,err:'',fbOn:false,draft:'',fu:'',note:'',rep:null};
+let S={ui:'en',scr:'w',lvl:0,il:'en',ty:0,track:'customer_service_agent',n:5,ai:true,smp:null,qs:[],i:0,ans:[],busy:false,err:'',fbOn:false,draft:'',fu:'',note:'',rep:null,progressSaved:false,smartAnswer:'',smartSaved:false,smartSkill:'',smartFeedback:null};
 const t=k=>T[S.ui][k],ul=()=>S.ui=='ar'?'Arabic':'English',il=()=>S.il=='ar'?'Arabic':'English';
 const avgOf=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:0;
 const API="https://interview-gym-api-test.kseoudi1.workers.dev";
@@ -84,6 +413,35 @@ const TRACKS=["customer_service_agent","technical_support","sales_retention","te
 const HISTORY_KEY="interview_gym_question_history_v1";
 function readQuestionHistory(){try{const v=JSON.parse(localStorage.getItem(HISTORY_KEY)||"[]");return Array.isArray(v)?v.filter(Array.isArray).slice(-5):[]}catch(e){return[]}}
 function saveQuestionHistory(ids){try{const h=readQuestionHistory();h.push(ids);localStorage.setItem(HISTORY_KEY,JSON.stringify(h.slice(-5)))}catch(e){}}
+
+// Personal progress is stored only in this browser; no extra API calls or account data.
+const PROGRESS_KEY="interview_gym_progress_v1";
+function readProgressHistory(){
+  try{
+    const value=JSON.parse(localStorage.getItem(PROGRESS_KEY)||"[]");
+    return Array.isArray(value)?value.filter(x=>x&&typeof x==="object"&&isFinite(Number(x.overall))&&Array.isArray(x.skills)).slice(-30):[];
+  }catch(e){return[]}
+}
+function saveProgressRecord(){
+  if(!S.ev||S.progressSaved)return;
+  const record={
+    id:Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,8),
+    date:new Date().toISOString(),
+    track:S.track,
+    role:T.en.tracks[TRACKS.indexOf(S.track)]||S.track,
+    language:S.il,
+    overall:S.ev.ov,
+    skills:S.ev.skills.map(x=>({id:x.id,score:x.score,weight:x.weight})),
+    strengths:S.ev.strengths.slice(0,4),
+    improvements:S.ev.improvements.slice(0,4)
+  };
+  try{
+    const history=readProgressHistory();
+    history.push(record);
+    localStorage.setItem(PROGRESS_KEY,JSON.stringify(history.slice(-30)));
+    S.progressSaved=true;
+  }catch(e){console.warn("Interview Gym: unable to save local progress history.");}
+}
 function shuffle(a){return a.map(x=>[Math.random(),x]).sort((x,y)=>x[0]-y[0]).map(x=>x[1])}
 const INTERVIEW_TYPES={
 customer_service_agent:[
@@ -193,24 +551,67 @@ if(!Array.isArray(E.skills)||E.skills.length!==skillIds.length||skillIds.some(id
 const skills=skillIds.map(id=>{const x=E.skills.find(y=>y.id===id);return{id,score:cl(Math.round(Number(x.score))),weight:Math.max(0,Math.min(100,Number(x.weight)||0)),summary:String(x.summary||""),strengths:arr(x.strengths),improvements:arr(x.improvements)}});
 const an=E.answers.map((x,i)=>{const sc=Math.round(Number(x&&x.score));if(!isFinite(sc)){console.warn("Interview Gym: invalid score at answers["+i+"]");throw{k:"bad"}}
 return{q:a[i].q,text:a[i].text,score:cl(sc),summary:String(x.summary||""),strengths:arr(x.strengths),improvements:arr(x.improvements),sug:x.suggestedAnswer?String(x.suggestedAnswer):""}});
-S.ev={ov:cl(ov),summary:String(E.summary||""),strengths:arr(E.strengths),improvements:arr(E.improvements),skills,answers:an}}
+S.ev={ov:cl(ov),summary:String(E.summary||""),strengths:arr(E.strengths),improvements:arr(E.improvements),skills,answers:an};saveProgressRecord()}
 catch(e){S.err=errMsg(e.k?e:{k:"net"})}
 finally{clearTimeout(tm);S.busy=false;R()}}
-function build(){S.qs=chooseBankQuestions();S.i=0;S.ans=[];S.draft='';S.fbOn=false;S.err='';S.note='';S.rep=null;S.ev=null;S.historySaved=false;}
+function build(){S.qs=chooseBankQuestions();S.i=0;S.ans=[];S.draft='';S.fbOn=false;S.err='';S.note='';S.rep=null;S.ev=null;S.historySaved=false;S.progressSaved=false;}
 function sub(){const v=S.draft.trim();if(!v){S.err=t('empty');R();return}
 S.err='';S.ans[S.i]={q:S.qs[S.i],text:v};
 if(S.i+1>=S.qs.length)fin();else{S.i++;S.draft=S.ans[S.i]?S.ans[S.i].text:'';R()}}
 function fin(){S.scr='r';S.ev=null;S.err='';if(S.ans.filter(Boolean).length){rememberCompletedInterview();evalAll()}else R()}
 const chips=(arr,sel,act)=>`<div class="chips">${arr.map((x,i)=>`<button class="chip" data-a="${act}" data-v="${i}" aria-pressed="${sel==i}">${esc(x)}</button>`).join('')}</div>`;
-const W=()=>`<div class="card"><span class="tag">${t('tag')}</span><h1>${t('h')}</h1><p class="mu">${t('d')}</p><button class="btn big" data-a="go">${t('start')}</button></div><div class="card"><h3>${t('how')}</h3><ol class="steps">${t('steps').map(s=>`<li>${s}</li>`).join('')}</ol></div>`;
-const Su=()=>`<div class="card"><h3>${t('lvl')}</h3>${chips(t('lvls'),S.lvl,'lv')}<h3>${t('il')}</h3>${chips(['English','العربية'],S.il=='ar'?1:0,'il')}<h3>${t('track')}</h3>${chips(t('tracks'),TRACKS.indexOf(S.track),'track')}<h3>${t('ty')}</h3>${chips(interviewTypeOptions(),S.ty,'ty')}<h3>${t('nq')}</h3>${chips(['5'+t('qn'),'10'+t('qn')],S.n==10?1:0,'nq')}
-<p class="mu">${t('aiNote')}</p><button class="btn big" data-a="begin">${t('go')}</button><button class="lnk" data-a="home">${t('back')}</button></div>`;
+const W=()=>`<div class="hero card"><div class="hero-copy"><span class="tag">${t('tag')}</span><h1>${t('h')}</h1><p class="mu">${t('d')}</p><button class="btn big" data-a="go">${t('start')}</button></div><div class="hero-art" aria-hidden="true"><svg viewBox="0 0 560 390" role="img" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="heroGlow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#eee4ff"/><stop offset="1" stop-color="#d7c4ff"/></linearGradient><linearGradient id="screen" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#28245c"/><stop offset="1" stop-color="#5140a4"/></linearGradient><linearGradient id="purple" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#bd83ff"/><stop offset="1" stop-color="#7136c9"/></linearGradient><filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#46328c" flood-opacity=".18"/></filter></defs><ellipse cx="302" cy="335" rx="235" ry="27" fill="#b7a0eb" opacity=".22"/><circle cx="330" cy="175" r="160" fill="url(#heroGlow)" opacity=".9"/><g filter="url(#shadow)"><path d="M155 93Q155 78 171 78H443Q459 78 459 94V278H155Z" fill="#25234f"/><path d="M168 94H446V263H168Z" fill="url(#screen)"/><rect x="190" y="116" width="112" height="126" rx="13" fill="#7560c5" opacity=".8"/><circle cx="246" cy="151" r="23" fill="#d9caff"/><path d="M209 214q4-35 37-35t37 35" fill="#d9caff"/><rect x="318" y="116" width="107" height="126" rx="13" fill="#fff" opacity=".13"/><rect x="333" y="133" width="76" height="9" rx="5" fill="#e7ddff"/><g fill="#5de0b0"><circle cx="342" cy="171" r="9"/><circle cx="342" cy="202" r="9"/><circle cx="342" cy="231" r="9"/></g><g stroke="#e9e2ff" stroke-width="5" stroke-linecap="round" opacity=".9"><path d="M359 171h48M359 202h39M359 231h51"/></g><path d="M126 280H487L526 306Q529 313 512 315H103Q88 313 96 305Z" fill="#b9c3e5"/><path d="M145 282H468L494 301H121Z" fill="#e9edff"/><path d="M245 286h125l-10 10H255Z" fill="#b7bce0"/></g><g filter="url(#shadow)"><path d="M183 91q0-72 72-72t72 72" fill="none" stroke="#29265e" stroke-width="17" stroke-linecap="round"/><rect x="174" y="77" width="25" height="64" rx="12" fill="url(#purple)"/><rect x="310" y="77" width="25" height="64" rx="12" fill="url(#purple)"/><path d="M322 129q-8 31-39 31" fill="none" stroke="#8d5cdb" stroke-width="8" stroke-linecap="round"/><circle cx="280" cy="160" r="8" fill="#8d5cdb"/></g><g filter="url(#shadow)"><path d="M45 264q-2-48 25-68 9 36-4 59 21-45 57-51-5 42-47 61 36-21 65-10-23 33-74 25Z" fill="#64b98c"/><path d="M50 277h80l-9 45H59Z" fill="#fff" stroke="#d9d1ef" stroke-width="3"/><path d="M60 291h60" stroke="#e5def4" stroke-width="4"/></g><g filter="url(#shadow)"><path d="M450 252h65v68q0 12-12 12h-41q-12 0-12-12Z" fill="#fff"/><path d="M515 266h13q22 0 22 22t-22 22h-13" fill="none" stroke="#fff" stroke-width="10"/><path d="M470 283q-10-17 0-29M489 283q-10-17 0-29" stroke="#b18be9" stroke-width="5" stroke-linecap="round" fill="none"/><path d="M472 301h22" stroke="#8e5ad6" stroke-width="5" stroke-linecap="round"/></g><g filter="url(#shadow)"><path d="M155 324h142l-14 25H169Z" fill="#fff" stroke="#d9d1ef" stroke-width="3"/><path d="M171 333h106M180 340h89" stroke="#c8b7e8" stroke-width="3" stroke-linecap="round"/><path d="M206 315l65 7" stroke="#51458a" stroke-width="5" stroke-linecap="round"/></g><g fill="#8b55d6"><path d="M476 59l9-18 7 3-9 18Z"/><path d="M500 73l17-10 4 7-17 10Z"/><circle cx="452" cy="52" r="5"/></g></svg></div></div><div class="card how-card"><h3>${t('how')}</h3><ol class="steps">${t('steps').map((s,i)=>`<li><span class="step-icon" aria-hidden="true">${i===0?'<svg viewBox="0 0 48 48"><circle cx="21" cy="25" r="13"/><circle cx="21" cy="25" r="6"/><path d="M25 21 39 7m-1 1 5 1-1 5"/></svg>':i===1?'<svg viewBox="0 0 48 48"><path d="M9 27v-5a15 15 0 0 1 30 0v5"/><rect x="6" y="24" width="8" height="13" rx="4"/><rect x="34" y="24" width="8" height="13" rx="4"/><path d="M38 36q-2 6-11 6h-4"/></svg>':'<svg viewBox="0 0 48 48"><path d="M7 40h35"/><rect x="10" y="27" width="7" height="13" rx="2"/><rect x="22" y="19" width="7" height="21" rx="2"/><rect x="34" y="9" width="7" height="31" rx="2"/><path d="m9 20 12-7 9 2 11-9m-1 0h-8m8 0v8"/></svg>'}</span><span class="step-copy">${s}</span><span class="step-number">${i+1}</span></li>`).join('')}</ol></div>`; 
+
+const setupProgress=(step)=>`<div class="setup-progress">${["Setup","Career track","Customize"].map((x,i)=>`<div class="setup-progress-item ${i===step?'active':i<step?'done':''}"><span>${i<step?'✓':i+1}</span><b>${S.ui==="ar"?["المستوى","المسار الوظيفي","إعداد المقابلة"][i]:x}</b></div>${i<2?'<i></i>':''}`).join('')}</div>`;
+const setupHero=(title,desc,art)=>`<div class="setup-hero"><div><span class="tag">${S.ui==="ar"?"جهّز تجربتك التدريبية":"YOUR PRACTICE JOURNEY"}</span><h1>${title}</h1><p class="mu">${desc}</p></div><div class="setup-hero-art" aria-hidden="true">${art}</div></div>`;
+const levelDescriptions=[
+ ["New to call centers or with limited experience.","حديث التخرج أو خبرتك محدودة في مراكز الاتصال.","🚀"],
+ ["You have experience and want to sharpen your skills.","لديك خبرة وتريد تطوير مهاراتك.","📈"],
+ ["You lead people or are preparing for a leadership role.","تقود فريقًا أو تستعد لدور قيادي.","🏆"],
+ ["You manage operations or are targeting a senior role.","تدير العمليات أو تستهدف منصبًا إداريًا متقدمًا.","🎯"]
+];
+const levelPage=()=>`<div class="setup-page">${setupProgress(0)}${setupHero(S.ui==="ar"?"اختر مستوى خبرتك":"Choose your experience level",S.ui==="ar"?"اختار المستوى الأقرب لخبرتك الحالية. سنخصص الأسئلة بناءً على اختيارك.":"Choose the option that best describes your experience. We’ll tailor the questions to your level.",'<div class="setup-art-icon">✦</div>')}<div class="selection-panel"><div class="selection-heading"><span class="selection-symbol">▱</span><div><h2>${t("lvl")}</h2><p class="mu">${S.ui==="ar"?"اختر المستوى المناسب لك":"Select the level that fits you best."}</p></div></div><div class="level-options">${t("lvls").map((name,i)=>`<button class="level-option ${S.lvl===i?'selected':''}" data-a="lv" data-v="${i}" aria-pressed="${S.lvl===i}"><span class="level-emoji">${levelDescriptions[i][2]}</span><span class="level-copy"><b>${name}</b><small>${S.ui==="ar"?levelDescriptions[i][1]:levelDescriptions[i][0]}</small></span><span class="select-mark">${S.lvl===i?'✓':''}</span></button>`).join('')}</div></div><div class="setup-actions"><button class="btn big" data-a="toTrack">${S.ui==="ar"?"التالي: اختر المسار":"Continue to career track"} <span aria-hidden="true">→</span></button><button class="lnk" data-a="home">${t("back")}</button></div></div>`;
+const trackIcons=["🎧","🛠️","💼","👥","⚙️","🔎","📊","🎓","🤝","🚀"];
+const trackDescriptions=[
+ ["Customer conversations and service quality","التواصل مع العملاء وجودة الخدمة"],
+ ["Troubleshooting and technical problem solving","حل المشكلات والدعم الفني"],
+ ["Sales conversations, retention and objections","المبيعات والاحتفاظ بالعملاء"],
+ ["Coaching, team leadership and daily performance","قيادة الفريق والتوجيه ومتابعة الأداء"],
+ ["Operational strategy, KPIs and client governance","الاستراتيجية التشغيلية والمؤشرات وإدارة العميل"],
+ ["Quality monitoring, calibration and compliance","مراقبة الجودة والمعايرة والالتزام"],
+ ["Forecasting, scheduling and real-time management","التنبؤ والجداول والإدارة اللحظية"],
+ ["Learning, facilitation and coaching","التدريب والتيسير والتوجيه"],
+ ["Talent acquisition and people processes","استقطاب المواهب وعمليات الموارد البشرية"],
+ ["Client relationships and account performance","علاقات العملاء وأداء الحساب"]
+];
+const trackPage=()=>`<div class="setup-page">${setupProgress(1)}${setupHero(S.ui==="ar"?"اختر المسار الوظيفي":"Choose your career track",S.ui==="ar"?"حدد الوظيفة التي تريد التدريب على مقابلتها.":"Select the role you want to prepare for. Each track has tailored interview questions.",'<div class="setup-art-icon">✧</div>')}<div class="selection-panel"><div class="selection-heading"><span class="selection-symbol">▣</span><div><h2>${t("track")}</h2><p class="mu">${S.ui==="ar"?"اختر مجالًا واحدًا للمتابعة":"Choose one role to continue."}</p></div></div><div class="track-options">${TRACKS.map((key,i)=>`<button class="track-option ${S.track===key?'selected':''}" data-a="track" data-v="${i}" aria-pressed="${S.track===key}"><span class="track-emoji">${trackIcons[i]}</span><b>${t("tracks")[i]}</b><small>${S.ui==="ar"?trackDescriptions[i][1]:trackDescriptions[i][0]}</small><span class="select-mark">${S.track===key?'✓':''}</span></button>`).join('')}</div></div><div class="setup-actions"><button class="btn big" data-a="toCustom">${S.ui==="ar"?"التالي: إعداد المقابلة":"Continue to interview setup"} <span aria-hidden="true">→</span></button><button class="lnk" data-a="toLevel">${S.ui==="ar"?"رجوع للمستوى":"Back to level"}</button></div></div>`;
+const customPage=()=>{
+const languageChoices=[{label:"English",icon:"EN",desc:"Practice in English",arDesc:"تدرّب باللغة الإنجليزية",value:"en"},{label:"العربية",icon:"AR",desc:"Practice in Arabic",arDesc:"تدرّب باللغة العربية",value:"ar"}];
+const typeIcons=["💬","🤝","🛡️","📚","🧩","🎯"];
+const typeDescriptions=[
+["A balanced mix of common interview questions","مزيج متوازن من أسئلة المقابلات الشائعة"],
+["Build rapport and communicate with confidence","بناء الثقة والتواصل بوضوح"],
+["Handle difficult situations and calm customers","التعامل مع المواقف الصعبة وتهدئة العملاء"],
+["Show your knowledge of services and procedures","إظهار معرفتك بالخدمات والإجراءات"],
+["Analyze issues and use metrics to find solutions","تحليل المشكلات واستخدام المؤشرات لإيجاد الحلول"],
+["Practice role-specific and leadership questions","التدرّب على أسئلة الدور الوظيفي والقيادة"]
+];
+const types=interviewTypeOptions();
+const typeCards=types.map((name,i)=>`<button class="custom-choice interview-type-card ${S.ty===i?'selected':''}" data-a="ty" data-v="${i}" aria-pressed="${S.ty===i}"><span class="custom-choice-icon">${typeIcons[i]||"✨"}</span><span class="custom-choice-copy"><b>${esc(name)}</b><small>${S.ui==="ar"?(typeDescriptions[i]||typeDescriptions[5])[1]:(typeDescriptions[i]||typeDescriptions[5])[0]}</small></span><span class="select-mark">${S.ty===i?'✓':''}</span></button>`).join("");
+return `<div class="setup-page">${setupProgress(2)}${setupHero(S.ui==="ar"?"خصص مقابلتك":"Customize your interview",S.ui==="ar"?"اختر اللغة ونوع المقابلة وعدد الأسئلة قبل أن تبدأ.":"Choose your interview language, focus and session length before you begin.",'<div class="setup-art-icon">✓</div>')}<div class="selection-panel custom-panel">
+<div class="custom-section"><div class="selection-heading"><span class="selection-symbol">🌐</span><div><h2>${t("il")}</h2><p class="mu">${S.ui==="ar"?"اختر اللغة التي تفضل إجراء المقابلة بها":"Choose the language you want to interview in."}</p></div></div><div class="custom-language-grid">${languageChoices.map(x=>`<button class="custom-choice ${S.il===x.value?'selected':''}" data-a="il" data-v="${x.value==="ar"?1:0}" aria-pressed="${S.il===x.value}"><span class="custom-choice-icon">${x.icon}</span><span class="custom-choice-copy"><b>${x.label}</b><small>${S.ui==="ar"?x.arDesc:x.desc}</small></span><span class="select-mark">${S.il===x.value?'✓':''}</span></button>`).join("")}</div></div>
+<div class="custom-section"><div class="selection-heading"><span class="selection-symbol">🎯</span><div><h2>${t("ty")}</h2><p class="mu">${S.ui==="ar"?"اختر نوع الأسئلة التي تريد التركيز عليها":"Choose the interview focus you want to practice."}</p></div></div><div class="interview-type-grid">${typeCards}</div></div>
+<div class="custom-section"><div class="selection-heading"><span class="selection-symbol">📝</span><div><h2>${t("nq")}</h2><p class="mu">${S.ui==="ar"?"حدد طول جلسة التدريب":"Choose the length of your practice session."}</p></div></div><div class="question-count-grid">${[{n:5,title:S.ui==="ar"?"تدريب سريع":"Quick Practice",desc:S.ui==="ar"?"جلسة قصيرة ومركزة":"Short focused session",icon:"⚡"},{n:10,title:S.ui==="ar"?"تدريب متكامل":"Full Practice",desc:S.ui==="ar"?"جلسة مقابلة أطول":"Extended interview session",icon:"🏆"}].map(x=>`<button class="custom-choice question-count-card ${S.n===x.n?'selected':''}" data-a="nq" data-v="${x.n===10?1:0}" aria-pressed="${S.n===x.n}"><span class="custom-choice-icon">${x.icon}</span><span class="custom-choice-copy"><b>${x.n} ${t("qn")}</b><small>${x.title} · ${x.desc}</small></span><span class="select-mark">${S.n===x.n?'✓':''}</span></button>`).join("")}</div></div>
+<p class="mu ai-note">${t("aiNote")}</p></div><div class="setup-actions"><button class="btn big" data-a="begin">${t("go")} <span aria-hidden="true">→</span></button><button class="lnk" data-a="toTrack">${S.ui==="ar"?"رجوع للمسار الوظيفي":"Back to career track"}</button></div></div>`;
+};
 const ulh=x=>x.length?`<ul style="margin:4px 0">${x.map(i=>`<li dir="auto">${esc(i)}</li>`).join('')}</ul>`:'';
 const lst=(h,x)=>x.length?`<h3 style="margin:12px 0 4px">${h}</h3>${ulh(x)}`:'';
-const I=()=>{const q=S.qs[S.i],n=S.qs.length,p=Math.round(S.i/n*100),last=S.i+1>=n;
-return`<div class="card"><div class="row"><span class="mu">${t('q')} ${S.i+1} ${t('of')} ${n}</span><span class="mu">${p}%</span></div><div class="bar"><i style="width:${p}%"></i></div><h2 dir="auto" lang="${S.il}">${esc(q[S.il=='ar'?3:2])}</h2>
-<textarea id="ans" dir="auto" maxlength="4000" placeholder="${t('ph')}">${esc(S.draft)}</textarea>${S.err?`<p class="er">${S.err}</p>`:''}<button class="btn" data-a="sub">${last?t('sub2'):t('sub')}</button>
-<div class="row"><button class="lnk" data-a="bk" ${S.i?'':'disabled'}>${t('back')}</button><button class="lnk" data-a="end">${t('end')}</button></div></div>`};
+const I=()=>{const q=S.qs[S.i],n=S.qs.length,p=Math.round(S.i/n*100),last=S.i+1>=n,words=(S.draft.trim().match(/\S+/g)||[]).length;
+return`<section class="interview-workspace"><div class="interview-topline"><div class="interview-step-label"><span class="interview-step-dot">✦</span><span>${t('q')} ${S.i+1} ${t('of')} ${n}</span></div><span class="interview-percent">${p}%</span></div><div class="interview-progress-track" role="progressbar" aria-valuenow="${p}" aria-valuemin="0" aria-valuemax="100"><i style="width:${p}%"></i></div>
+<div class="interview-question-card"><div class="interview-question-kicker">${S.ui==="ar"?"سؤال المقابلة":"Interview Coach · Your question"}</div><h2 dir="auto" lang="${S.il}">${esc(q[S.il=='ar'?3:2])}</h2></div>
+<div class="answer-heading"><label for="ans">${S.ui==="ar"?"اكتب إجابتك":"Your answer"}</label><span class="answer-word-count" id="answerCount">${words} ${S.ui==="ar"?"كلمة":"words"} · ${S.draft.length}/4000 ${S.ui==="ar"?"حرف":"chars"}</span></div>
+<textarea id="ans" dir="auto" maxlength="4000" placeholder="${t('ph')}">${esc(S.draft)}</textarea><div class="answer-guidance"><span>✎</span>${S.ui==="ar"?"استخدم مثالًا واضحًا، واشرح ما فعلته والنتيجة التي حققتها.":"Use a clear example. Explain what you did and the result you achieved."}</div>${S.err?`<p class="er">${S.err}</p>`:''}
+<div class="interview-actions"><button class="btn" data-a="sub">${last?t('sub2'):t('sub')}</button></div><div class="interview-secondary-actions"><button class="lnk" data-a="bk" ${S.i?'':'disabled'}>${t('back')}</button><button class="lnk interview-end-link" data-a="end">${t('end')}</button></div></section>`};
 const Rp=()=>{const a=S.ans.filter(Boolean);
 if(!a.length)return`<div class="card"><p>${t('none')}</p><button class="btn" data-a="again">${t('again')}</button></div>`;
 if(S.busy)return`<div class="card"><p><span class="spin"></span>${t('evalWait')}</p></div>`;
@@ -223,15 +624,48 @@ return`<div class="card"><div class="row"><div><div class="mu">${t('ov')}</div><
 <h3 style="margin:18px 4px 8px">${t('fb')}</h3>
 ${e.answers.map((x,i)=>`<div class="card"><div class="row"><span class="mu">${t('q')} ${i+1}</span><b>${x.score}/100</b></div><div class="bar"><i style="width:${x.score}%"></i></div><h3 dir="auto" lang="${S.il}" style="margin:8px 0">${esc(x.q[S.il=='ar'?3:2])}</h3><p class="mu" dir="auto" style="white-space:pre-wrap;margin:0 0 8px">${esc(x.text)}</p><p dir="auto" style="margin:0">${esc(x.summary)}</p>${lst(t('sg'),x.strengths)}${lst(t('im'),x.improvements)}${x.sug?`<h3 style="margin:12px 0 4px">${t('ex')}</h3><p dir="auto" lang="${S.il}" style="margin:0">${esc(x.sug)}</p>`:''}</div>`).join('')}
 <div class="card"><h3>${t('plan')}</h3><ol>${plan.map(x=>`<li dir="auto">${esc(x)}</li>`).join('')}</ol><button class="btn" data-a="again">${t('again')}</button></div>`};
+const PRACTICE_SKILLS=[{id:"communicationClarity",q:"practiceQuestionCommunication"},{id:"answerRelevance",q:"practiceQuestionRelevance"},{id:"problemSolving",q:"practiceQuestionProblem"},{id:"answerStructure",q:"practiceQuestionStructure"},{id:"roleKnowledge",q:"practiceQuestionRole"}];
+const PRACTICE_KEY="interview_gym_smart_practice_v1";
+function readSmartPractice(){try{const v=JSON.parse(localStorage.getItem(PRACTICE_KEY)||"[]");return Array.isArray(v)?v.slice(-30):[]}catch(e){return[]}}
+function getWeakestSkill(){const h=readProgressHistory(),names=t("skillNames");if(!h.length)return null;const stats=PRACTICE_SKILLS.map((skill,i)=>{const vals=h.flatMap(x=>(x.skills||[]).filter(y=>y.id===skill.id).map(y=>Number(y.score))).filter(Number.isFinite);return{...skill,name:names[i],score:vals.length?Math.round(vals.reduce((a,b)=>a+b,0)/vals.length):100}});return stats.sort((a,b)=>a.score-b.score)[0]}
+function assessPracticeAnswer(answer,lang){
+ const a=String(answer||"").trim().toLowerCase();
+ const ar=lang==="ar";
+ const hasSituation=ar?/(موقف|عميل|كان|حدث|خصم|مشكلة)/.test(a):/(situation|customer|was|because|issue|problem|deduction)/.test(a);
+ const hasAction=ar?/(استمعت|راجعت|تحققت|تواصلت|شرحت|قمت|أعدت|عالجت|حللت)/.test(a):/(listened|checked|reviewed|explained|contacted|processed|refunded|resolved|guided|investigated|action)/.test(a);
+ const hasResult=ar?/(النتيجة|أصبح|انتهى|سعيد|راضٍ|تم حل|استرداد|نجح)/.test(a):/(result|happy|satisfied|resolved|refund|success|successfully|improved|ended)/.test(a);
+ const words=a.split(/\\s+/).filter(Boolean).length;
+ const strengths=[],improvements=[];
+ if(hasSituation)strengths.push(ar?"وضحت خلفية الموقف وسبب المشكلة.":"You described the context and the customer's issue.");
+ if(hasAction)strengths.push(ar?"ذكرت إجراءات عملية اتخذتها لحل المشكلة.":"You mentioned practical actions taken to resolve the issue.");
+ if(hasResult)strengths.push(ar?"أشرت إلى نتيجة أو أثر إيجابي.":"You included an outcome or positive impact.");
+ if(!hasSituation)improvements.push(ar?"ابدأ بتوضيح الموقف وسبب تواصل العميل.":"Start by explaining the situation and why the customer contacted you.");
+ if(!hasAction)improvements.push(ar?"حدد خطواتك بالتفصيل، وما الذي فعلته أنت تحديدًا.":"Describe the exact steps you personally took and why.");
+ if(!hasResult)improvements.push(ar?"اختم بالنتيجة: هل حُلّت المشكلة؟ وكيف تأكدت من رضا العميل؟":"Finish with the outcome: was the issue resolved, and how did you confirm customer satisfaction?");
+ if(words<45)improvements.push(ar?"أضف تفاصيل أكثر؛ إجابتك قصيرة ولا توضح تسلسل خطواتك بالكامل.":"Add more detail; the answer is brief and does not fully explain the sequence of actions.");
+ else if(words>140)improvements.push(ar?"اختصر التفاصيل واحتفظ فقط بما يخدم الموقف والإجراء والنتيجة.":"Trim details that do not support the situation, action, or result.");
+ if(!improvements.length)improvements.push(ar?"أضف مقياسًا أو دليلًا يوضح أثر الحل، وما تعلمته من التجربة.":"Make the result more specific with evidence or a metric, and add what you learned.");
+ return {strengths,improvements,checks:{situation:hasSituation,action:hasAction,result:hasResult},wordCount:words,kind:"structure_check"};
+}
+function SP(){const weak=getWeakestSkill(),done=readSmartPractice();if(!weak)return '<div class="card"><h2>'+t("smartPractice")+'</h2><p class="mu">'+t("noPractice")+'</p><button class="btn" data-a="progress">'+t("backHome")+'</button></div>';if(S.smartSkill!==weak.id){S.smartSkill=weak.id;S.smartAnswer="";S.smartSaved=false;}const safeSteps=t("practiceSteps").map(x=>"<li>"+esc(x)+"</li>").join("");return '<div class="card"><div class="row"><h2>'+t("smartPractice")+'</h2><span class="pill">'+done.length+' / 30</span></div><p class="mu">'+t("practiceIntro")+'</p><h3>'+t("weakestSkill")+': '+esc(weak.name)+' ('+weak.score+'/100)</h3><div class="card" style="background:var(--soft)"><b>'+t("practiceQuestion")+'</b><p dir="auto" lang="'+S.ui+'" style="margin-bottom:0">'+esc(t(weak.q))+'</p></div><label for="smartAnswer">'+t("practiceAnswer")+'</label><textarea id="smartAnswer" rows="6" placeholder="'+t("practicePlaceholder")+'" '+(S.smartSaved?"disabled":"")+'>'+esc(S.smartAnswer)+'</textarea><h3>'+t("practiceGuide")+': '+t("practiceStructureName")+'</h3><ol>'+safeSteps+'</ol><p class="mu">'+t("practiceTip")+'</p>'+(S.smartSaved?'<div class="card" style="background:var(--soft)"><h3>'+t("practiceFeedback")+'</h3><p class="mu">'+t("practiceFeedbackNote")+'</p><b>'+t("practiceStrengths")+'</b><ul>'+S.smartFeedback.strengths.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul><b>'+t("practiceImprovements")+'</b><ul>'+S.smartFeedback.improvements.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul><p class="mu">'+t("practiceChecklist")+': '+(S.smartFeedback.checks.situation?'✓':'—')+' '+t("practiceSituation")+' · '+(S.smartFeedback.checks.action?'✓':'—')+' '+t("practiceAction")+' · '+(S.smartFeedback.checks.result?'✓':'—')+' '+t("practiceResult")+'</p></div><p class="mu">'+t("practiceSaved")+'</p><button class="btn" data-a="smartAgain">'+t("practiceAgain")+'</button>':'<button class="btn" data-a="smartSave" '+(S.smartAnswer.trim().length<10?"disabled":"")+'>'+t("savePractice")+'</button>')+'<button class="lnk" data-a="progress">'+t("backHome")+'</button></div>'}
+function MP(){
+const h=readProgressHistory().slice().reverse();
+if(!h.length)return '<div class="card"><h2>'+t("myProgress")+'</h2><p class="mu">'+t("noHistory")+'</p><button class="btn" data-a="home">'+t("backHome")+'</button></div>';
+const avg=Math.round(h.reduce((s,x)=>s+Number(x.overall),0)/h.length),latest=Math.round(Number(h[0].overall));
+const ids=["communicationClarity","answerRelevance","problemSolving","answerStructure","roleKnowledge"],names=t("skillNames");
+const skills=ids.map((id,i)=>{const v=h.flatMap(x=>x.skills.filter(y=>y.id===id).map(y=>Number(y.score))).filter(Number.isFinite);return{name:names[i],score:v.length?Math.round(v.reduce((a,b)=>a+b,0)/v.length):0}});
+const fmt=d=>new Date(d).toLocaleDateString(S.ui==="ar"?"ar-EG":"en-GB",{day:"numeric",month:"short",year:"numeric"});
+return '<div class="card"><div class="row"><h2>'+t("myProgress")+'</h2><span class="pill">'+h.length+' / 30</span></div><p class="mu">'+t("progressIntro")+'</p><div class="progress-grid"><div class="stat"><strong>'+h.length+'</strong><span>'+t("completed")+'</span></div><div class="stat"><strong>'+avg+'</strong><span>'+t("average")+'</span></div><div class="stat"><strong>'+latest+'</strong><span>'+t("latest")+'</span></div></div><h3 style="margin-top:20px">'+t("skillProgress")+'</h3>'+skills.map(x=>'<div class="d"><div class="row"><b>'+esc(x.name)+'</b><b>'+x.score+'/100</b></div><div class="bar"><i style="width:'+x.score+'%"></i></div></div>').join("")+'</div><div class="card"><h3>'+t("smartPractice")+'</h3><p class="mu">'+t("practiceIntro")+'</p><button class="btn" data-a="smartPractice">'+t("practiceNow")+'</button></div><div class="card"><h3>'+t("history")+'</h3>'+h.map(x=>'<div class="history-item"><div class="row"><b>'+esc(x.role||x.track||"Interview")+'</b><b>'+Math.round(Number(x.overall))+'/100</b></div><div class="row mu"><span>'+fmt(x.date)+'</span><span>'+(x.language==="ar"?"العربية":"English")+'</span></div><div class="bar"><i style="width:'+Math.max(0,Math.min(100,Number(x.overall)))+'%"></i></div></div>').join("")+'<button class="btn" data-a="home">'+t("backHome")+'</button></div>';
+}
 function R(){const h=document.documentElement;h.lang=S.ui;h.dir=S.ui=='ar'?'rtl':'ltr';
-$('#app').innerHTML=`<header><div data-a="home" style="cursor:pointer"><div class="brand">Interview <b>Gym</b></div><div class="sig">By K.Seoudi</div></div><div class="lang"><button data-a="ui" data-v="en" aria-pressed="${S.ui=='en'}">English</button><button data-a="ui" data-v="ar" aria-pressed="${S.ui=='ar'}">العربية</button></div></header>`+{w:W,s:Su,i:I,r:Rp}[S.scr]()+`<footer class="ft">Created by K.Seoudi</footer>`}
-const H={ui:v=>{S.ui=v;S.il=v;R()},home:()=>{if(S.busy)return;S.scr='w';R()},go:()=>{S.scr='s';R()},
+$('#app').innerHTML=`<header><div data-a="home" style="cursor:pointer"><div class="brand">Interview <b>Gym</b></div><div class="sig">By K.Seoudi</div></div><button class="lnk" data-a="progress" style="margin:0 10px">${t("myProgress")}</button><div class="lang"><button data-a="ui" data-v="en" aria-pressed="${S.ui=='en'}">English</button><button data-a="ui" data-v="ar" aria-pressed="${S.ui=='ar'}">العربية</button></div></header>`+{w:W,s:levelPage,track:trackPage,custom:customPage,i:I,r:Rp,p:MP,sp:SP}[S.scr]()+`<footer class="ft">Created by K.Seoudi</footer>`}
+const H={ui:v=>{S.ui=v;S.il=v;R()},home:()=>{if(S.busy)return;S.scr='w';R()},go:()=>{S.scr='s';R()},toTrack:()=>{S.scr='track';R()},toLevel:()=>{S.scr='s';R()},toCustom:()=>{S.scr='custom';R()},progress:()=>{S.scr='p';R()},smartPractice:()=>{S.scr='sp';S.smartAnswer='';S.smartSaved=false;S.smartFeedback=null;R()},smartSave:()=>{if(S.smartSaved||S.smartAnswer.trim().length<10)return;const weak=getWeakestSkill();if(!weak)return;const feedback=assessPracticeAnswer(S.smartAnswer,S.ui);const list=readSmartPractice();list.push({date:new Date().toISOString(),skill:weak.id,answer:S.smartAnswer.trim(),feedback});try{localStorage.setItem(PRACTICE_KEY,JSON.stringify(list.slice(-30)));S.smartFeedback=feedback;S.smartSaved=true;R()}catch(e){alert(S.ui==='ar'?'تعذر حفظ التدريب في المتصفح.':'Could not save practice in this browser.')}},smartAgain:()=>{S.smartAnswer='';S.smartSaved=false;S.smartFeedback=null;R()},
 lv:v=>{S.lvl=+v;R()},il:v=>{S.il=v==1?'ar':'en';S.ui=S.il;R()},ty:v=>{S.ty=+v;R()},track:v=>{S.track=TRACKS[+v]||TRACKS[0];R()},nq:v=>{S.n=v==1?10:5;R()},ai:()=>{S.ai=!S.ai;R()},
 begin:async()=>{const b=document.querySelector('[data-a="begin"]');if(b){b.disabled=true;b.textContent=S.ui==="ar"?"جارٍ تحميل الأسئلة…":"Loading questions…"}try{await loadQuestionBank();build();S.scr='i';R()}catch(e){if(b){b.disabled=false;b.textContent=t('go')}alert(S.ui==="ar"?"تعذر تحميل بنك الأسئلة. تحقق من الاتصال وحاول مرة أخرى.":"Could not load the question bank. Check your connection and try again.");}},sub,
 retry:()=>evalAll(),review:()=>{if(S.busy)return;S.scr='i';S.i=Math.max(0,Math.min(S.qs.length-1,S.ans.length-1));S.draft=S.ans[S.i]?S.ans[S.i].text:'';S.err='';R()},
 bk:()=>{if(S.i<1||S.busy)return;S.i--;S.fbOn=false;S.err='';S.draft=S.ans[S.i]?S.ans[S.i].text:'';R()},
-end:()=>{if(!S.busy)fin()},again:()=>{S.scr='s';R()}};
+end:()=>{if(!S.busy&&confirm(S.ui==='ar'?'هل تريد إنهاء المقابلة الآن؟ سيتم الانتقال إلى التقييم.':'End this interview now? You will move to the evaluation.'))fin()},again:()=>{S.scr='s';R()}};
 $('#app').addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(b&&H[b.dataset.a]&&!b.disabled)H[b.dataset.a](b.dataset.v)});
-$('#app').addEventListener('input',e=>{if(e.target.id=='ans'){S.draft=e.target.value;if(S.err){S.err='';const p=document.querySelector('.er');if(p)p.remove()}}if(e.target.id=='fu')S.fu=e.target.value});
+$('#app').addEventListener('input',e=>{if(e.target.id=='ans'){S.draft=e.target.value;const c=document.querySelector('#answerCount');if(c){const words=(S.draft.trim().match(/\S+/g)||[]).length;c.textContent=words+' '+(S.ui==='ar'?'كلمة':'words')+' · '+S.draft.length+'/4000 '+(S.ui==='ar'?'حرف':'chars')}if(S.err){S.err='';const p=document.querySelector('.er');if(p)p.remove()}}if(e.target.id=='fu')S.fu=e.target.value;if(e.target.id=='smartAnswer'){S.smartAnswer=e.target.value;const b=document.querySelector('[data-a="smartSave"]');if(b)b.disabled=S.smartAnswer.trim().length<10;}});
 R();
 </script></body></html>
