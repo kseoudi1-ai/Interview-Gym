@@ -299,12 +299,32 @@ header{padding:12px 4px 20px}
 .setup-actions{display:flex;flex-direction:column;align-items:center;gap:7px;margin:20px auto 8px;max-width:540px}
 .setup-actions .btn{width:100%;min-height:54px}
 .setup-actions .lnk{margin:0}
-.custom-panel{display:grid;gap:20px}
-.custom-section{padding-bottom:16px;border-bottom:1px solid var(--bd)}
+.custom-panel{display:grid;gap:22px}
+.custom-section{padding-bottom:20px;border-bottom:1px solid var(--bd)}
 .custom-section:last-of-type{padding-bottom:0;border:0}
 .custom-section .mu{margin:4px 0 12px}
-.custom-chips{margin:8px 0 0}
-.ai-note{margin:0;padding:13px 15px;background:var(--tl2);border-radius:13px}
+.custom-section h2{font-size:19px}
+.custom-language-grid,.question-count-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:620px}
+.custom-choice{position:relative;display:flex;align-items:center;gap:14px;min-height:82px;padding:14px 16px;border:1px solid var(--bd);border-radius:17px;background:var(--card);color:var(--tx);text-align:start;font:inherit;cursor:pointer;transition:border-color .18s ease,background .18s ease,box-shadow .18s ease,transform .18s ease}
+.custom-choice:hover{border-color:var(--tl);transform:translateY(-2px)}
+.custom-choice.selected{border:2px solid var(--tl);background:linear-gradient(120deg,var(--tl2),var(--card));box-shadow:0 6px 18px rgba(112,65,200,.1)}
+.custom-choice-icon{width:48px;height:48px;flex:none;display:grid;place-items:center;border-radius:15px;background:var(--tl2);font-size:27px}
+.custom-choice-copy{display:grid;gap:4px;flex:1}
+.custom-choice-copy b{font-size:15px}
+.custom-choice-copy small{font-size:12px;color:var(--mu);line-height:1.45}
+.custom-choice .select-mark{width:23px;height:23px;flex:none;border:1.5px solid #bdb2d8;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:900}
+.custom-choice.selected .select-mark{background:var(--tl);border-color:var(--tl)}
+.interview-type-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.interview-type-card{min-height:132px;align-items:flex-start;flex-direction:column;gap:8px;padding:15px}
+.interview-type-card .custom-choice-icon{width:42px;height:42px;font-size:24px}
+.interview-type-card .select-mark{position:absolute;top:12px;right:12px}
+:root[dir="rtl"] .interview-type-card .select-mark{right:auto;left:12px}
+.interview-type-card .custom-choice-copy{padding-inline-end:16px}
+.question-count-grid{max-width:560px}
+.question-count-card{min-height:112px}
+.ai-note{margin:0;padding:14px 16px;background:var(--tl2);border-radius:14px;line-height:1.6}
+@media(max-width:700px){.interview-type-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.custom-language-grid,.question-count-grid{max-width:none}}
+@media(max-width:460px){.interview-type-grid,.custom-language-grid,.question-count-grid{grid-template-columns:1fr}.interview-type-card{min-height:100px;flex-direction:row;align-items:center}.interview-type-card .custom-choice-copy{padding-inline-end:20px}}
 @media(max-width:700px){
  .setup-hero{padding:18px;gap:12px}
  .setup-hero-art{width:76px;height:76px;border-radius:22px;font-size:44px}
@@ -539,7 +559,25 @@ const trackDescriptions=[
  ["Client relationships and account performance","علاقات العملاء وأداء الحساب"]
 ];
 const trackPage=()=>`<div class="setup-page">${setupProgress(1)}${setupHero(S.ui==="ar"?"اختر المسار الوظيفي":"Choose your career track",S.ui==="ar"?"حدد الوظيفة التي تريد التدريب على مقابلتها.":"Select the role you want to prepare for. Each track has tailored interview questions.",'<div class="setup-art-icon">✧</div>')}<div class="selection-panel"><div class="selection-heading"><span class="selection-symbol">▣</span><div><h2>${t("track")}</h2><p class="mu">${S.ui==="ar"?"اختر مجالًا واحدًا للمتابعة":"Choose one role to continue."}</p></div></div><div class="track-options">${TRACKS.map((key,i)=>`<button class="track-option ${S.track===key?'selected':''}" data-a="track" data-v="${i}" aria-pressed="${S.track===key}"><span class="track-emoji">${trackIcons[i]}</span><b>${t("tracks")[i]}</b><small>${S.ui==="ar"?trackDescriptions[i][1]:trackDescriptions[i][0]}</small><span class="select-mark">${S.track===key?'✓':''}</span></button>`).join('')}</div></div><div class="setup-actions"><button class="btn big" data-a="toCustom">${S.ui==="ar"?"التالي: إعداد المقابلة":"Continue to interview setup"} <span aria-hidden="true">→</span></button><button class="lnk" data-a="toLevel">${S.ui==="ar"?"رجوع للمستوى":"Back to level"}</button></div></div>`;
-const customPage=()=>`<div class="setup-page">${setupProgress(2)}${setupHero(S.ui==="ar"?"خصص مقابلتك":"Customize your interview",S.ui==="ar"?"اختر اللغة ونوع المقابلة وعدد الأسئلة قبل أن تبدأ.":"Choose your interview language, focus and session length before you begin.",'<div class="setup-art-icon">✓</div>')}<div class="selection-panel custom-panel"><div class="custom-section"><h2>${t("il")}</h2>${chips(["English","العربية"],S.il==="ar"?1:0,"il")}</div><div class="custom-section"><h2>${t("ty")}</h2><p class="mu">${S.ui==="ar"?"اختر نوع الأسئلة التي تريد التركيز عليها":"Choose the interview focus you want to practice."}</p><div class="chips custom-chips">${chips(interviewTypeOptions(),S.ty,"ty").replace('<div class="chips">','').replace(/<\/div>$/,'')}</div></div><div class="custom-section"><h2>${t("nq")}</h2>${chips(["5"+t("qn"),"10"+t("qn")],S.n===10?1:0,"nq")}</div><p class="mu ai-note">${t("aiNote")}</p></div><div class="setup-actions"><button class="btn big" data-a="begin">${t("go")} <span aria-hidden="true">→</span></button><button class="lnk" data-a="toTrack">${S.ui==="ar"?"رجوع للمسار الوظيفي":"Back to career track"}</button></div></div>`;
+const customPage=()=>{
+const languageChoices=[{label:"English",icon:"🇬🇧",desc:"Practice in English",arDesc:"تدرّب باللغة الإنجليزية",value:"en"},{label:"العربية",icon:"🇪🇬",desc:"Practice in Arabic",arDesc:"تدرّب باللغة العربية",value:"ar"}];
+const typeIcons=["💬","🤝","🛡️","📚","🧩","🎯"];
+const typeDescriptions=[
+["A balanced mix of common interview questions","مزيج متوازن من أسئلة المقابلات الشائعة"],
+["Build rapport and communicate with confidence","بناء الثقة والتواصل بوضوح"],
+["Handle difficult situations and calm customers","التعامل مع المواقف الصعبة وتهدئة العملاء"],
+["Show your knowledge of services and procedures","إظهار معرفتك بالخدمات والإجراءات"],
+["Analyze issues and use metrics to find solutions","تحليل المشكلات واستخدام المؤشرات لإيجاد الحلول"],
+["Practice role-specific and leadership questions","التدرّب على أسئلة الدور الوظيفي والقيادة"]
+];
+const types=interviewTypeOptions();
+const typeCards=types.map((name,i)=>`<button class="custom-choice interview-type-card ${S.ty===i?'selected':''}" data-a="ty" data-v="${i}" aria-pressed="${S.ty===i}"><span class="custom-choice-icon">${typeIcons[i]||"✨"}</span><span class="custom-choice-copy"><b>${esc(name)}</b><small>${S.ui==="ar"?(typeDescriptions[i]||typeDescriptions[5])[1]:(typeDescriptions[i]||typeDescriptions[5])[0]}</small></span><span class="select-mark">${S.ty===i?'✓':''}</span></button>`).join("");
+return `<div class="setup-page">${setupProgress(2)}${setupHero(S.ui==="ar"?"خصص مقابلتك":"Customize your interview",S.ui==="ar"?"اختر اللغة ونوع المقابلة وعدد الأسئلة قبل أن تبدأ.":"Choose your interview language, focus and session length before you begin.",'<div class="setup-art-icon">✓</div>')}<div class="selection-panel custom-panel">
+<div class="custom-section"><div class="selection-heading"><span class="selection-symbol">🌐</span><div><h2>${t("il")}</h2><p class="mu">${S.ui==="ar"?"اختر اللغة التي تفضل إجراء المقابلة بها":"Choose the language you want to interview in."}</p></div></div><div class="custom-language-grid">${languageChoices.map(x=>`<button class="custom-choice ${S.il===x.value?'selected':''}" data-a="il" data-v="${x.value==="ar"?1:0}" aria-pressed="${S.il===x.value}"><span class="custom-choice-icon">${x.icon}</span><span class="custom-choice-copy"><b>${x.label}</b><small>${S.ui==="ar"?x.arDesc:x.desc}</small></span><span class="select-mark">${S.il===x.value?'✓':''}</span></button>`).join("")}</div></div>
+<div class="custom-section"><div class="selection-heading"><span class="selection-symbol">🎯</span><div><h2>${t("ty")}</h2><p class="mu">${S.ui==="ar"?"اختر نوع الأسئلة التي تريد التركيز عليها":"Choose the interview focus you want to practice."}</p></div></div><div class="interview-type-grid">${typeCards}</div></div>
+<div class="custom-section"><div class="selection-heading"><span class="selection-symbol">📝</span><div><h2>${t("nq")}</h2><p class="mu">${S.ui==="ar"?"حدد طول جلسة التدريب":"Choose the length of your practice session."}</p></div></div><div class="question-count-grid">${[{n:5,title:S.ui==="ar"?"تدريب سريع":"Quick Practice",desc:S.ui==="ar"?"جلسة قصيرة ومركزة":"Short focused session",icon:"⚡"},{n:10,title:S.ui==="ar"?"تدريب متكامل":"Full Practice",desc:S.ui==="ar"?"جلسة مقابلة أطول":"Extended interview session",icon:"🏆"}].map(x=>`<button class="custom-choice question-count-card ${S.n===x.n?'selected':''}" data-a="nq" data-v="${x.n===10?1:0}" aria-pressed="${S.n===x.n}"><span class="custom-choice-icon">${x.icon}</span><span class="custom-choice-copy"><b>${x.n} ${t("qn")}</b><small>${x.title} · ${x.desc}</small></span><span class="select-mark">${S.n===x.n?'✓':''}</span></button>`).join("")}</div></div>
+<p class="mu ai-note">${t("aiNote")}</p></div><div class="setup-actions"><button class="btn big" data-a="begin">${t("go")} <span aria-hidden="true">→</span></button><button class="lnk" data-a="toTrack">${S.ui==="ar"?"رجوع للمسار الوظيفي":"Back to career track"}</button></div></div>`;
+};
 const ulh=x=>x.length?`<ul style="margin:4px 0">${x.map(i=>`<li dir="auto">${esc(i)}</li>`).join('')}</ul>`:'';
 const lst=(h,x)=>x.length?`<h3 style="margin:12px 0 4px">${h}</h3>${ulh(x)}`:'';
 const I=()=>{const q=S.qs[S.i],n=S.qs.length,p=Math.round(S.i/n*100),last=S.i+1>=n;
