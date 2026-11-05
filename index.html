@@ -314,7 +314,10 @@ header{padding:12px 4px 20px}
 .custom-choice-copy small{font-size:12px;color:var(--mu);line-height:1.45}
 .custom-choice .select-mark{width:23px;height:23px;flex:none;border:1.5px solid #bdb2d8;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:900}
 .custom-choice.selected .select-mark{background:var(--tl);border-color:var(--tl)}
-.interview-type-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.interview-type-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+.interview-type-card{grid-column:span 2}
+.interview-type-card:nth-child(4):nth-last-child(2){grid-column:2/span 2}
+.interview-type-card:last-child:nth-child(5){grid-column:4/span 2}
 .interview-type-card{min-height:132px;align-items:flex-start;flex-direction:column;gap:8px;padding:15px}
 .interview-type-card .custom-choice-icon{width:42px;height:42px;font-size:24px}
 .interview-type-card .select-mark{position:absolute;top:12px;right:12px}
@@ -323,8 +326,8 @@ header{padding:12px 4px 20px}
 .question-count-grid{max-width:560px}
 .question-count-card{min-height:112px}
 .ai-note{margin:0;padding:14px 16px;background:var(--tl2);border-radius:14px;line-height:1.6}
-@media(max-width:700px){.interview-type-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.custom-language-grid,.question-count-grid{max-width:none}}
-@media(max-width:460px){.interview-type-grid,.custom-language-grid,.question-count-grid{grid-template-columns:1fr}.interview-type-card{min-height:100px;flex-direction:row;align-items:center}.interview-type-card .custom-choice-copy{padding-inline-end:20px}}
+@media(max-width:700px){.interview-type-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.interview-type-card{grid-column:span 2}.interview-type-card:nth-child(4):nth-last-child(2){grid-column:2/span 2}.interview-type-card:last-child:nth-child(5){grid-column:2/span 2}.custom-language-grid,.question-count-grid{max-width:none}}
+@media(max-width:460px){.interview-type-grid,.custom-language-grid,.question-count-grid{grid-template-columns:1fr}.interview-type-card,.interview-type-card:nth-child(4):nth-last-child(2),.interview-type-card:last-child:nth-child(5){grid-column:1;min-height:100px;flex-direction:row;align-items:center}.interview-type-card .custom-choice-copy{padding-inline-end:20px}}
 @media(max-width:700px){
  .setup-hero{padding:18px;gap:12px}
  .setup-hero-art{width:76px;height:76px;border-radius:22px;font-size:44px}
@@ -560,7 +563,7 @@ const trackDescriptions=[
 ];
 const trackPage=()=>`<div class="setup-page">${setupProgress(1)}${setupHero(S.ui==="ar"?"اختر المسار الوظيفي":"Choose your career track",S.ui==="ar"?"حدد الوظيفة التي تريد التدريب على مقابلتها.":"Select the role you want to prepare for. Each track has tailored interview questions.",'<div class="setup-art-icon">✧</div>')}<div class="selection-panel"><div class="selection-heading"><span class="selection-symbol">▣</span><div><h2>${t("track")}</h2><p class="mu">${S.ui==="ar"?"اختر مجالًا واحدًا للمتابعة":"Choose one role to continue."}</p></div></div><div class="track-options">${TRACKS.map((key,i)=>`<button class="track-option ${S.track===key?'selected':''}" data-a="track" data-v="${i}" aria-pressed="${S.track===key}"><span class="track-emoji">${trackIcons[i]}</span><b>${t("tracks")[i]}</b><small>${S.ui==="ar"?trackDescriptions[i][1]:trackDescriptions[i][0]}</small><span class="select-mark">${S.track===key?'✓':''}</span></button>`).join('')}</div></div><div class="setup-actions"><button class="btn big" data-a="toCustom">${S.ui==="ar"?"التالي: إعداد المقابلة":"Continue to interview setup"} <span aria-hidden="true">→</span></button><button class="lnk" data-a="toLevel">${S.ui==="ar"?"رجوع للمستوى":"Back to level"}</button></div></div>`;
 const customPage=()=>{
-const languageChoices=[{label:"English",icon:"🇬🇧",desc:"Practice in English",arDesc:"تدرّب باللغة الإنجليزية",value:"en"},{label:"العربية",icon:"🇪🇬",desc:"Practice in Arabic",arDesc:"تدرّب باللغة العربية",value:"ar"}];
+const languageChoices=[{label:"English",icon:"EN",desc:"Practice in English",arDesc:"تدرّب باللغة الإنجليزية",value:"en"},{label:"العربية",icon:"AR",desc:"Practice in Arabic",arDesc:"تدرّب باللغة العربية",value:"ar"}];
 const typeIcons=["💬","🤝","🛡️","📚","🧩","🎯"];
 const typeDescriptions=[
 ["A balanced mix of common interview questions","مزيج متوازن من أسئلة المقابلات الشائعة"],
