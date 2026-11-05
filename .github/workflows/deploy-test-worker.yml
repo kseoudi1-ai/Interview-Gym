@@ -48,14 +48,25 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          response=$(curl --silent --show-error --fail \
+          response=$(curl --silent --show-error \
             --request POST \
             --header "Content-Type: application/json" \
             --header "Authorization: Bearer $DIAGNOSTIC_TOKEN" \
             --data '{"mode":"diagnostic","action":"probe","deviceId":"staging-smoke-test-0001"}' \
+            --write-out '\nHTTP_STATUS:%{http_code}' \
             "https://interview-gym-api-staging.kseoudi1.workers.dev")
+          status="${response##*HTTP_STATUS:}"
+          body="${response%
 
-          if ! echo "$response" | jq -e 'has("allowed") and has("code")' >/dev/null; then
+          echo "Staging Worker and Durable Object diagnostic passed."
+          echo "$response" | jq '{allowed, code}'
+        env:
+          DIAGNOSTIC_TOKEN: ${{ secrets.DIAGNOSTIC_TOKEN }}
+\n'HTTP_STATUS:*}"
+          echo "Staging diagnostic HTTP status: $status"
+          echo "Staging diagnostic response: $body"
+
+          if [[ "$status" != "200" ]] || ! echo "$body" | jq -e 'has("allowed") and has("code")' >/dev/null; then
             echo "Staging diagnostic endpoint returned an unexpected response."
             exit 1
           fi
