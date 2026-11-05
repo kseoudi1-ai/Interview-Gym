@@ -3,7 +3,7 @@ name: Deploy Interview Gym Staging Worker
 on:
   push:
     branches:
-      - feature/structured-evaluation
+      - feature/improvement-progress
   workflow_dispatch:
 
 jobs:
@@ -16,7 +16,7 @@ jobs:
 
       - name: Verify staging-only deployment
         run: |
-          test "${GITHUB_REF_NAME}" = "feature/structured-evaluation"
+          test "${GITHUB_REF_NAME}" = "feature/improvement-progress"
           grep -q '"name": "interview-gym-api-staging"' cloudflare-worker/wrangler.jsonc
           ! grep -q '"name": "interview-gym-api-test"' cloudflare-worker/wrangler.jsonc
 
