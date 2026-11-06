@@ -532,6 +532,98 @@ header{padding:12px 4px 20px}
  .result-plan .btn{min-height:50px}
 }
 @media(max-width:380px){.result-overview .big-n{font-size:54px}.result-score-row{align-items:flex-start}.result-answer-card{padding:15px 13px}}
+
+/* Mobile selection cards refinement — preview branch */
+@media (max-width: 520px) {
+  .track-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-auto-rows: auto !important;
+    align-items: stretch;
+    gap: 10px !important;
+  }
+  .track-option,
+  .track-option:last-child {
+    grid-column: auto !important;
+    justify-self: stretch !important;
+    width: 100% !important;
+    min-width: 0;
+    min-height: 142px !important;
+    height: auto !important;
+    padding: 12px !important;
+    gap: 7px !important;
+    border-radius: 15px !important;
+  }
+  .track-option .track-emoji {
+    width: 38px !important;
+    height: 38px !important;
+    border-radius: 12px !important;
+    font-size: 21px !important;
+  }
+  .track-option b {
+    font-size: 13px !important;
+    line-height: 1.28 !important;
+    padding-inline-end: 18px !important;
+    overflow-wrap: anywhere;
+  }
+  .track-option small {
+    font-size: 11px !important;
+    line-height: 1.38 !important;
+  }
+  .track-option .select-mark {
+    width: 19px !important;
+    height: 19px !important;
+    top: 9px !important;
+    right: 9px !important;
+  }
+  :root[dir="rtl"] .track-option .select-mark {
+    right: auto !important;
+    left: 9px !important;
+  }
+
+  .question-count-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    max-width: none !important;
+  }
+  .question-count-card {
+    min-width: 0;
+    min-height: 108px !important;
+    height: auto !important;
+    padding: 12px !important;
+    gap: 8px !important;
+    align-items: flex-start !important;
+    border-radius: 15px !important;
+  }
+  .question-count-card .custom-choice-icon {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 11px !important;
+    font-size: 21px !important;
+  }
+  .question-count-card .custom-choice-copy {
+    min-width: 0;
+    gap: 3px !important;
+  }
+  .question-count-card .custom-choice-copy b {
+    font-size: 14px !important;
+    line-height: 1.3 !important;
+  }
+  .question-count-card .custom-choice-copy small {
+    font-size: 11px !important;
+    line-height: 1.35 !important;
+  }
+  .question-count-card .select-mark {
+    position: absolute;
+    top: 9px;
+    right: 9px;
+    width: 19px !important;
+    height: 19px !important;
+  }
+  :root[dir="rtl"] .question-count-card .select-mark {
+    right: auto;
+    left: 9px;
+  }
+}
 </style></head>
 <body><div id="app"></div>
 <script>
