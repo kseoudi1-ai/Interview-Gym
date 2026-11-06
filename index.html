@@ -440,6 +440,60 @@ header{padding:12px 4px 20px}
  .level-emoji,.custom-choice-icon{width:40px;height:40px}
 }
 
+
+/* Mobile career-track and interview workspace polish — staging only */
+@media(max-width:600px){
+ .track-options{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .track-option{
+   min-width:0;
+   min-height:132px;
+   padding:13px 12px;
+   gap:8px;
+   border-radius:15px;
+ }
+ .track-option .track-emoji{width:40px;height:40px;border-radius:12px;font-size:22px}
+ .track-option b{font-size:14px;line-height:1.35;padding-inline-end:16px;overflow-wrap:anywhere}
+ .track-option small{font-size:12px;line-height:1.45}
+ .track-option .select-mark{top:10px;right:10px;width:20px;height:20px}
+ :root[dir="rtl"] .track-option .select-mark{right:auto;left:10px}
+ .track-option:last-child{grid-column:1/-1;justify-self:stretch;width:100%;min-height:104px}
+ .interview-workspace{
+   padding:18px 14px;
+   border-radius:18px;
+ }
+ .interview-topline{gap:8px}
+ .interview-step-label{gap:8px;font-size:12px}
+ .interview-step-dot{width:30px;height:30px;border-radius:10px}
+ .interview-progress-track{height:8px;margin:12px 0 17px}
+ .interview-question-card{padding:17px 14px;margin-bottom:16px;border-radius:15px}
+ .interview-question-kicker{font-size:11px;line-height:1.4}
+ .interview-question-card h2{font-size:19px;line-height:1.5;overflow-wrap:anywhere}
+ .answer-heading{align-items:flex-start;flex-direction:column;gap:4px}
+ .answer-heading label{font-size:15px}
+ .answer-word-count{font-size:11px;line-height:1.5}
+ #ans{min-height:210px;padding:14px;border-radius:13px;font-size:15px;line-height:1.75}
+ .answer-guidance{align-items:flex-start;gap:9px;font-size:12px;line-height:1.55;margin-top:10px}
+ .interview-actions{display:block;margin-top:16px}
+ .interview-actions .btn{width:100%;min-height:50px;margin:0}
+ .interview-secondary-actions{margin-top:12px;padding-top:12px;gap:10px}
+ .interview-secondary-actions .lnk{min-height:40px;padding:8px 4px}
+}
+@media(max-width:380px){
+ .track-options{gap:8px}
+ .track-option{min-height:140px;padding:11px 10px}
+ .track-option b{font-size:13px}
+ .interview-workspace{padding:15px 12px}
+ .interview-question-card h2{font-size:18px}
+ .interview-secondary-actions{font-size:13px}
+}
+@media(prefers-reduced-motion:reduce){
+ .track-option,.interview-progress-track i{transition:none}
+}
+.track-option:focus-visible,.custom-choice:focus-visible,.level-option:focus-visible{
+ outline:3px solid rgba(112,65,200,.3);
+ outline-offset:3px;
+}
+
 </style></head>
 <body><div id="app"></div>
 <script>
