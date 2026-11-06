@@ -217,8 +217,7 @@ header{padding:12px 4px 20px}
  display:flex;align-items:center;gap:10px;
  background:linear-gradient(145deg,#fff,#f8f5ff);
  border:1px solid #e4dcf6;border-radius:18px;
- box-shadow:0 8px 22px rgba(64,43,120,.06);
-}
+ box-shadow:0 8px 22px rgba(64,43,120,.06);}
 .steps li:before{display:none}
 .step-icon{
  position:absolute;left:16px;top:50%;transform:translateY(-50%);
@@ -370,6 +369,44 @@ header{padding:12px 4px 20px}
 .interview-secondary-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;padding-top:13px;border-top:1px solid #e9e0f7}
 .interview-end-link{color:#8a6ac0}
 @media(max-width:600px){.interview-workspace{padding:20px 16px;border-radius:17px}.interview-question-card{padding:17px 15px}#ans{min-height:190px}.interview-actions .btn{width:100%}}
+
+/* Mobile typography hierarchy for interview setup — staging only */
+@media(max-width:600px){
+ .setup-hero h1{
+   font-size:30px;
+   line-height:1.12;
+   font-weight:800;
+   letter-spacing:-1.05px;
+   margin:7px 0 10px;
+ }
+ .setup-hero .mu{
+   font-size:14px;
+   line-height:1.65;
+ }
+ .selection-heading h2,
+ .custom-section h2{
+   font-size:18px;
+   line-height:1.3;
+   font-weight:700;
+   letter-spacing:-.2px;
+ }
+ .custom-choice-copy b,
+ .track-option b,
+ .level-copy b{
+   font-size:15px;
+   line-height:1.35;
+   font-weight:600;
+   letter-spacing:0;
+ }
+ .custom-choice-copy small,
+ .track-option small,
+ .level-copy small{
+   font-size:13px;
+   line-height:1.5;
+   font-weight:400;
+ }
+}
+
 </style></head>
 <body><div id="app"></div>
 <script>
@@ -437,8 +474,7 @@ function saveProgressRecord(){
   };
   try{
     const history=readProgressHistory();
-    history.push(record);
-    localStorage.setItem(PROGRESS_KEY,JSON.stringify(history.slice(-30)));
+    history.push(record);    localStorage.setItem(PROGRESS_KEY,JSON.stringify(history.slice(-30)));
     S.progressSaved=true;
   }catch(e){console.warn("Interview Gym: unable to save local progress history.");}
 }
