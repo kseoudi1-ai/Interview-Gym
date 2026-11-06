@@ -742,6 +742,22 @@ header{padding:12px 4px 20px}
   .level-copy b { font-size: 12px !important; }
   .level-copy small { font-size: 10.5px !important; }
 }
+
+/* Further compact career-track cards on mobile */
+@media (max-width: 520px) {
+  .track-options { gap: 8px !important; }
+  .track-option, .track-option:last-child { min-height: 118px !important; padding: 10px !important; gap: 6px !important; border-radius: 14px !important; }
+  .track-option .track-emoji { width: 34px !important; height: 34px !important; font-size: 19px !important; border-radius: 10px !important; }
+  .track-option b { font-size: 12.5px !important; line-height: 1.28 !important; padding-inline-end: 14px !important; }
+  .track-option small { font-size: 10.5px !important; line-height: 1.35 !important; }
+  .track-option .select-mark { width: 18px !important; height: 18px !important; top: 8px !important; right: 8px !important; }
+  :root[dir="rtl"] .track-option .select-mark { right: auto !important; left: 8px !important; }
+}
+@media (max-width: 380px) {
+  .track-option, .track-option:last-child { min-height: 112px !important; padding: 9px !important; }
+  .track-option b { font-size: 12px !important; }
+  .track-option small { font-size: 10px !important; }
+}
 </style></head>
 <body><div id="app"></div>
 <script>
