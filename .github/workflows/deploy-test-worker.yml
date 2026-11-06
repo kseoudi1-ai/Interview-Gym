@@ -34,7 +34,6 @@ jobs:
             echo "CLOUDFLARE_ACCOUNT_ID must be exactly 32 hexadecimal characters."
             exit 1
           fi
-          npx wrangler whoami
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
