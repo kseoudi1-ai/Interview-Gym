@@ -40,7 +40,7 @@ jobs:
       - name: Deploy branch preview only
         run: |
           npx --yes wrangler@4 pages deploy . \
-            --project-name=interview-gym-5g3 \
+            --project-name=interview-gym \
             --branch=feature-mobile-typography-polish \
             --commit-hash="$GITHUB_SHA" \
             --commit-message="Interview Gym design preview"
