@@ -1,5 +1,5 @@
 {
-  "name": "interview-gym-api-test",
+  "name": "interview-gym-api-staging",
   "main": "worker.js",
   "compatibility_date": "2026-10-31",
   "durable_objects": {
@@ -18,4 +18,4 @@
   ],
   "previews": {}
 }
-// Trigger deployment from main
+// Staging-only deployment. Never use the production Worker name here.
