@@ -808,6 +808,12 @@ header{padding:12px 4px 20px}
   .interview-question-card h2 { font-size: 18px !important; }
   #ans { min-height: 210px !important; height: 210px !important; }
 }
+
+/* Refine mobile interview action button proportions */
+@media (max-width: 600px) {
+  .interview-actions { margin-top: 8px !important; padding: 8px 14px calc(8px + env(safe-area-inset-bottom)) !important; }
+  .interview-actions .btn { min-height: 54px !important; height: 54px !important; padding: 0 16px !important; font-size: 15px !important; border-radius: 15px !important; box-shadow: 0 5px 13px rgba(112,65,200,.15) !important; }
+}
 </style></head>
 <body><div id="app"></div>
 <script>
