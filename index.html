@@ -784,6 +784,30 @@ header{padding:12px 4px 20px}
   .interview-type-card .custom-choice-copy b { font-size:12px !important; }
   .interview-type-card .custom-choice-copy small { font-size:10px !important; }
 }
+
+/* Interview workspace mobile polish: readable prompt, flexible answer area, accessible action */
+@media (max-width: 600px) {
+  .interview-workspace { padding: 16px 14px !important; }
+  .interview-topline { gap: 8px !important; }
+  .interview-step-label { font-size: 12px !important; gap: 8px !important; }
+  .interview-step-dot { width: 30px !important; height: 30px !important; border-radius: 10px !important; }
+  .interview-progress-track { height: 7px !important; margin: 11px 0 16px !important; }
+  .interview-question-card { padding: 14px 13px !important; margin-bottom: 15px !important; border-radius: 15px !important; }
+  .interview-question-kicker { font-size: 10px !important; margin-bottom: 7px !important; }
+  .interview-question-card h2 { font-size: 19px !important; line-height: 1.42 !important; }
+  .answer-heading { align-items: flex-start !important; flex-wrap: wrap !important; gap: 4px 8px !important; margin-bottom: 7px !important; }
+  .answer-heading label { font-size: 14px !important; }
+  .answer-word-count { font-size: 10.5px !important; }
+  #ans { min-height: 230px !important; height: 230px !important; max-height: 48vh !important; padding: 13px 14px !important; font-size: 15px !important; line-height: 1.65 !important; resize: vertical !important; }
+  .answer-guidance { font-size: 11px !important; line-height: 1.45 !important; margin: 8px 0 12px !important; }
+  .interview-actions { position: sticky !important; bottom: 6px !important; z-index: 20 !important; margin: 10px -14px 0 !important; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)) !important; background: rgba(250,248,255,.96) !important; backdrop-filter: blur(10px); border-top: 1px solid #e7def4 !important; }
+  .interview-actions .btn { width: 100% !important; min-height: 48px !important; font-size: 15px !important; }
+  .interview-secondary-actions { margin-top: 10px !important; padding-top: 10px !important; }
+}
+@media (max-width: 380px) {
+  .interview-question-card h2 { font-size: 18px !important; }
+  #ans { min-height: 210px !important; height: 210px !important; }
+}
 </style></head>
 <body><div id="app"></div>
 <script>
