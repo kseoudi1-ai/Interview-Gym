@@ -407,6 +407,39 @@ header{padding:12px 4px 20px}
  }
 }
 
+
+/* Mobile spacing and touch-target refinement — staging only */
+@media(max-width:600px){
+ #app{padding:12px 12px 26px}
+ .setup-progress{gap:5px;padding:9px 8px;border-radius:14px}
+ .setup-progress-item{min-width:0;gap:5px;font-size:11px}
+ .setup-progress-item span{width:28px;height:28px;flex:none}
+ .setup-progress>i{width:12px;flex:0 1 16px}
+ .setup-hero{align-items:flex-start;padding:18px 16px;border-radius:18px}
+ .setup-hero h1{font-size:28px}
+ .selection-panel{padding:16px;border-radius:18px}
+ .selection-heading{gap:10px;margin-bottom:16px}
+ .selection-symbol{width:42px;height:42px;border-radius:13px;font-size:25px;flex:none}
+ .level-option,.track-option,.custom-choice{
+   min-height:76px;
+   padding:13px;
+   border-radius:15px;
+   gap:11px;
+ }
+ .level-emoji,.custom-choice-icon{width:44px;height:44px;border-radius:13px;font-size:24px}
+ .track-option{min-height:116px}
+ .setup-actions{display:flex;flex-direction:column;gap:8px;margin-top:18px}
+ .setup-actions .btn{width:100%;min-height:50px;margin-top:0}
+ .setup-actions .lnk{width:100%;padding:10px;text-align:center}
+}
+@media(max-width:380px){
+ .setup-progress-item{font-size:10px}
+ .setup-progress-item span{width:25px;height:25px}
+ .setup-progress>i{width:8px;flex-basis:10px}
+ .level-option,.track-option,.custom-choice{padding:11px;gap:9px}
+ .level-emoji,.custom-choice-icon{width:40px;height:40px}
+}
+
 </style></head>
 <body><div id="app"></div>
 <script>
