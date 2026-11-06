@@ -494,6 +494,44 @@ header{padding:12px 4px 20px}
  outline-offset:3px;
 }
 
+/* Results screen hierarchy and responsive cards — staging only */
+.result-overview{background:linear-gradient(125deg,#fff 0%,#faf7ff 58%,#efe7ff 100%);border-color:#e3d8f5}
+.result-score-row{align-items:center;gap:14px}
+.result-overview .big-n{display:flex;align-items:baseline;gap:5px;font-size:clamp(54px,9vw,76px);letter-spacing:-2.5px;color:#7041c8;line-height:1.05;margin:7px 0 10px}
+.result-overview .big-n .mu{font-weight:650;letter-spacing:0}
+.result-overview>p{font-size:15px;line-height:1.75}
+.result-overview ul,.result-skills ul,.result-answer-card ul,.result-plan ol{padding-inline-start:22px}
+.result-overview li,.result-skills li,.result-answer-card li,.result-plan li{margin:6px 0;line-height:1.65}
+.result-skills>div{padding:14px 0;border-top:1px solid var(--bd)}
+.result-skills>div:first-of-type{margin-top:8px!important}
+.result-skills .row{gap:10px}
+.result-skills .row b:last-child{white-space:nowrap;color:var(--tl)}
+.result-skills .bar,.result-answer-card .bar{overflow:hidden;border-radius:99px}
+.result-answer-card{overflow:hidden}
+.result-answer-heading{align-items:center;gap:10px}
+.result-answer-heading>b{white-space:nowrap;color:var(--tl);font-size:18px}
+.result-answer-card h3{line-height:1.5;overflow-wrap:anywhere}
+.result-answer-card>p{line-height:1.7;overflow-wrap:anywhere}
+.result-plan ol{margin:12px 0 18px}
+.result-plan .btn{width:100%}
+@media(max-width:600px){
+ .result-overview{padding:20px 17px}
+ .result-overview .big-n{font-size:60px}
+ .result-overview>p{font-size:14px}
+ .result-skills{padding:18px 16px}
+ .result-skills>div{margin:12px 0!important;padding:13px 0}
+ .result-skills .row{align-items:flex-start}
+ .result-skills .row b:first-child{font-size:14px;line-height:1.45}
+ .result-skills .row b:last-child{font-size:14px}
+ .result-answer-card{padding:17px 15px}
+ .result-answer-heading{align-items:flex-start}
+ .result-answer-heading>b{font-size:16px}
+ .result-answer-card h3{font-size:15px}
+ .result-answer-card>p{font-size:14px}
+ .result-plan{padding:18px 16px}
+ .result-plan .btn{min-height:50px}
+}
+@media(max-width:380px){.result-overview .big-n{font-size:54px}.result-score-row{align-items:flex-start}.result-answer-card{padding:15px 13px}}
 </style></head>
 <body><div id="app"></div>
 <script>
@@ -741,12 +779,12 @@ if(S.busy)return`<div class="card"><p><span class="spin"></span>${t('evalWait')}
 if(!S.ev)return`<div class="card"><p class="er">${S.err}</p><p class="mu">${t('saved')}</p><p class="mu">${t('retryWarning')}</p><button class="btn" data-a="retry">${t('retry')}</button><button class="lnk" data-a="review">${t('review')}</button></div>`;
 const e=S.ev,weak=[...e.answers].sort((x,y)=>x.score-y.score).filter(x=>x.score<65).slice(0,2),
 plan=[t('pl')[0]+interviewTypeOptions()[S.ty],...[...new Set(weak.flatMap(x=>x.improvements).concat(e.improvements))].slice(0,3),t('pl')[2]];
-return`<div class="card"><div class="row"><div><div class="mu">${t('ov')}</div><div class="big-n">${e.ov}<span class="mu" style="font-size:18px">/100</span></div></div><span class="pill">${a.length} ${t('q')}</span></div>
+return`<div class="card result-overview"><div class="row result-score-row"><div><div class="mu">${t('ov')}</div><div class="big-n">${e.ov}<span class="mu" style="font-size:18px">/100</span></div></div><span class="pill">${a.length} ${t('q')}</span></div>
 <p dir="auto">${esc(e.summary)}</p>${lst(t('sg'),e.strengths)}${lst(t('im'),e.improvements)}<p class="mu">${t('disc')}</p></div>
-<div class="card"><h3>${t('skillTitle')}</h3>${e.skills.map((x,i)=>`<div style="margin:14px 0"><div class="row"><b>${esc(t('skillNames')[i])}</b><b>${x.score}/100</b></div><div class="row mu"><span>${t('skillWeight')}: ${x.weight}%</span></div><div class="bar"><i style="width:${x.score}%"></i></div><p dir="auto" style="margin:6px 0">${esc(x.summary)}</p>${lst(t('skillStrengths'),x.strengths)}${lst(t('skillImprovements'),x.improvements)}</div>`).join('')}</div>
+<div class="card result-skills"><h3>${t('skillTitle')}</h3>${e.skills.map((x,i)=>`<div style="margin:14px 0"><div class="row"><b>${esc(t('skillNames')[i])}</b><b>${x.score}/100</b></div><div class="row mu"><span>${t('skillWeight')}: ${x.weight}%</span></div><div class="bar"><i style="width:${x.score}%"></i></div><p dir="auto" style="margin:6px 0">${esc(x.summary)}</p>${lst(t('skillStrengths'),x.strengths)}${lst(t('skillImprovements'),x.improvements)}</div>`).join('')}</div>
 <h3 style="margin:18px 4px 8px">${t('fb')}</h3>
-${e.answers.map((x,i)=>`<div class="card"><div class="row"><span class="mu">${t('q')} ${i+1}</span><b>${x.score}/100</b></div><div class="bar"><i style="width:${x.score}%"></i></div><h3 dir="auto" lang="${S.il}" style="margin:8px 0">${esc(x.q[S.il=='ar'?3:2])}</h3><p class="mu" dir="auto" style="white-space:pre-wrap;margin:0 0 8px">${esc(x.text)}</p><p dir="auto" style="margin:0">${esc(x.summary)}</p>${lst(t('sg'),x.strengths)}${lst(t('im'),x.improvements)}${x.sug?`<h3 style="margin:12px 0 4px">${t('ex')}</h3><p dir="auto" lang="${S.il}" style="margin:0">${esc(x.sug)}</p>`:''}</div>`).join('')}
-<div class="card"><h3>${t('plan')}</h3><ol>${plan.map(x=>`<li dir="auto">${esc(x)}</li>`).join('')}</ol><button class="btn" data-a="again">${t('again')}</button></div>`};
+${e.answers.map((x,i)=>`<div class="card result-answer-card"><div class="row result-answer-heading"><span class="mu">${t('q')} ${i+1}</span><b>${x.score}/100</b></div><div class="bar"><i style="width:${x.score}%"></i></div><h3 dir="auto" lang="${S.il}" style="margin:8px 0">${esc(x.q[S.il=='ar'?3:2])}</h3><p class="mu" dir="auto" style="white-space:pre-wrap;margin:0 0 8px">${esc(x.text)}</p><p dir="auto" style="margin:0">${esc(x.summary)}</p>${lst(t('sg'),x.strengths)}${lst(t('im'),x.improvements)}${x.sug?`<h3 style="margin:12px 0 4px">${t('ex')}</h3><p dir="auto" lang="${S.il}" style="margin:0">${esc(x.sug)}</p>`:''}</div>`).join('')}
+<div class="card result-plan"><h3>${t('plan')}</h3><ol>${plan.map(x=>`<li dir="auto">${esc(x)}</li>`).join('')}</ol><button class="btn" data-a="again">${t('again')}</button></div>`};
 const PRACTICE_SKILLS=[{id:"communicationClarity",q:"practiceQuestionCommunication"},{id:"answerRelevance",q:"practiceQuestionRelevance"},{id:"problemSolving",q:"practiceQuestionProblem"},{id:"answerStructure",q:"practiceQuestionStructure"},{id:"roleKnowledge",q:"practiceQuestionRole"}];
 const PRACTICE_KEY="interview_gym_smart_practice_v1";
 function readSmartPractice(){try{const v=JSON.parse(localStorage.getItem(PRACTICE_KEY)||"[]");return Array.isArray(v)?v.slice(-30):[]}catch(e){return[]}}
