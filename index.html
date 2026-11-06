@@ -814,6 +814,37 @@ header{padding:12px 4px 20px}
   .interview-actions { margin-top: 8px !important; padding: 8px 14px calc(8px + env(safe-area-inset-bottom)) !important; }
   .interview-actions .btn { min-height: 54px !important; height: 54px !important; padding: 0 16px !important; font-size: 15px !important; border-radius: 15px !important; box-shadow: 0 5px 13px rgba(112,65,200,.15) !important; }
 }
+
+/* Evaluation report: compact mobile hierarchy and actionable priorities */
+.result-priorities { border-color:#e4daf5; background:linear-gradient(135deg,#fff 0%,#faf7ff 100%); }
+.result-priorities h3 { margin:0 0 8px !important; color:var(--tl); }
+.result-priorities ol { margin:8px 0 0; padding-inline-start:22px; }
+.result-priorities li { margin:7px 0; line-height:1.55; }
+.result-feedback-title { margin:16px 4px 8px !important; }
+@media(max-width:600px) {
+  .result-overview { padding:16px 14px !important; border-radius:17px !important; }
+  .result-score-row { gap:8px !important; }
+  .result-overview .big-n { font-size:48px !important; margin:4px 0 7px !important; }
+  .result-overview>p { font-size:12.5px !important; line-height:1.6 !important; margin:8px 0 !important; }
+  .result-overview li,.result-skills li,.result-plan li { font-size:12px !important; line-height:1.5 !important; margin:4px 0 !important; }
+  .result-skills { padding:15px 13px !important; border-radius:17px !important; }
+  .result-skills h3 { margin:0 0 8px !important; }
+  .result-skills>div { margin:8px 0 !important; padding:10px 0 !important; }
+  .result-skills .row b:first-child { font-size:12.5px !important; line-height:1.35 !important; }
+  .result-skills .row b:last-child { font-size:12.5px !important; }
+  .result-skills .row.mu { font-size:10.5px !important; }
+  .result-skills .bar,.result-answer-card .bar { height:6px !important; margin:6px 0 !important; }
+  .result-skills p { font-size:11.5px !important; line-height:1.5 !important; }
+  .result-priorities { padding:14px 13px !important; margin-top:10px !important; }
+  .result-priorities h3 { font-size:15px !important; }
+  .result-priorities li { font-size:11.5px !important; }
+  .result-feedback-title { font-size:16px !important; }
+  .result-answer-card { padding:14px 13px !important; margin:10px 0 !important; }
+  .result-answer-heading>b { font-size:14px !important; }
+  .result-answer-card h3 { font-size:13px !important; }
+  .result-answer-card>p { font-size:11.5px !important; line-height:1.55 !important; }
+  .result-plan { padding:15px 13px !important; }
+}
 </style></head>
 <body><div id="app"></div>
 <script>
@@ -1064,7 +1095,8 @@ plan=[t('pl')[0]+interviewTypeOptions()[S.ty],...[...new Set(weak.flatMap(x=>x.i
 return`<div class="card result-overview"><div class="row result-score-row"><div><div class="mu">${t('ov')}</div><div class="big-n">${e.ov}<span class="mu" style="font-size:18px">/100</span></div></div><span class="pill">${a.length} ${t('q')}</span></div>
 <p dir="auto">${esc(e.summary)}</p>${lst(t('sg'),e.strengths)}${lst(t('im'),e.improvements)}<p class="mu">${t('disc')}</p></div>
 <div class="card result-skills"><h3>${t('skillTitle')}</h3>${e.skills.map((x,i)=>`<div style="margin:14px 0"><div class="row"><b>${esc(t('skillNames')[i])}</b><b>${x.score}/100</b></div><div class="row mu"><span>${t('skillWeight')}: ${x.weight}%</span></div><div class="bar"><i style="width:${x.score}%"></i></div><p dir="auto" style="margin:6px 0">${esc(x.summary)}</p>${lst(t('skillStrengths'),x.strengths)}${lst(t('skillImprovements'),x.improvements)}</div>`).join('')}</div>
-<h3 style="margin:18px 4px 8px">${t('fb')}</h3>
+<div class="card result-priorities"><h3>${S.ui==='ar'?'أهم 3 أولويات للتطوير':'Top 3 priorities'}</h3><ol>${[...new Set(weak.flatMap(x=>x.improvements).concat(e.improvements))].slice(0,3).map(x=>`<li dir="auto">${esc(x)}</li>`).join('')}</ol></div>
+<h3 class="result-feedback-title">${t('fb')}</h3>
 ${e.answers.map((x,i)=>`<div class="card result-answer-card"><div class="row result-answer-heading"><span class="mu">${t('q')} ${i+1}</span><b>${x.score}/100</b></div><div class="bar"><i style="width:${x.score}%"></i></div><h3 dir="auto" lang="${S.il}" style="margin:8px 0">${esc(x.q[S.il=='ar'?3:2])}</h3><p class="mu" dir="auto" style="white-space:pre-wrap;margin:0 0 8px">${esc(x.text)}</p><p dir="auto" style="margin:0">${esc(x.summary)}</p>${lst(t('sg'),x.strengths)}${lst(t('im'),x.improvements)}${x.sug?`<h3 style="margin:12px 0 4px">${t('ex')}</h3><p dir="auto" lang="${S.il}" style="margin:0">${esc(x.sug)}</p>`:''}</div>`).join('')}
 <div class="card result-plan"><h3>${t('plan')}</h3><ol>${plan.map(x=>`<li dir="auto">${esc(x)}</li>`).join('')}</ol><button class="btn" data-a="again">${t('again')}</button></div>`};
 const PRACTICE_SKILLS=[{id:"communicationClarity",q:"practiceQuestionCommunication"},{id:"answerRelevance",q:"practiceQuestionRelevance"},{id:"problemSolving",q:"practiceQuestionProblem"},{id:"answerStructure",q:"practiceQuestionStructure"},{id:"roleKnowledge",q:"practiceQuestionRole"}];
