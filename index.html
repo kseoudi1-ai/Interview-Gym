@@ -624,6 +624,107 @@ header{padding:12px 4px 20px}
     left: 9px;
   }
 }
+/* Mobile customize hierarchy + compact question-count choices */
+@media (max-width: 520px) {
+  .custom-panel { gap: 18px !important; }
+  .custom-section { padding-bottom: 22px !important; }
+  .custom-section .selection-heading {
+    align-items: flex-start !important;
+    gap: 12px !important;
+    margin: 0 0 18px !important;
+  }
+  .custom-section .selection-heading h2 {
+    font-size: 21px !important;
+    line-height: 1.3 !important;
+    margin: 0 !important;
+    letter-spacing: -.35px;
+  }
+  .custom-section .selection-heading .mu {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    margin: 6px 0 0 !important;
+  }
+  .question-count-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 9px !important;
+    align-items: stretch !important;
+  }
+  .question-count-card {
+    display: grid !important;
+    grid-template-columns: 38px minmax(0, 1fr) !important;
+    grid-template-rows: auto auto !important;
+    align-content: start !important;
+    align-items: center !important;
+    column-gap: 9px !important;
+    row-gap: 9px !important;
+    min-height: 118px !important;
+    padding: 12px !important;
+    padding-inline-end: 12px !important;
+    border-radius: 15px !important;
+    text-align: start !important;
+  }
+  .question-count-card .custom-choice-icon {
+    grid-column: 1;
+    grid-row: 1;
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 20px !important;
+    border-radius: 11px !important;
+  }
+  .question-count-card .custom-choice-copy {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    min-width: 0;
+    gap: 4px !important;
+    padding-inline-end: 2px !important;
+  }
+  .question-count-card .custom-choice-copy b {
+    display: block;
+    font-size: 15px !important;
+    line-height: 1.3 !important;
+    white-space: nowrap;
+  }
+  .question-count-card .custom-choice-copy small {
+    display: block;
+    font-size: 11px !important;
+    line-height: 1.4 !important;
+  }
+  .question-count-card .select-mark {
+    position: absolute !important;
+    top: 12px !important;
+    right: 12px !important;
+    width: 19px !important;
+    height: 19px !important;
+  }
+  :root[dir="rtl"] .question-count-card .select-mark {
+    right: auto !important;
+    left: 12px !important;
+  }
+}
+@media (max-width: 360px) {
+  .custom-section .selection-heading h2 { font-size: 19px !important; }
+  .question-count-card { padding: 10px !important; min-height: 112px !important; }
+  .question-count-card .custom-choice-copy b { font-size: 14px !important; }
+}
+/* Mobile option density and clear section hierarchy */
+@media (max-width: 520px) {
+  .custom-section .selection-heading h2 { font-size: 20px !important; line-height: 1.3 !important; margin: 0 !important; }
+  .custom-section .selection-heading .mu { font-size: 12px !important; line-height: 1.45 !important; }
+  .custom-language-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 9px !important; }
+  .custom-language-grid .custom-choice { min-height: 82px !important; padding: 10px !important; gap: 8px !important; border-radius: 14px !important; }
+  .custom-language-grid .custom-choice-icon { width: 34px !important; height: 34px !important; font-size: 19px !important; }
+  .custom-language-grid .custom-choice-copy b, .interview-type-card .custom-choice-copy b { font-size: 13px !important; line-height: 1.3 !important; }
+  .custom-language-grid .custom-choice-copy small, .interview-type-card .custom-choice-copy small { font-size: 10.5px !important; line-height: 1.35 !important; }
+  .interview-type-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 9px !important; }
+  .interview-type-card, .interview-type-card:nth-child(4):nth-last-child(2), .interview-type-card:last-child:nth-child(5) { grid-column: auto !important; min-height: 118px !important; padding: 11px !important; gap: 7px !important; border-radius: 14px !important; align-items: flex-start !important; flex-direction: column !important; }
+  .interview-type-card .custom-choice-icon { width: 34px !important; height: 34px !important; font-size: 19px !important; border-radius: 10px !important; }
+  .interview-type-card .custom-choice-copy { padding-inline-end: 16px !important; gap: 3px !important; }
+  .interview-type-card .select-mark { top: 9px !important; right: 9px !important; width: 18px !important; height: 18px !important; }
+  :root[dir="rtl"] .interview-type-card .select-mark { right: auto !important; left: 9px !important; }
+  .question-count-card { min-height: 104px !important; }
+}
+@media (max-width: 360px) { .interview-type-card { min-height: 126px !important; } .interview-type-card .custom-choice-copy b { font-size: 12px !important; } }
+
 </style></head>
 <body><div id="app"></div>
 <script>
@@ -912,8 +1013,8 @@ return '<div class="card"><div class="row"><h2>'+t("myProgress")+'</h2><span cla
 }
 function R(){const screenChanged=R.lastScreen!==S.scr;const h=document.documentElement;h.lang=S.ui;h.dir=S.ui=='ar'?'rtl':'ltr';
 $('#app').innerHTML=`<header><div data-a="home" style="cursor:pointer"><div class="brand">Interview <b>Gym</b></div><div class="sig">By K.Seoudi</div></div><button class="lnk" data-a="progress" style="margin:0 10px">${t("myProgress")}</button><div class="lang"><button data-a="ui" data-v="en" aria-pressed="${S.ui=='en'}">English</button><button data-a="ui" data-v="ar" aria-pressed="${S.ui=='ar'}">العربية</button></div></header>`+{w:W,s:levelPage,track:trackPage,custom:customPage,i:I,r:Rp,p:MP,sp:SP}[S.scr]()+`<footer class="ft">Created by K.Seoudi</footer>`;if(screenChanged){R.lastScreen=S.scr;window.scrollTo(0,0)}}
-const H={ui:v=>{S.ui=v;S.il=v;R()},home:()=>{if(S.busy)return;S.scr='w';R()},go:()=>{S.scr='s';R()},toTrack:()=>{S.scr='track';R()},toLevel:()=>{S.scr='s';R()},toCustom:()=>{S.scr='custom';R()},progress:()=>{S.scr='p';R()},smartPractice:()=>{S.scr='sp';S.smartAnswer='';S.smartSaved=false;S.smartFeedback=null;R()},smartSave:()=>{if(S.smartSaved||S.smartAnswer.trim().length<10)return;const weak=getWeakestSkill();if(!weak)return;const feedback=assessPracticeAnswer(S.smartAnswer,S.ui);const list=readSmartPractice();list.push({date:new Date().toISOString(),skill:weak.id,answer:S.smartAnswer.trim(),feedback});try{localStorage.setItem(PRACTICE_KEY,JSON.stringify(list.slice(-30)));S.smartFeedback=feedback;S.smartSaved=true;R()}catch(e){alert(S.ui==='ar'?'تعذر حفظ التدريب في المتصفح.':'Could not save practice in this browser.')}},smartAgain:()=>{S.smartAnswer='';S.smartSaved=false;S.smartFeedback=null;R()},
-lv:v=>{S.lvl=+v;R()},il:v=>{S.il=v==1?'ar':'en';S.ui=S.il;R()},ty:v=>{S.ty=+v;R()},track:v=>{S.track=TRACKS[+v]||TRACKS[0];R()},nq:v=>{S.n=v==1?10:5;R()},ai:()=>{S.ai=!S.ai;R()},
+const H={ui:v=>{S.ui=v;R()},home:()=>{if(S.busy)return;S.scr='w';R()},go:()=>{S.scr='s';R()},toTrack:()=>{S.scr='track';R()},toLevel:()=>{S.scr='s';R()},toCustom:()=>{S.scr='custom';R()},progress:()=>{S.scr='p';R()},smartPractice:()=>{S.scr='sp';S.smartAnswer='';S.smartSaved=false;S.smartFeedback=null;R()},smartSave:()=>{if(S.smartSaved||S.smartAnswer.trim().length<10)return;const weak=getWeakestSkill();if(!weak)return;const feedback=assessPracticeAnswer(S.smartAnswer,S.ui);const list=readSmartPractice();list.push({date:new Date().toISOString(),skill:weak.id,answer:S.smartAnswer.trim(),feedback});try{localStorage.setItem(PRACTICE_KEY,JSON.stringify(list.slice(-30)));S.smartFeedback=feedback;S.smartSaved=true;R()}catch(e){alert(S.ui==='ar'?'تعذر حفظ التدريب في المتصفح.':'Could not save practice in this browser.')}},smartAgain:()=>{S.smartAnswer='';S.smartSaved=false;S.smartFeedback=null;R()},
+lv:v=>{S.lvl=+v;R()},il:v=>{S.il=v==1?'ar':'en';R()},ty:v=>{S.ty=+v;R()},track:v=>{S.track=TRACKS[+v]||TRACKS[0];R()},nq:v=>{S.n=v==1?10:5;R()},ai:()=>{S.ai=!S.ai;R()},
 begin:async()=>{const b=document.querySelector('[data-a="begin"]');if(b){b.disabled=true;b.textContent=S.ui==="ar"?"جارٍ تحميل الأسئلة…":"Loading questions…"}try{await loadQuestionBank();build();S.scr='i';R()}catch(e){if(b){b.disabled=false;b.textContent=t('go')}alert(S.ui==="ar"?"تعذر تحميل بنك الأسئلة. تحقق من الاتصال وحاول مرة أخرى.":"Could not load the question bank. Check your connection and try again.");}},sub,
 retry:()=>evalAll(),review:()=>{if(S.busy)return;S.scr='i';S.i=Math.max(0,Math.min(S.qs.length-1,S.ans.length-1));S.draft=S.ans[S.i]?S.ans[S.i].text:'';S.err='';R()},
 bk:()=>{if(S.i<1||S.busy)return;S.i--;S.fbOn=false;S.err='';S.draft=S.ans[S.i]?S.ans[S.i].text:'';R()},
@@ -922,86 +1023,3 @@ $('#app').addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(b
 $('#app').addEventListener('input',e=>{if(e.target.id=='ans'){S.draft=e.target.value;const c=document.querySelector('#answerCount');if(c){const words=(S.draft.trim().match(/\S+/g)||[]).length;c.textContent=words+' '+(S.ui==='ar'?'كلمة':'words')+' · '+S.draft.length+'/4000 '+(S.ui==='ar'?'حرف':'chars')}if(S.err){S.err='';const p=document.querySelector('.er');if(p)p.remove()}}if(e.target.id=='fu')S.fu=e.target.value;if(e.target.id=='smartAnswer'){S.smartAnswer=e.target.value;const b=document.querySelector('[data-a="smartSave"]');if(b)b.disabled=S.smartAnswer.trim().length<10;}});
 R();
 </script></body></html>
-
-/* Mobile customize hierarchy + compact question-count choices */
-@media (max-width: 520px) {
-  .custom-panel { gap: 18px !important; }
-  .custom-section { padding-bottom: 22px !important; }
-  .custom-section .selection-heading {
-    align-items: flex-start !important;
-    gap: 12px !important;
-    margin: 0 0 18px !important;
-  }
-  .custom-section .selection-heading h2 {
-    font-size: 21px !important;
-    line-height: 1.3 !important;
-    margin: 0 !important;
-    letter-spacing: -.35px;
-  }
-  .custom-section .selection-heading .mu {
-    font-size: 13px !important;
-    line-height: 1.5 !important;
-    margin: 6px 0 0 !important;
-  }
-  .question-count-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 9px !important;
-    align-items: stretch !important;
-  }
-  .question-count-card {
-    display: grid !important;
-    grid-template-columns: 38px minmax(0, 1fr) !important;
-    grid-template-rows: auto auto !important;
-    align-content: start !important;
-    align-items: center !important;
-    column-gap: 9px !important;
-    row-gap: 9px !important;
-    min-height: 118px !important;
-    padding: 12px !important;
-    padding-inline-end: 12px !important;
-    border-radius: 15px !important;
-    text-align: start !important;
-  }
-  .question-count-card .custom-choice-icon {
-    grid-column: 1;
-    grid-row: 1;
-    width: 36px !important;
-    height: 36px !important;
-    font-size: 20px !important;
-    border-radius: 11px !important;
-  }
-  .question-count-card .custom-choice-copy {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    min-width: 0;
-    gap: 4px !important;
-    padding-inline-end: 2px !important;
-  }
-  .question-count-card .custom-choice-copy b {
-    display: block;
-    font-size: 15px !important;
-    line-height: 1.3 !important;
-    white-space: nowrap;
-  }
-  .question-count-card .custom-choice-copy small {
-    display: block;
-    font-size: 11px !important;
-    line-height: 1.4 !important;
-  }
-  .question-count-card .select-mark {
-    position: absolute !important;
-    top: 12px !important;
-    right: 12px !important;
-    width: 19px !important;
-    height: 19px !important;
-  }
-  :root[dir="rtl"] .question-count-card .select-mark {
-    right: auto !important;
-    left: 12px !important;
-  }
-}
-@media (max-width: 360px) {
-  .custom-section .selection-heading h2 { font-size: 19px !important; }
-  .question-count-card { padding: 10px !important; min-height: 112px !important; }
-  .question-count-card .custom-choice-copy b { font-size: 14px !important; }
-}
