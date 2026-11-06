@@ -217,8 +217,7 @@ header{padding:12px 4px 20px}
  display:flex;align-items:center;gap:10px;
  background:linear-gradient(145deg,#fff,#f8f5ff);
  border:1px solid #e4dcf6;border-radius:18px;
- box-shadow:0 8px 22px rgba(64,43,120,.06);
-}
+ box-shadow:0 8px 22px rgba(64,43,120,.06);}
 .steps li:before{display:none}
 .step-icon{
  position:absolute;left:16px;top:50%;transform:translateY(-50%);
@@ -370,6 +369,482 @@ header{padding:12px 4px 20px}
 .interview-secondary-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;padding-top:13px;border-top:1px solid #e9e0f7}
 .interview-end-link{color:#8a6ac0}
 @media(max-width:600px){.interview-workspace{padding:20px 16px;border-radius:17px}.interview-question-card{padding:17px 15px}#ans{min-height:190px}.interview-actions .btn{width:100%}}
+
+/* Mobile typography hierarchy for interview setup — staging only */
+@media(max-width:600px){
+ .setup-hero h1{
+   font-size:30px;
+   line-height:1.12;
+   font-weight:800;
+   letter-spacing:-1.05px;
+   margin:7px 0 10px;
+ }
+ .setup-hero .mu{
+   font-size:14px;
+   line-height:1.65;
+ }
+ .selection-heading h2,
+ .custom-section h2{
+   font-size:18px;
+   line-height:1.3;
+   font-weight:700;
+   letter-spacing:-.2px;
+ }
+ .custom-choice-copy b,
+ .track-option b,
+ .level-copy b{
+   font-size:15px;
+   line-height:1.35;
+   font-weight:600;
+   letter-spacing:0;
+ }
+ .custom-choice-copy small,
+ .track-option small,
+ .level-copy small{
+   font-size:13px;
+   line-height:1.5;
+   font-weight:400;
+ }
+}
+
+
+/* Mobile spacing and touch-target refinement — staging only */
+@media(max-width:600px){
+ #app{padding:12px 12px 26px}
+ .setup-progress{gap:5px;padding:9px 8px;border-radius:14px}
+ .setup-progress-item{min-width:0;gap:5px;font-size:11px}
+ .setup-progress-item span{width:28px;height:28px;flex:none}
+ .setup-progress>i{width:12px;flex:0 1 16px}
+ .setup-hero{align-items:flex-start;padding:18px 16px;border-radius:18px}
+ .setup-hero h1{font-size:28px}
+ .selection-panel{padding:16px;border-radius:18px}
+ .selection-heading{gap:10px;margin-bottom:16px}
+ .selection-symbol{width:42px;height:42px;border-radius:13px;font-size:25px;flex:none}
+ .level-option,.track-option,.custom-choice{
+   min-height:76px;
+   padding:13px;
+   border-radius:15px;
+   gap:11px;
+ }
+ .level-emoji,.custom-choice-icon{width:44px;height:44px;border-radius:13px;font-size:24px}
+ .track-option{min-height:116px}
+ .setup-actions{display:flex;flex-direction:column;gap:8px;margin-top:18px}
+ .setup-actions .btn{width:100%;min-height:50px;margin-top:0}
+ .setup-actions .lnk{width:100%;padding:10px;text-align:center}
+}
+@media(max-width:380px){
+ .setup-progress-item{font-size:10px}
+ .setup-progress-item span{width:25px;height:25px}
+ .setup-progress>i{width:8px;flex-basis:10px}
+ .level-option,.track-option,.custom-choice{padding:11px;gap:9px}
+ .level-emoji,.custom-choice-icon{width:40px;height:40px}
+}
+
+
+/* Mobile career-track and interview workspace polish — staging only */
+@media(max-width:600px){
+ .track-options{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .track-option{
+   min-width:0;
+   min-height:132px;
+   padding:13px 12px;
+   gap:8px;
+   border-radius:15px;
+ }
+ .track-option .track-emoji{width:40px;height:40px;border-radius:12px;font-size:22px}
+ .track-option b{font-size:14px;line-height:1.35;padding-inline-end:16px;overflow-wrap:anywhere}
+ .track-option small{font-size:12px;line-height:1.45}
+ .track-option .select-mark{top:10px;right:10px;width:20px;height:20px}
+ :root[dir="rtl"] .track-option .select-mark{right:auto;left:10px}
+ .track-option:last-child{grid-column:1/-1;justify-self:stretch;width:100%;min-height:104px}
+ .interview-workspace{
+   padding:18px 14px;
+   border-radius:18px;
+ }
+ .interview-topline{gap:8px}
+ .interview-step-label{gap:8px;font-size:12px}
+ .interview-step-dot{width:30px;height:30px;border-radius:10px}
+ .interview-progress-track{height:8px;margin:12px 0 17px}
+ .interview-question-card{padding:17px 14px;margin-bottom:16px;border-radius:15px}
+ .interview-question-kicker{font-size:11px;line-height:1.4}
+ .interview-question-card h2{font-size:19px;line-height:1.5;overflow-wrap:anywhere}
+ .answer-heading{align-items:flex-start;flex-direction:column;gap:4px}
+ .answer-heading label{font-size:15px}
+ .answer-word-count{font-size:11px;line-height:1.5}
+ #ans{min-height:210px;padding:14px;border-radius:13px;font-size:15px;line-height:1.75}
+ .answer-guidance{align-items:flex-start;gap:9px;font-size:12px;line-height:1.55;margin-top:10px}
+ .interview-actions{display:block;margin-top:16px}
+ .interview-actions .btn{width:100%;min-height:50px;margin:0}
+ .interview-secondary-actions{margin-top:12px;padding-top:12px;gap:10px}
+ .interview-secondary-actions .lnk{min-height:40px;padding:8px 4px}
+}
+@media(max-width:380px){
+ .track-options{gap:8px}
+ .track-option{min-height:140px;padding:11px 10px}
+ .track-option b{font-size:13px}
+ .interview-workspace{padding:15px 12px}
+ .interview-question-card h2{font-size:18px}
+ .interview-secondary-actions{font-size:13px}
+}
+@media(prefers-reduced-motion:reduce){
+ .track-option,.interview-progress-track i{transition:none}
+}
+.track-option:focus-visible,.custom-choice:focus-visible,.level-option:focus-visible{
+ outline:3px solid rgba(112,65,200,.3);
+ outline-offset:3px;
+}
+
+/* Results screen hierarchy and responsive cards — staging only */
+.result-overview{background:linear-gradient(125deg,#fff 0%,#faf7ff 58%,#efe7ff 100%);border-color:#e3d8f5}
+.result-score-row{align-items:center;gap:14px}
+.result-overview .big-n{display:flex;align-items:baseline;gap:5px;font-size:clamp(54px,9vw,76px);letter-spacing:-2.5px;color:#7041c8;line-height:1.05;margin:7px 0 10px}
+.result-overview .big-n .mu{font-weight:650;letter-spacing:0}
+.result-overview>p{font-size:15px;line-height:1.75}
+.result-overview ul,.result-skills ul,.result-answer-card ul,.result-plan ol{padding-inline-start:22px}
+.result-overview li,.result-skills li,.result-answer-card li,.result-plan li{margin:6px 0;line-height:1.65}
+.result-skills>div{padding:14px 0;border-top:1px solid var(--bd)}
+.result-skills>div:first-of-type{margin-top:8px!important}
+.result-skills .row{gap:10px}
+.result-skills .row b:last-child{white-space:nowrap;color:var(--tl)}
+.result-skills .bar,.result-answer-card .bar{overflow:hidden;border-radius:99px}
+.result-answer-card{overflow:hidden}
+.result-answer-heading{align-items:center;gap:10px}
+.result-answer-heading>b{white-space:nowrap;color:var(--tl);font-size:18px}
+.result-answer-card h3{line-height:1.5;overflow-wrap:anywhere}
+.result-answer-card>p{line-height:1.7;overflow-wrap:anywhere}
+.result-plan ol{margin:12px 0 18px}
+.result-plan .btn{width:100%}
+@media(max-width:600px){
+ .result-overview{padding:20px 17px}
+ .result-overview .big-n{font-size:60px}
+ .result-overview>p{font-size:14px}
+ .result-skills{padding:18px 16px}
+ .result-skills>div{margin:12px 0!important;padding:13px 0}
+ .result-skills .row{align-items:flex-start}
+ .result-skills .row b:first-child{font-size:14px;line-height:1.45}
+ .result-skills .row b:last-child{font-size:14px}
+ .result-answer-card{padding:17px 15px}
+ .result-answer-heading{align-items:flex-start}
+ .result-answer-heading>b{font-size:16px}
+ .result-answer-card h3{font-size:15px}
+ .result-answer-card>p{font-size:14px}
+ .result-plan{padding:18px 16px}
+ .result-plan .btn{min-height:50px}
+}
+@media(max-width:380px){.result-overview .big-n{font-size:54px}.result-score-row{align-items:flex-start}.result-answer-card{padding:15px 13px}}
+
+/* Mobile selection cards refinement — preview branch */
+@media (max-width: 520px) {
+  .track-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-auto-rows: auto !important;
+    align-items: stretch;
+    gap: 10px !important;
+  }
+  .track-option,
+  .track-option:last-child {
+    grid-column: auto !important;
+    justify-self: stretch !important;
+    width: 100% !important;
+    min-width: 0;
+    min-height: 142px !important;
+    height: auto !important;
+    padding: 12px !important;
+    gap: 7px !important;
+    border-radius: 15px !important;
+  }
+  .track-option .track-emoji {
+    width: 38px !important;
+    height: 38px !important;
+    border-radius: 12px !important;
+    font-size: 21px !important;
+  }
+  .track-option b {
+    font-size: 13px !important;
+    line-height: 1.28 !important;
+    padding-inline-end: 18px !important;
+    overflow-wrap: anywhere;
+  }
+  .track-option small {
+    font-size: 11px !important;
+    line-height: 1.38 !important;
+  }
+  .track-option .select-mark {
+    width: 19px !important;
+    height: 19px !important;
+    top: 9px !important;
+    right: 9px !important;
+  }
+  :root[dir="rtl"] .track-option .select-mark {
+    right: auto !important;
+    left: 9px !important;
+  }
+
+  .question-count-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    max-width: none !important;
+  }
+  .question-count-card {
+    min-width: 0;
+    min-height: 108px !important;
+    height: auto !important;
+    padding: 12px !important;
+    gap: 8px !important;
+    align-items: flex-start !important;
+    border-radius: 15px !important;
+  }
+  .question-count-card .custom-choice-icon {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 11px !important;
+    font-size: 21px !important;
+  }
+  .question-count-card .custom-choice-copy {
+    min-width: 0;
+    gap: 3px !important;
+  }
+  .question-count-card .custom-choice-copy b {
+    font-size: 14px !important;
+    line-height: 1.3 !important;
+  }
+  .question-count-card .custom-choice-copy small {
+    font-size: 11px !important;
+    line-height: 1.35 !important;
+  }
+  .question-count-card .select-mark {
+    position: absolute;
+    top: 9px;
+    right: 9px;
+    width: 19px !important;
+    height: 19px !important;
+  }
+  :root[dir="rtl"] .question-count-card .select-mark {
+    right: auto;
+    left: 9px;
+  }
+}
+/* Mobile customize hierarchy + compact question-count choices */
+@media (max-width: 520px) {
+  .custom-panel { gap: 18px !important; }
+  .custom-section { padding-bottom: 22px !important; }
+  .custom-section .selection-heading {
+    align-items: flex-start !important;
+    gap: 12px !important;
+    margin: 0 0 18px !important;
+  }
+  .custom-section .selection-heading h2 {
+    font-size: 21px !important;
+    line-height: 1.3 !important;
+    margin: 0 !important;
+    letter-spacing: -.35px;
+  }
+  .custom-section .selection-heading .mu {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    margin: 6px 0 0 !important;
+  }
+  .question-count-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 9px !important;
+    align-items: stretch !important;
+  }
+  .question-count-card {
+    display: grid !important;
+    grid-template-columns: 38px minmax(0, 1fr) !important;
+    grid-template-rows: auto auto !important;
+    align-content: start !important;
+    align-items: center !important;
+    column-gap: 9px !important;
+    row-gap: 9px !important;
+    min-height: 118px !important;
+    padding: 12px !important;
+    padding-inline-end: 12px !important;
+    border-radius: 15px !important;
+    text-align: start !important;
+  }
+  .question-count-card .custom-choice-icon {
+    grid-column: 1;
+    grid-row: 1;
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 20px !important;
+    border-radius: 11px !important;
+  }
+  .question-count-card .custom-choice-copy {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    min-width: 0;
+    gap: 4px !important;
+    padding-inline-end: 2px !important;
+  }
+  .question-count-card .custom-choice-copy b {
+    display: block;
+    font-size: 15px !important;
+    line-height: 1.3 !important;
+    white-space: nowrap;
+  }
+  .question-count-card .custom-choice-copy small {
+    display: block;
+    font-size: 11px !important;
+    line-height: 1.4 !important;
+  }
+  .question-count-card .select-mark {
+    position: absolute !important;
+    top: 12px !important;
+    right: 12px !important;
+    width: 19px !important;
+    height: 19px !important;
+  }
+  :root[dir="rtl"] .question-count-card .select-mark {
+    right: auto !important;
+    left: 12px !important;
+  }
+}
+@media (max-width: 360px) {
+  .custom-section .selection-heading h2 { font-size: 19px !important; }
+  .question-count-card { padding: 10px !important; min-height: 112px !important; }
+  .question-count-card .custom-choice-copy b { font-size: 14px !important; }
+}
+/* Mobile option density and clear section hierarchy */
+@media (max-width: 520px) {
+  .custom-section .selection-heading h2 { font-size: 20px !important; line-height: 1.3 !important; margin: 0 !important; }
+  .custom-section .selection-heading .mu { font-size: 12px !important; line-height: 1.45 !important; }
+  .custom-language-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 9px !important; }
+  .custom-language-grid .custom-choice { min-height: 82px !important; padding: 10px !important; gap: 8px !important; border-radius: 14px !important; }
+  .custom-language-grid .custom-choice-icon { width: 34px !important; height: 34px !important; font-size: 19px !important; }
+  .custom-language-grid .custom-choice-copy b, .interview-type-card .custom-choice-copy b { font-size: 13px !important; line-height: 1.3 !important; }
+  .custom-language-grid .custom-choice-copy small, .interview-type-card .custom-choice-copy small { font-size: 10.5px !important; line-height: 1.35 !important; }
+  .interview-type-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 9px !important; }
+  .interview-type-card, .interview-type-card:nth-child(4):nth-last-child(2), .interview-type-card:last-child:nth-child(5) { grid-column: auto !important; min-height: 118px !important; padding: 11px !important; gap: 7px !important; border-radius: 14px !important; align-items: flex-start !important; flex-direction: column !important; }
+  .interview-type-card .custom-choice-icon { width: 34px !important; height: 34px !important; font-size: 19px !important; border-radius: 10px !important; }
+  .interview-type-card .custom-choice-copy { padding-inline-end: 16px !important; gap: 3px !important; }
+  .interview-type-card .select-mark { top: 9px !important; right: 9px !important; width: 18px !important; height: 18px !important; }
+  :root[dir="rtl"] .interview-type-card .select-mark { right: auto !important; left: 9px !important; }
+  .question-count-card { min-height: 104px !important; }
+}
+@media (max-width: 360px) { .interview-type-card { min-height: 126px !important; } .interview-type-card .custom-choice-copy b { font-size: 12px !important; } }
+
+
+/* Compact experience-level cards on mobile */
+@media (max-width: 600px) {
+  .level-options { grid-template-columns: 1fr !important; gap: 9px !important; }
+  .level-option { min-height: 82px !important; height: auto !important; padding: 10px 12px !important; gap: 10px !important; border-radius: 14px !important; }
+  .level-emoji { width: 38px !important; height: 38px !important; flex: 0 0 38px !important; border-radius: 11px !important; font-size: 21px !important; }
+  .level-copy { min-width: 0 !important; gap: 3px !important; }
+  .level-copy b { font-size: 13px !important; line-height: 1.3 !important; font-weight: 650 !important; }
+  .level-copy small { font-size: 11px !important; line-height: 1.35 !important; }
+  .level-option .select-mark { width: 19px !important; height: 19px !important; flex: 0 0 19px !important; font-size: 12px !important; }
+}
+@media (max-width: 380px) {
+  .level-option { min-height: 76px !important; padding: 9px 10px !important; gap: 8px !important; }
+  .level-emoji { width: 34px !important; height: 34px !important; flex-basis: 34px !important; font-size: 19px !important; }
+  .level-copy b { font-size: 12px !important; }
+  .level-copy small { font-size: 10.5px !important; }
+}
+
+/* Further compact career-track cards on mobile */
+@media (max-width: 520px) {
+  .track-options { gap: 8px !important; }
+  .track-option, .track-option:last-child { min-height: 118px !important; padding: 10px !important; gap: 6px !important; border-radius: 14px !important; }
+  .track-option .track-emoji { width: 34px !important; height: 34px !important; font-size: 19px !important; border-radius: 10px !important; }
+  .track-option b { font-size: 12.5px !important; line-height: 1.28 !important; padding-inline-end: 14px !important; }
+  .track-option small { font-size: 10.5px !important; line-height: 1.35 !important; }
+  .track-option .select-mark { width: 18px !important; height: 18px !important; top: 8px !important; right: 8px !important; }
+  :root[dir="rtl"] .track-option .select-mark { right: auto !important; left: 8px !important; }
+}
+@media (max-width: 380px) {
+  .track-option, .track-option:last-child { min-height: 112px !important; padding: 9px !important; }
+  .track-option b { font-size: 12px !important; }
+  .track-option small { font-size: 10px !important; }
+}
+
+/* Interview setup: language speech-bubble icons and balanced compact cards */
+.language-bubble { position:relative; display:grid; place-items:center; font-weight:800; letter-spacing:-.5px; color:var(--tl); }
+.language-bubble:after { content:""; position:absolute; width:9px; height:9px; bottom:3px; right:5px; background:var(--tl2); border-right:2px solid var(--tl); border-bottom:2px solid var(--tl); transform:skew(-18deg) rotate(18deg); border-bottom-right-radius:2px; }
+.language-bubble span { position:relative; z-index:1; font-size:18px; }
+@media (max-width: 520px) {
+  .custom-language-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:9px !important; }
+  .custom-language-grid .custom-choice { min-height:76px !important; padding:9px !important; gap:8px !important; border-radius:14px !important; }
+  .custom-language-grid .custom-choice-icon { width:36px !important; height:36px !important; border-radius:11px !important; font-size:18px !important; }
+  .language-bubble span { font-size:16px !important; }
+  .custom-language-grid .custom-choice-copy b { font-size:13px !important; line-height:1.3 !important; }
+  .custom-language-grid .custom-choice-copy small { font-size:10.5px !important; line-height:1.35 !important; }
+  .interview-type-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:9px !important; align-items:stretch !important; }
+  .interview-type-card { min-width:0 !important; min-height:116px !important; height:100% !important; padding:10px !important; gap:6px !important; border-radius:14px !important; }
+  .interview-type-card .custom-choice-icon { width:34px !important; height:34px !important; border-radius:10px !important; font-size:19px !important; }
+  .interview-type-card .custom-choice-copy { min-width:0 !important; gap:3px !important; padding-inline-end:14px !important; }
+  .interview-type-card .custom-choice-copy b { font-size:12.5px !important; line-height:1.3 !important; overflow-wrap:anywhere; }
+  .interview-type-card .custom-choice-copy small { font-size:10.5px !important; line-height:1.35 !important; }
+  .interview-type-card .select-mark { width:18px !important; height:18px !important; top:8px !important; right:8px !important; }
+  :root[dir="rtl"] .interview-type-card .select-mark { right:auto !important; left:8px !important; }
+}
+@media (max-width: 380px) {
+  .interview-type-card { min-height:108px !important; padding:9px !important; }
+  .interview-type-card .custom-choice-copy b { font-size:12px !important; }
+  .interview-type-card .custom-choice-copy small { font-size:10px !important; }
+}
+
+/* Interview workspace mobile polish: readable prompt, flexible answer area, accessible action */
+@media (max-width: 600px) {
+  .interview-workspace { padding: 16px 14px !important; }
+  .interview-topline { gap: 8px !important; }
+  .interview-step-label { font-size: 12px !important; gap: 8px !important; }
+  .interview-step-dot { width: 30px !important; height: 30px !important; border-radius: 10px !important; }
+  .interview-progress-track { height: 7px !important; margin: 11px 0 16px !important; }
+  .interview-question-card { padding: 14px 13px !important; margin-bottom: 15px !important; border-radius: 15px !important; }
+  .interview-question-kicker { font-size: 10px !important; margin-bottom: 7px !important; }
+  .interview-question-card h2 { font-size: 19px !important; line-height: 1.42 !important; }
+  .answer-heading { align-items: flex-start !important; flex-wrap: wrap !important; gap: 4px 8px !important; margin-bottom: 7px !important; }
+  .answer-heading label { font-size: 14px !important; }
+  .answer-word-count { font-size: 10.5px !important; }
+  #ans { min-height: 230px !important; height: 230px !important; max-height: 48vh !important; padding: 13px 14px !important; font-size: 15px !important; line-height: 1.65 !important; resize: vertical !important; }
+  .answer-guidance { font-size: 11px !important; line-height: 1.45 !important; margin: 8px 0 12px !important; }
+  .interview-actions { position: sticky !important; bottom: 6px !important; z-index: 20 !important; margin: 10px -14px 0 !important; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)) !important; background: rgba(250,248,255,.96) !important; backdrop-filter: blur(10px); border-top: 1px solid #e7def4 !important; }
+  .interview-actions .btn { width: 100% !important; min-height: 48px !important; font-size: 15px !important; }
+  .interview-secondary-actions { margin-top: 10px !important; padding-top: 10px !important; }
+}
+@media (max-width: 380px) {
+  .interview-question-card h2 { font-size: 18px !important; }
+  #ans { min-height: 210px !important; height: 210px !important; }
+}
+
+/* Refine mobile interview action button proportions */
+@media (max-width: 600px) {
+  .interview-actions { margin-top: 8px !important; padding: 8px 14px calc(8px + env(safe-area-inset-bottom)) !important; }
+  .interview-actions .btn { min-height: 54px !important; height: 54px !important; padding: 0 16px !important; font-size: 15px !important; border-radius: 15px !important; box-shadow: 0 5px 13px rgba(112,65,200,.15) !important; }
+}
+
+/* Evaluation report: compact mobile hierarchy and actionable priorities */
+.result-priorities { border-color:#e4daf5; background:linear-gradient(135deg,#fff 0%,#faf7ff 100%); }
+.result-priorities h3 { margin:0 0 8px !important; color:var(--tl); }
+.result-priorities ol { margin:8px 0 0; padding-inline-start:22px; }
+.result-priorities li { margin:7px 0; line-height:1.55; }
+.result-feedback-title { margin:16px 4px 8px !important; }
+@media(max-width:600px) {
+  .result-overview { padding:16px 14px !important; border-radius:17px !important; }
+  .result-score-row { gap:8px !important; }
+  .result-overview .big-n { font-size:48px !important; margin:4px 0 7px !important; }
+  .result-overview>p { font-size:12.5px !important; line-height:1.6 !important; margin:8px 0 !important; }
+  .result-overview li,.result-skills li,.result-plan li { font-size:12px !important; line-height:1.5 !important; margin:4px 0 !important; }
+  .result-skills { padding:15px 13px !important; border-radius:17px !important; }
+  .result-skills h3 { margin:0 0 8px !important; }
+  .result-skills>div { margin:8px 0 !important; padding:10px 0 !important; }
+  .result-skills .row b:first-child { font-size:12.5px !important; line-height:1.35 !important; }
+  .result-skills .row b:last-child { font-size:12.5px !important; }
+  .result-skills .row.mu { font-size:10.5px !important; }
+  .result-skills .bar,.result-answer-card .bar { height:6px !important; margin:6px 0 !important; }
+  .result-skills p { font-size:11.5px !important; line-height:1.5 !important; }
+  .result-priorities { padding:14px 13px !important; margin-top:10px !important; }
+  .result-priorities h3 { font-size:15px !important; }
+  .result-priorities li { font-size:11.5px !important; }
+  .result-feedback-title { font-size:16px !important; }
+  .result-answer-card { padding:14px 13px !important; margin:10px 0 !important; }
+  .result-answer-heading>b { font-size:14px !important; }
+  .result-answer-card h3 { font-size:13px !important; }
+  .result-answer-card>p { font-size:11.5px !important; line-height:1.55 !important; }
+  .result-plan { padding:15px 13px !important; }
+}
 </style></head>
 <body><div id="app"></div>
 <script>
@@ -405,7 +880,7 @@ const Q=[
 let S={ui:'en',scr:'w',lvl:0,il:'en',ty:0,track:'customer_service_agent',n:5,ai:true,smp:null,qs:[],i:0,ans:[],busy:false,err:'',fbOn:false,draft:'',fu:'',note:'',rep:null,progressSaved:false,smartAnswer:'',smartSaved:false,smartSkill:'',smartFeedback:null};
 const t=k=>T[S.ui][k],ul=()=>S.ui=='ar'?'Arabic':'English',il=()=>S.il=='ar'?'Arabic':'English';
 const avgOf=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:0;
-const API="https://interview-gym-api-test.kseoudi1.workers.dev";
+const API="https://interview-gym-api-staging.kseoudi1.workers.dev";
 const BANK_URL="./question-bank/index.json";
 let QUESTION_BANK=[];
 async function loadQuestionBank(){if(QUESTION_BANK.length)return QUESTION_BANK;const response=await fetch(BANK_URL,{cache:"no-cache"});if(!response.ok)throw new Error("Question bank unavailable");const data=await response.json();if(!data||!Array.isArray(data.questions)||data.questions.length!==350)throw new Error("Question bank invalid");QUESTION_BANK=data.questions;return QUESTION_BANK;}
@@ -437,8 +912,7 @@ function saveProgressRecord(){
   };
   try{
     const history=readProgressHistory();
-    history.push(record);
-    localStorage.setItem(PROGRESS_KEY,JSON.stringify(history.slice(-30)));
+    history.push(record);    localStorage.setItem(PROGRESS_KEY,JSON.stringify(history.slice(-30)));
     S.progressSaved=true;
   }catch(e){console.warn("Interview Gym: unable to save local progress history.");}
 }
@@ -586,7 +1060,7 @@ const trackDescriptions=[
 ];
 const trackPage=()=>`<div class="setup-page">${setupProgress(1)}${setupHero(S.ui==="ar"?"اختر المسار الوظيفي":"Choose your career track",S.ui==="ar"?"حدد الوظيفة التي تريد التدريب على مقابلتها.":"Select the role you want to prepare for. Each track has tailored interview questions.",'<div class="setup-art-icon">✧</div>')}<div class="selection-panel"><div class="selection-heading"><span class="selection-symbol">▣</span><div><h2>${t("track")}</h2><p class="mu">${S.ui==="ar"?"اختر مجالًا واحدًا للمتابعة":"Choose one role to continue."}</p></div></div><div class="track-options">${TRACKS.map((key,i)=>`<button class="track-option ${S.track===key?'selected':''}" data-a="track" data-v="${i}" aria-pressed="${S.track===key}"><span class="track-emoji">${trackIcons[i]}</span><b>${t("tracks")[i]}</b><small>${S.ui==="ar"?trackDescriptions[i][1]:trackDescriptions[i][0]}</small><span class="select-mark">${S.track===key?'✓':''}</span></button>`).join('')}</div></div><div class="setup-actions"><button class="btn big" data-a="toCustom">${S.ui==="ar"?"التالي: إعداد المقابلة":"Continue to interview setup"} <span aria-hidden="true">→</span></button><button class="lnk" data-a="toLevel">${S.ui==="ar"?"رجوع للمستوى":"Back to level"}</button></div></div>`;
 const customPage=()=>{
-const languageChoices=[{label:"English",icon:"EN",desc:"Practice in English",arDesc:"تدرّب باللغة الإنجليزية",value:"en"},{label:"العربية",icon:"AR",desc:"Practice in Arabic",arDesc:"تدرّب باللغة العربية",value:"ar"}];
+const languageChoices=[{label:"English",icon:"EN",desc:"Practice in English",arDesc:"تدرّب باللغة الإنجليزية",value:"en"},{label:"العربية",icon:"ع",desc:"Practice in Arabic",arDesc:"تدرّب باللغة العربية",value:"ar"}];
 const typeIcons=["💬","🤝","🛡️","📚","🧩","🎯"];
 const typeDescriptions=[
 ["A balanced mix of common interview questions","مزيج متوازن من أسئلة المقابلات الشائعة"],
@@ -599,7 +1073,7 @@ const typeDescriptions=[
 const types=interviewTypeOptions();
 const typeCards=types.map((name,i)=>`<button class="custom-choice interview-type-card ${S.ty===i?'selected':''}" data-a="ty" data-v="${i}" aria-pressed="${S.ty===i}"><span class="custom-choice-icon">${typeIcons[i]||"✨"}</span><span class="custom-choice-copy"><b>${esc(name)}</b><small>${S.ui==="ar"?(typeDescriptions[i]||typeDescriptions[5])[1]:(typeDescriptions[i]||typeDescriptions[5])[0]}</small></span><span class="select-mark">${S.ty===i?'✓':''}</span></button>`).join("");
 return `<div class="setup-page">${setupProgress(2)}${setupHero(S.ui==="ar"?"خصص مقابلتك":"Customize your interview",S.ui==="ar"?"اختر اللغة ونوع المقابلة وعدد الأسئلة قبل أن تبدأ.":"Choose your interview language, focus and session length before you begin.",'<div class="setup-art-icon">✓</div>')}<div class="selection-panel custom-panel">
-<div class="custom-section"><div class="selection-heading"><span class="selection-symbol">🌐</span><div><h2>${t("il")}</h2><p class="mu">${S.ui==="ar"?"اختر اللغة التي تفضل إجراء المقابلة بها":"Choose the language you want to interview in."}</p></div></div><div class="custom-language-grid">${languageChoices.map(x=>`<button class="custom-choice ${S.il===x.value?'selected':''}" data-a="il" data-v="${x.value==="ar"?1:0}" aria-pressed="${S.il===x.value}"><span class="custom-choice-icon">${x.icon}</span><span class="custom-choice-copy"><b>${x.label}</b><small>${S.ui==="ar"?x.arDesc:x.desc}</small></span><span class="select-mark">${S.il===x.value?'✓':''}</span></button>`).join("")}</div></div>
+<div class="custom-section"><div class="selection-heading"><span class="selection-symbol">🌐</span><div><h2>${t("il")}</h2><p class="mu">${S.ui==="ar"?"اختر اللغة التي تفضل إجراء المقابلة بها":"Choose the language you want to interview in."}</p></div></div><div class="custom-language-grid">${languageChoices.map(x=>`<button class="custom-choice ${S.il===x.value?'selected':''}" data-a="il" data-v="${x.value==="ar"?1:0}" aria-pressed="${S.il===x.value}"><span class="custom-choice-icon language-bubble" aria-hidden="true"><span>${x.icon}</span></span><span class="custom-choice-copy"><b>${x.label}</b><small>${S.ui==="ar"?x.arDesc:x.desc}</small></span><span class="select-mark">${S.il===x.value?'✓':''}</span></button>`).join("")}</div></div>
 <div class="custom-section"><div class="selection-heading"><span class="selection-symbol">🎯</span><div><h2>${t("ty")}</h2><p class="mu">${S.ui==="ar"?"اختر نوع الأسئلة التي تريد التركيز عليها":"Choose the interview focus you want to practice."}</p></div></div><div class="interview-type-grid">${typeCards}</div></div>
 <div class="custom-section"><div class="selection-heading"><span class="selection-symbol">📝</span><div><h2>${t("nq")}</h2><p class="mu">${S.ui==="ar"?"حدد طول جلسة التدريب":"Choose the length of your practice session."}</p></div></div><div class="question-count-grid">${[{n:5,title:S.ui==="ar"?"تدريب سريع":"Quick Practice",desc:S.ui==="ar"?"جلسة قصيرة ومركزة":"Short focused session",icon:"⚡"},{n:10,title:S.ui==="ar"?"تدريب متكامل":"Full Practice",desc:S.ui==="ar"?"جلسة مقابلة أطول":"Extended interview session",icon:"🏆"}].map(x=>`<button class="custom-choice question-count-card ${S.n===x.n?'selected':''}" data-a="nq" data-v="${x.n===10?1:0}" aria-pressed="${S.n===x.n}"><span class="custom-choice-icon">${x.icon}</span><span class="custom-choice-copy"><b>${x.n} ${t("qn")}</b><small>${x.title} · ${x.desc}</small></span><span class="select-mark">${S.n===x.n?'✓':''}</span></button>`).join("")}</div></div>
 <p class="mu ai-note">${t("aiNote")}</p></div><div class="setup-actions"><button class="btn big" data-a="begin">${t("go")} <span aria-hidden="true">→</span></button><button class="lnk" data-a="toTrack">${S.ui==="ar"?"رجوع للمسار الوظيفي":"Back to career track"}</button></div></div>`;
@@ -618,12 +1092,13 @@ if(S.busy)return`<div class="card"><p><span class="spin"></span>${t('evalWait')}
 if(!S.ev)return`<div class="card"><p class="er">${S.err}</p><p class="mu">${t('saved')}</p><p class="mu">${t('retryWarning')}</p><button class="btn" data-a="retry">${t('retry')}</button><button class="lnk" data-a="review">${t('review')}</button></div>`;
 const e=S.ev,weak=[...e.answers].sort((x,y)=>x.score-y.score).filter(x=>x.score<65).slice(0,2),
 plan=[t('pl')[0]+interviewTypeOptions()[S.ty],...[...new Set(weak.flatMap(x=>x.improvements).concat(e.improvements))].slice(0,3),t('pl')[2]];
-return`<div class="card"><div class="row"><div><div class="mu">${t('ov')}</div><div class="big-n">${e.ov}<span class="mu" style="font-size:18px">/100</span></div></div><span class="pill">${a.length} ${t('q')}</span></div>
+return`<div class="card result-overview"><div class="row result-score-row"><div><div class="mu">${t('ov')}</div><div class="big-n">${e.ov}<span class="mu" style="font-size:18px">/100</span></div></div><span class="pill">${a.length} ${t('q')}</span></div>
 <p dir="auto">${esc(e.summary)}</p>${lst(t('sg'),e.strengths)}${lst(t('im'),e.improvements)}<p class="mu">${t('disc')}</p></div>
-<div class="card"><h3>${t('skillTitle')}</h3>${e.skills.map((x,i)=>`<div style="margin:14px 0"><div class="row"><b>${esc(t('skillNames')[i])}</b><b>${x.score}/100</b></div><div class="row mu"><span>${t('skillWeight')}: ${x.weight}%</span></div><div class="bar"><i style="width:${x.score}%"></i></div><p dir="auto" style="margin:6px 0">${esc(x.summary)}</p>${lst(t('skillStrengths'),x.strengths)}${lst(t('skillImprovements'),x.improvements)}</div>`).join('')}</div>
-<h3 style="margin:18px 4px 8px">${t('fb')}</h3>
-${e.answers.map((x,i)=>`<div class="card"><div class="row"><span class="mu">${t('q')} ${i+1}</span><b>${x.score}/100</b></div><div class="bar"><i style="width:${x.score}%"></i></div><h3 dir="auto" lang="${S.il}" style="margin:8px 0">${esc(x.q[S.il=='ar'?3:2])}</h3><p class="mu" dir="auto" style="white-space:pre-wrap;margin:0 0 8px">${esc(x.text)}</p><p dir="auto" style="margin:0">${esc(x.summary)}</p>${lst(t('sg'),x.strengths)}${lst(t('im'),x.improvements)}${x.sug?`<h3 style="margin:12px 0 4px">${t('ex')}</h3><p dir="auto" lang="${S.il}" style="margin:0">${esc(x.sug)}</p>`:''}</div>`).join('')}
-<div class="card"><h3>${t('plan')}</h3><ol>${plan.map(x=>`<li dir="auto">${esc(x)}</li>`).join('')}</ol><button class="btn" data-a="again">${t('again')}</button></div>`};
+<div class="card result-skills"><h3>${t('skillTitle')}</h3>${e.skills.map((x,i)=>`<div style="margin:14px 0"><div class="row"><b>${esc(t('skillNames')[i])}</b><b>${x.score}/100</b></div><div class="row mu"><span>${t('skillWeight')}: ${x.weight}%</span></div><div class="bar"><i style="width:${x.score}%"></i></div><p dir="auto" style="margin:6px 0">${esc(x.summary)}</p>${lst(t('skillStrengths'),x.strengths)}${lst(t('skillImprovements'),x.improvements)}</div>`).join('')}</div>
+<div class="card result-priorities"><h3>${S.ui==='ar'?'أهم 3 أولويات للتطوير':'Top 3 priorities'}</h3><ol>${[...new Set(weak.flatMap(x=>x.improvements).concat(e.improvements))].slice(0,3).map(x=>`<li dir="auto">${esc(x)}</li>`).join('')}</ol></div>
+<h3 class="result-feedback-title">${t('fb')}</h3>
+${e.answers.map((x,i)=>`<div class="card result-answer-card"><div class="row result-answer-heading"><span class="mu">${t('q')} ${i+1}</span><b>${x.score}/100</b></div><div class="bar"><i style="width:${x.score}%"></i></div><h3 dir="auto" lang="${S.il}" style="margin:8px 0">${esc(x.q[S.il=='ar'?3:2])}</h3><p class="mu" dir="auto" style="white-space:pre-wrap;margin:0 0 8px">${esc(x.text)}</p><p dir="auto" style="margin:0">${esc(x.summary)}</p>${lst(t('sg'),x.strengths)}${lst(t('im'),x.improvements)}${x.sug?`<h3 style="margin:12px 0 4px">${t('ex')}</h3><p dir="auto" lang="${S.il}" style="margin:0">${esc(x.sug)}</p>`:''}</div>`).join('')}
+<div class="card result-plan"><h3>${t('plan')}</h3><ol>${plan.map(x=>`<li dir="auto">${esc(x)}</li>`).join('')}</ol><button class="btn" data-a="again">${t('again')}</button></div>`};
 const PRACTICE_SKILLS=[{id:"communicationClarity",q:"practiceQuestionCommunication"},{id:"answerRelevance",q:"practiceQuestionRelevance"},{id:"problemSolving",q:"practiceQuestionProblem"},{id:"answerStructure",q:"practiceQuestionStructure"},{id:"roleKnowledge",q:"practiceQuestionRole"}];
 const PRACTICE_KEY="interview_gym_smart_practice_v1";
 function readSmartPractice(){try{const v=JSON.parse(localStorage.getItem(PRACTICE_KEY)||"[]");return Array.isArray(v)?v.slice(-30):[]}catch(e){return[]}}
@@ -657,10 +1132,10 @@ const skills=ids.map((id,i)=>{const v=h.flatMap(x=>x.skills.filter(y=>y.id===id)
 const fmt=d=>new Date(d).toLocaleDateString(S.ui==="ar"?"ar-EG":"en-GB",{day:"numeric",month:"short",year:"numeric"});
 return '<div class="card"><div class="row"><h2>'+t("myProgress")+'</h2><span class="pill">'+h.length+' / 30</span></div><p class="mu">'+t("progressIntro")+'</p><div class="progress-grid"><div class="stat"><strong>'+h.length+'</strong><span>'+t("completed")+'</span></div><div class="stat"><strong>'+avg+'</strong><span>'+t("average")+'</span></div><div class="stat"><strong>'+latest+'</strong><span>'+t("latest")+'</span></div></div><h3 style="margin-top:20px">'+t("skillProgress")+'</h3>'+skills.map(x=>'<div class="d"><div class="row"><b>'+esc(x.name)+'</b><b>'+x.score+'/100</b></div><div class="bar"><i style="width:'+x.score+'%"></i></div></div>').join("")+'</div><div class="card"><h3>'+t("smartPractice")+'</h3><p class="mu">'+t("practiceIntro")+'</p><button class="btn" data-a="smartPractice">'+t("practiceNow")+'</button></div><div class="card"><h3>'+t("history")+'</h3>'+h.map(x=>'<div class="history-item"><div class="row"><b>'+esc(x.role||x.track||"Interview")+'</b><b>'+Math.round(Number(x.overall))+'/100</b></div><div class="row mu"><span>'+fmt(x.date)+'</span><span>'+(x.language==="ar"?"العربية":"English")+'</span></div><div class="bar"><i style="width:'+Math.max(0,Math.min(100,Number(x.overall)))+'%"></i></div></div>').join("")+'<button class="btn" data-a="home">'+t("backHome")+'</button></div>';
 }
-function R(){const h=document.documentElement;h.lang=S.ui;h.dir=S.ui=='ar'?'rtl':'ltr';
-$('#app').innerHTML=`<header><div data-a="home" style="cursor:pointer"><div class="brand">Interview <b>Gym</b></div><div class="sig">By K.Seoudi</div></div><button class="lnk" data-a="progress" style="margin:0 10px">${t("myProgress")}</button><div class="lang"><button data-a="ui" data-v="en" aria-pressed="${S.ui=='en'}">English</button><button data-a="ui" data-v="ar" aria-pressed="${S.ui=='ar'}">العربية</button></div></header>`+{w:W,s:levelPage,track:trackPage,custom:customPage,i:I,r:Rp,p:MP,sp:SP}[S.scr]()+`<footer class="ft">Created by K.Seoudi</footer>`}
-const H={ui:v=>{S.ui=v;S.il=v;R()},home:()=>{if(S.busy)return;S.scr='w';R()},go:()=>{S.scr='s';R()},toTrack:()=>{S.scr='track';R()},toLevel:()=>{S.scr='s';R()},toCustom:()=>{S.scr='custom';R()},progress:()=>{S.scr='p';R()},smartPractice:()=>{S.scr='sp';S.smartAnswer='';S.smartSaved=false;S.smartFeedback=null;R()},smartSave:()=>{if(S.smartSaved||S.smartAnswer.trim().length<10)return;const weak=getWeakestSkill();if(!weak)return;const feedback=assessPracticeAnswer(S.smartAnswer,S.ui);const list=readSmartPractice();list.push({date:new Date().toISOString(),skill:weak.id,answer:S.smartAnswer.trim(),feedback});try{localStorage.setItem(PRACTICE_KEY,JSON.stringify(list.slice(-30)));S.smartFeedback=feedback;S.smartSaved=true;R()}catch(e){alert(S.ui==='ar'?'تعذر حفظ التدريب في المتصفح.':'Could not save practice in this browser.')}},smartAgain:()=>{S.smartAnswer='';S.smartSaved=false;S.smartFeedback=null;R()},
-lv:v=>{S.lvl=+v;R()},il:v=>{S.il=v==1?'ar':'en';S.ui=S.il;R()},ty:v=>{S.ty=+v;R()},track:v=>{S.track=TRACKS[+v]||TRACKS[0];R()},nq:v=>{S.n=v==1?10:5;R()},ai:()=>{S.ai=!S.ai;R()},
+function R(){const screenChanged=R.lastScreen!==S.scr;const h=document.documentElement;h.lang=S.ui;h.dir=S.ui=='ar'?'rtl':'ltr';
+$('#app').innerHTML=`<header><div data-a="home" style="cursor:pointer"><div class="brand">Interview <b>Gym</b></div><div class="sig">By K.Seoudi</div></div><button class="lnk" data-a="progress" style="margin:0 10px">${t("myProgress")}</button><div class="lang"><button data-a="ui" data-v="en" aria-pressed="${S.ui=='en'}">English</button><button data-a="ui" data-v="ar" aria-pressed="${S.ui=='ar'}">العربية</button></div></header>`+{w:W,s:levelPage,track:trackPage,custom:customPage,i:I,r:Rp,p:MP,sp:SP}[S.scr]()+`<footer class="ft">Created by K.Seoudi</footer>`;if(screenChanged){R.lastScreen=S.scr;window.scrollTo(0,0)}}
+const H={ui:v=>{S.ui=v;R()},home:()=>{if(S.busy)return;S.scr='w';R()},go:()=>{S.scr='s';R()},toTrack:()=>{S.scr='track';R()},toLevel:()=>{S.scr='s';R()},toCustom:()=>{S.scr='custom';R()},progress:()=>{S.scr='p';R()},smartPractice:()=>{S.scr='sp';S.smartAnswer='';S.smartSaved=false;S.smartFeedback=null;R()},smartSave:()=>{if(S.smartSaved||S.smartAnswer.trim().length<10)return;const weak=getWeakestSkill();if(!weak)return;const feedback=assessPracticeAnswer(S.smartAnswer,S.ui);const list=readSmartPractice();list.push({date:new Date().toISOString(),skill:weak.id,answer:S.smartAnswer.trim(),feedback});try{localStorage.setItem(PRACTICE_KEY,JSON.stringify(list.slice(-30)));S.smartFeedback=feedback;S.smartSaved=true;R()}catch(e){alert(S.ui==='ar'?'تعذر حفظ التدريب في المتصفح.':'Could not save practice in this browser.')}},smartAgain:()=>{S.smartAnswer='';S.smartSaved=false;S.smartFeedback=null;R()},
+lv:v=>{S.lvl=+v;R()},il:v=>{S.il=v==1?'ar':'en';R()},ty:v=>{S.ty=+v;R()},track:v=>{S.track=TRACKS[+v]||TRACKS[0];R()},nq:v=>{S.n=v==1?10:5;R()},ai:()=>{S.ai=!S.ai;R()},
 begin:async()=>{const b=document.querySelector('[data-a="begin"]');if(b){b.disabled=true;b.textContent=S.ui==="ar"?"جارٍ تحميل الأسئلة…":"Loading questions…"}try{await loadQuestionBank();build();S.scr='i';R()}catch(e){if(b){b.disabled=false;b.textContent=t('go')}alert(S.ui==="ar"?"تعذر تحميل بنك الأسئلة. تحقق من الاتصال وحاول مرة أخرى.":"Could not load the question bank. Check your connection and try again.");}},sub,
 retry:()=>evalAll(),review:()=>{if(S.busy)return;S.scr='i';S.i=Math.max(0,Math.min(S.qs.length-1,S.ans.length-1));S.draft=S.ans[S.i]?S.ans[S.i].text:'';S.err='';R()},
 bk:()=>{if(S.i<1||S.busy)return;S.i--;S.fbOn=false;S.err='';S.draft=S.ans[S.i]?S.ans[S.i].text:'';R()},

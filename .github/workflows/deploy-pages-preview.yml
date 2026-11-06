@@ -1,0 +1,49 @@
+name: Deploy Interview Gym Preview
+
+on:
+  push:
+    branches:
+      - feature/mobile-typography-polish
+    paths:
+      - "index.html"
+      - ".github/workflows/deploy-pages-preview.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout preview branch
+        uses: actions/checkout@v4
+        with:
+          ref: feature/mobile-typography-polish
+
+      - name: Validate required deployment variables
+        shell: bash
+        run: |
+          if ! [[ "$CLOUDFLARE_ACCOUNT_ID" =~ ^[a-fA-F0-9]{32}$ ]]; then
+            echo "CLOUDFLARE_ACCOUNT_ID must be exactly 32 hexadecimal characters."
+            exit 1
+          fi
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "CLOUDFLARE_API_TOKEN secret is missing."
+            exit 1
+          fi
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Deploy branch preview only
+        run: |
+          npx --yes wrangler@4 pages deploy . \
+            --project-name=interview-gym \
+            --branch=feature-mobile-typography-polish \
+            --commit-hash="$GITHUB_SHA" \
+            --commit-message="Interview Gym design preview"
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

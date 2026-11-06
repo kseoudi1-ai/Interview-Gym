@@ -3,7 +3,10 @@ name: Deploy Interview Gym Staging Worker
 on:
   push:
     branches:
-      - feature/structured-evaluation
+      - feature/mobile-typography-polish
+    paths:
+      - "cloudflare-worker/**"
+      - ".github/workflows/deploy-test-worker.yml"
   workflow_dispatch:
 
 jobs:
@@ -16,9 +19,8 @@ jobs:
 
       - name: Verify staging-only deployment
         run: |
-          test "${GITHUB_REF_NAME}" = "feature/structured-evaluation"
-          grep -q '"name": "interview-gym-api-staging"' cloudflare-worker/wrangler.jsonc
-          ! grep -q '"name": "interview-gym-api-test"' cloudflare-worker/wrangler.jsonc
+          test "${GITHUB_REF_NAME}" = "feature/mobile-typography-polish"
+          grep -q '"name": "interview-gym-api-test"' cloudflare-worker/wrangler.jsonc
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -32,14 +34,13 @@ jobs:
             echo "CLOUDFLARE_ACCOUNT_ID must be exactly 32 hexadecimal characters."
             exit 1
           fi
-          npx wrangler whoami
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Deploy Staging Worker
         working-directory: cloudflare-worker
-        run: npx wrangler deploy --config wrangler.jsonc
+        run: npx wrangler deploy --config wrangler.jsonc --name interview-gym-api-staging
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
