@@ -1,0 +1,67 @@
+name: Deploy Interview Gym Routing Preview Worker
+
+on:
+  push:
+    branches:
+      - fix/worker-production-routing
+    paths:
+      - "cloudflare-worker/**"
+      - ".github/workflows/deploy-routing-preview-worker.yml"
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify preview-only deployment
+        run: |
+          test "${GITHUB_REF_NAME}" = "fix/worker-production-routing"
+          grep -q '"name": "interview-gym-api-test"' cloudflare-worker/wrangler.jsonc
+          ! grep -q '"name": "interview-gym-api-staging"' cloudflare-worker/wrangler.jsonc
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate Cloudflare credentials
+        shell: bash
+        run: |
+          if ! [[ "$CLOUDFLARE_ACCOUNT_ID" =~ ^[a-fA-F0-9]{32}$ ]]; then
+            echo "CLOUDFLARE_ACCOUNT_ID must be exactly 32 hexadecimal characters."
+            exit 1
+          fi
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Deploy isolated Preview Worker
+        working-directory: cloudflare-worker
+        run: npx wrangler deploy --config wrangler.jsonc --name interview-gym-api-preview
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Smoke test Preview Worker and Durable Object
+        shell: bash
+        run: |
+          set -euo pipefail
+          response=$(curl --silent --show-error --fail \
+            --request POST \
+            --header "Content-Type: application/json" \
+            --header "Authorization: Bearer $DIAGNOSTIC_TOKEN" \
+            --data '{"mode":"diagnostic","action":"probe","deviceId":"preview-smoke-test-0001"}' \
+            "https://interview-gym-api-preview.kseoudi1.workers.dev")
+
+          if ! echo "$response" | jq -e 'has("allowed") and has("code")' >/dev/null; then
+            echo "Preview diagnostic endpoint returned an unexpected response."
+            exit 1
+          fi
+
+          echo "Preview Worker and Durable Object diagnostic passed."
+          echo "$response" | jq '{allowed, code}'
+        env:
+          DIAGNOSTIC_TOKEN: ${{ secrets.DIAGNOSTIC_TOKEN }}
