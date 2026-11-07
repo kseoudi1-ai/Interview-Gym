@@ -1,0 +1,133 @@
+name: Interview Gym Staging Load Test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: interview-gym-staging-load-test
+  cancel-in-progress: false
+
+jobs:
+  load-test:
+    name: Safe Staging diagnostic load test
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: public-staging
+    steps:
+      - name: Verify manual run targets main only
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${GITHUB_REF}" = "refs/heads/main"
+          echo "Running diagnostic-only load test against the Staging Worker."
+
+      - name: Run staged concurrent diagnostic probes
+        shell: bash
+        env:
+          DIAGNOSTIC_TOKEN: ${{ secrets.DIAGNOSTIC_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "$DIAGNOSTIC_TOKEN" ]; then
+            echo "DIAGNOSTIC_TOKEN is missing from the public-staging environment."
+            exit 1
+          fi
+
+          node --input-type=module <<'NODE'
+          import { randomUUID } from "node:crypto";
+          import { performance } from "node:perf_hooks";
+
+          const endpoint = "https://interview-gym-api-staging.kseoudi1.workers.dev";
+          const token = process.env.DIAGNOSTIC_TOKEN;
+          const stages = [5, 10, 25, 50];
+
+          if (!token) {
+            console.error("Missing diagnostic token.");
+            process.exit(1);
+          }
+
+          const percentile = (values, p) => {
+            const sorted = [...values].sort((a, b) => a - b);
+            return sorted[Math.max(0, Math.ceil(p * sorted.length) - 1)];
+          };
+
+          let totalRequests = 0;
+          let totalFailures = 0;
+
+          for (const concurrency of stages) {
+            console.log(`\nStarting stage: ${concurrency} concurrent virtual users`);
+
+            const results = await Promise.all(
+              Array.from({ length: concurrency }, async (_, index) => {
+                const deviceId = `ig-load-${concurrency}-${index}-${randomUUID()}`;
+                const started = performance.now();
+
+                try {
+                  const response = await fetch(endpoint, {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                      "Authorization": `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({
+                      mode: "diagnostic",
+                      action: "probe",
+                      deviceId,
+                    }),
+                    signal: AbortSignal.timeout(15000),
+                  });
+
+                  const elapsedMs = performance.now() - started;
+                  const body = await response.json().catch(() => null);
+                  const passed =
+                    response.status === 200 &&
+                    body?.allowed === true &&
+                    body?.code === "would_be_allowed";
+
+                  return {
+                    passed,
+                    elapsedMs,
+                    status: response.status,
+                    code: body?.code ?? "invalid_or_non_json_response",
+                  };
+                } catch (error) {
+                  return {
+                    passed: false,
+                    elapsedMs: performance.now() - started,
+                    status: "network_error",
+                    code: error?.name ?? "request_failed",
+                  };
+                }
+              }),
+            );
+
+            const latencies = results.map((item) => item.elapsedMs);
+            const failures = results.filter((item) => !item.passed);
+            totalRequests += results.length;
+            totalFailures += failures.length;
+
+            console.log(JSON.stringify({
+              concurrency,
+              requests: results.length,
+              passed: results.length - failures.length,
+              failed: failures.length,
+              latencyMs: {
+                min: Math.round(Math.min(...latencies)),
+                median: Math.round(percentile(latencies, 0.50)),
+                p95: Math.round(percentile(latencies, 0.95)),
+                max: Math.round(Math.max(...latencies)),
+              },
+            }));
+
+            if (failures.length > 0) {
+              console.error("Sample failures:", JSON.stringify(failures.slice(0, 5)));
+              process.exit(1);
+            }
+          }
+
+          console.log(`\nPASS: ${totalRequests} diagnostic probes succeeded; ${totalFailures} failures.`);
+          console.log("All requests used the diagnostic probe path; no Gemini evaluations were submitted.");
+          console.log("The probe transaction is designed to roll back and must not consume usage quota.");
+          NODE
