@@ -1,26 +1,31 @@
-name: Deploy Interview Gym Staging Worker
+name: Deploy Interview Gym Public Worker (Staging)
 
 on:
-  push:
-    branches:
-      - feature/mobile-typography-polish
-    paths:
-      - "cloudflare-worker/**"
-      - ".github/workflows/deploy-test-worker.yml"
   workflow_dispatch:
+
+concurrency:
+  group: interview-gym-public-worker
+  cancel-in-progress: false
+
+permissions:
+  contents: read
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+    environment: public-staging
     steps:
-      - name: Checkout repository
+      - name: Checkout approved main branch
         uses: actions/checkout@v4
+        with:
+          ref: main
 
-      - name: Verify staging-only deployment
+      - name: Verify manual public deployment
+        shell: bash
         run: |
-          test "${GITHUB_REF_NAME}" = "feature/mobile-typography-polish"
+          test "${GITHUB_REF_NAME}" = "main"
           grep -q '"name": "interview-gym-api-test"' cloudflare-worker/wrangler.jsonc
+          echo "Target is the public Staging Worker only."
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -34,34 +39,66 @@ jobs:
             echo "CLOUDFLARE_ACCOUNT_ID must be exactly 32 hexadecimal characters."
             exit 1
           fi
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "CLOUDFLARE_API_TOKEN secret is missing."
+            exit 1
+          fi
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-      - name: Deploy Staging Worker
+      - name: Deploy public Staging Worker
+        id: deploy_worker
         working-directory: cloudflare-worker
         run: npx wrangler deploy --config wrangler.jsonc --name interview-gym-api-staging
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-      - name: Smoke test Staging Worker and Durable Object
+      - name: Sync diagnostic secret to public Staging Worker
+        shell: bash
+        working-directory: cloudflare-worker
+        run: |
+          if [ -z "$DIAGNOSTIC_TOKEN" ]; then
+            echo "DIAGNOSTIC_TOKEN GitHub secret is missing."
+            exit 1
+          fi
+          printf '%s' "$DIAGNOSTIC_TOKEN" | npx wrangler secret put DIAGNOSTIC_TOKEN --config wrangler.jsonc --name interview-gym-api-staging
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          DIAGNOSTIC_TOKEN: ${{ secrets.DIAGNOSTIC_TOKEN }}
+
+      - name: Verify public Worker and Durable Object
         shell: bash
         run: |
           set -euo pipefail
-          response=$(curl --silent --show-error --fail \
+          body_file=$(mktemp)
+          status=$(curl --silent --show-error \
+            --output "$body_file" \
+            --write-out "%{http_code}" \
             --request POST \
             --header "Content-Type: application/json" \
             --header "Authorization: Bearer $DIAGNOSTIC_TOKEN" \
-            --data '{"mode":"diagnostic","action":"probe","deviceId":"staging-smoke-test-0001"}' \
+            --data '{"mode":"diagnostic","action":"probe","deviceId":"public-worker-smoke-test-0001"}' \
             "https://interview-gym-api-staging.kseoudi1.workers.dev")
 
-          if ! echo "$response" | jq -e 'has("allowed") and has("code")' >/dev/null; then
-            echo "Staging diagnostic endpoint returned an unexpected response."
+          echo "Public Worker HTTP status: $status"
+          if [ "$status" -lt 200 ] || [ "$status" -ge 300 ]; then
+            echo "Public Worker verification failed."
+            cat "$body_file"
             exit 1
           fi
-
-          echo "Staging Worker and Durable Object diagnostic passed."
-          echo "$response" | jq '{allowed, code}'
+          jq -e 'has("allowed") and has("code")' "$body_file" >/dev/null
+          echo "Public Staging Worker and Durable Object verification passed."
+          jq '{allowed, code}' "$body_file"
         env:
           DIAGNOSTIC_TOKEN: ${{ secrets.DIAGNOSTIC_TOKEN }}
+
+      - name: Roll back Staging Worker if verification fails
+        if: failure() && steps.deploy_worker.outcome == 'success'
+        working-directory: cloudflare-worker
+        run: npx wrangler rollback --name interview-gym-api-staging --message "Automatic rollback: post-deployment verification failed"
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
