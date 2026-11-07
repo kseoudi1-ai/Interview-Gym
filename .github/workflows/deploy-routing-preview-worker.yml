@@ -45,6 +45,20 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
+      - name: Configure Preview diagnostic secret
+        shell: bash
+        working-directory: cloudflare-worker
+        run: |
+          if [ -z "$DIAGNOSTIC_TOKEN" ]; then
+            echo "DIAGNOSTIC_TOKEN GitHub secret is missing."
+            exit 1
+          fi
+          printf '%s' "$DIAGNOSTIC_TOKEN" | npx wrangler secret put DIAGNOSTIC_TOKEN --config wrangler.jsonc --name interview-gym-api-preview
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          DIAGNOSTIC_TOKEN: ${{ secrets.DIAGNOSTIC_TOKEN }}
+
       - name: Smoke test Preview Worker and Durable Object
         shell: bash
         run: |
