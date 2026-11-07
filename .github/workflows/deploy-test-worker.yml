@@ -48,6 +48,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Deploy public Staging Worker
+        id: deploy_worker
         working-directory: cloudflare-worker
         run: npx wrangler deploy --config wrangler.jsonc --name interview-gym-api-staging
         env:
@@ -93,3 +94,11 @@ jobs:
           jq '{allowed, code}' "$body_file"
         env:
           DIAGNOSTIC_TOKEN: ${{ secrets.DIAGNOSTIC_TOKEN }}
+
+      - name: Roll back Staging Worker if verification fails
+        if: failure() && steps.deploy_worker.outcome == 'success'
+        working-directory: cloudflare-worker
+        run: npx wrangler rollback --name interview-gym-api-staging --message "Automatic rollback: post-deployment verification failed"
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
