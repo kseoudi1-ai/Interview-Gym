@@ -1,12 +1,6 @@
 name: Deploy Interview Gym Production Worker
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - "cloudflare-worker/**"
-      - ".github/workflows/deploy-production-worker.yml"
   workflow_dispatch:
 
 jobs:
